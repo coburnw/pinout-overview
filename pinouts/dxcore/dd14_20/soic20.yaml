@@ -1,0 +1,23 @@
+pins: !include soic20_pins.yaml
+types: !include ../dxcore/pin_types.yaml
+
+pin: !include ../dxcore/pin_sop.yaml
+label: !include ../dxcore/label_sop.yaml
+
+package_text:
+  text: "SOIC-20\nTOP VIEW"
+  sub_text: "AVR16DD20\nAVR32DD20\nAVR64DD20"
+
+package: !include ../dxcore/package_sop.yaml
+
+footprint: SOP-20
+name: AVR32DD20
+subtitle: "xxx"
+canvas_width: 2000
+canvas_height: 1200
+
+mapping: [P1, P2, P3, P4, P5,
+          P6, P7, P8, P9, P10,
+          P11, P12, P13, P14,
+          P15, P16, P17, P18,
+          P19, P20]
