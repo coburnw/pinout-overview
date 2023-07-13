@@ -8,4 +8,5 @@ style:
 text_style:
   font_family: Roboto Mono
   dominant_baseline: middle
+  text_anchor: middle
   fill: black
