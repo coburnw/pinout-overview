@@ -3,14 +3,14 @@ import yaml
 import io
 import tabula
 
-footprints = ['VQFN20','SOIC20','SOIC14']
+packages = ['VQFN20','SOIC20','SOIC14']
 
 pdf_url = 'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR32-16DD20-14-Prel-DataSheet-DS40002413.pdf'
 pages = [17]
 #pages = [17,18]
 
 home = 'dd14_20'
-csv_fname = 'device.csv'
+csv_fname = 'variants.csv'
 
 if False:
     # convert PDF into CSV
@@ -44,26 +44,26 @@ def extract_functions(row):
                 
     return functions
 
-def build_footprint(footprint):
+def build_variant(package):
     path = '{}/{}'.format(home, csv_fname)
     with open(path) as csv_file:
         pins = dict()
         reader = csv.DictReader(csv_file, delimiter=',')
 
         for row in reader:
-            if row[footprint] > '':
-                number = row[footprint]
+            if row[package] > '':
+                number = row[package]
                 funcs = extract_functions(row)
                 pins['P'+number] = funcs
 
-        pins_fname = '{}/{}_pins.yaml'.format(home,footprint).lower()
+        pins_fname = '{}/{}_pins.yaml'.format(home, package).lower()
         with open(pins_fname, 'w') as stream:
             yaml.dump(pins, stream)
 
     return
 
 if __name__ == '__main__':
-    for footprint in footprints:
-        build_footprint(footprint)
+    for package in packages:
+        build_variant(package)
         
     print('done')

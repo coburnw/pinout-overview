@@ -12,7 +12,7 @@ package: !include ../default/package_qfn.yaml
 
 footprint: QFN-20
 name: AVR32DD20
-subtitle: "xxx"
+subtitle: "xyz"
 canvas_width: 2000
 canvas_height: 1200
 
