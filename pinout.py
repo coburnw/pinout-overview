@@ -58,7 +58,6 @@ class Markdown(HtmlDiv):
         p = super().place(html, x, y, rotation)
         return p
 
-
 class Label():
     def __init__(self, data, direction=1):
         self.data = data
@@ -170,6 +169,36 @@ class PinLabels:
         
         return dw_pin_label, extent, -label.offset*side
 
+class Region(dw.Group):
+    # a group of drawing elements that keeps a simplistic view of its own size and position
+    def __init__(self, width=0, height=0, **kwargs):
+        super().__init__(**kwargs)
+        self.x = 0
+        self.y = 0
+        self.width = width
+        self.height = height
+        self.rotation = 0
+        return
+
+    @property
+    def top(self):
+        return self.y - self.height
+
+    @property
+    def bottom(self):
+        return self.y + self.height
+
+    @property
+    def left(self):
+        return self.x - self.width/2
+
+    @property
+    def right(self):
+        return self.x + self.width/2
+
+    def place(self, x, y, **kwargs):
+        raise NotImplmented
+        
 class Pinout:
     def __init__(self, data):
         self.data = data
@@ -300,7 +329,56 @@ class PinLegend:
         legends.append(dw.Use(legend_alt, column4, label.height+label.spacing))
 
         return legends
+
+class Header(Region):
+    def place(self, data, x, y, rotation=0):
+        self.x = x
+        self.y = y
+        self.rotation = rotation
+
+        print(data['name'], self.x, self.y)
+        self.append(dw.Text(data['name'], 40, x, y,
+                            text_anchor='middle', dominant_baseline='middle',
+                            fill="black", font_weight='bold', font_family='Roboto Mono'))
+        
+        self.append(dw.Text(data['subtitle'], 20, x, y+50,
+                            text_anchor='middle', dominant_baseline='middle',
+                            fill="black", font_weight='bold', font_family='Roboto Mono'))
+
+        self.height = 40 + 20 + 50
+
+        return self
+
     
+class Footer(Region):
+    def place(self, data, x, y, rotation=0):
+        self.x = x
+        self.y = y
+        self.rotation = rotation
+
+        print(data['name'], self.x, self.y)
+        self.append(dw.Text(data['name'], 40, x, y,
+                            text_anchor='middle', dominant_baseline='middle',
+                            fill="black", font_weight='bold', font_family='Roboto Mono'))
+        
+        self.append(dw.Text(data['subtitle'], 20, x, y+50,
+                            text_anchor='middle', dominant_baseline='middle',
+                            fill="black", font_weight='bold', font_family='Roboto Mono'))
+
+        self.height = 40 + 20 + 50
+        
+        return self
+
+class Border(Region):
+    def place(self, x, y, rotation=0):
+        self.x = x
+        self.y = y
+        self.rotation = rotation
+
+        self.append(dw.Rectangle(-self.width/2, -self.height/2, self.width, self.height,
+                                 stroke="black", stroke_width=2, fill="white"))
+        return self
+
 class Page:
     def __init__(self, path):
         self.data = self.load_data(path)
@@ -332,13 +410,18 @@ class Page:
         dw_page = dw.Drawing(self.canvas_width, self.canvas_height, origin='center', displayInline=True)
         dw_page.embed_google_font("Roboto Mono")
 
-        # Attach a border
-        dw_page.append(dw.Rectangle(-self.canvas_width/2, -self.canvas_height/2, self.canvas_width,
-                                      self.canvas_height, stroke="black", stroke_width=2, fill="white"))
-
+        border = Border(self.canvas_width-25, self.canvas_height-25)
+        dw_page.append(border.place(0, 0))
+                       
         # Attach Title
-        dw_page.append(dw.Use(self._generate_title(), 0, -self.canvas_height/2+60))
-
+        header = Header(width=self.canvas_width*0.9, height=0) #self.canvas_height*0.1
+        dw_page.append(header.place(self.data, x=0, y=-self.canvas_height/2+60))
+        print(header.bottom)
+        
+        footer = Footer(width=self.canvas_width*0.9, height=0) #self.canvas_height*0.1
+        dw_page.append(footer.place(self.data, x=0, y=self.canvas_height/2-60))
+        print(footer.top)
+        
         # Build and place pinout
         pinout = Pinout(self.data)
         dw_page.append(dw.Use(pinout.generate(), self.package_x_offset, self.package_y_offset))
@@ -347,34 +430,23 @@ class Page:
         legend = PinLegend(self.data)
         dw_page.append(dw.Use(legend.generate(self.canvas_width), -self.canvas_width/2, self.canvas_height/2-160))
 
-        # Add markdown text fields
+        # Add quadrant text fields
         quads = dw.Group(id="quad_markdown")
 
-        print('pinout height:{}'.format(pinout.height))
-        canvas_top = -self.canvas_height/2
-        canvas_bot = self.canvas_height/2
+        print('pinout height:{}'.format(pinout.height))        
+        pinout_bottom = pinout.height / 2
         
-        header_height = 120
-        #package_height = pinout.height
-        footer_height = header_height
-
-        header_bottom = canvas_top + header_height
-        package_top = -pinout.height/2
-        upper_quad_height = package_top - header_bottom
-
-        footer_top = canvas_bot - footer_height
-        package_bottom = pinout.height/2
-        lower_quad_height = footer_top - package_bottom
-
-        q_width = self.canvas_width/2 - 200
-        q_height = (self.canvas_height - pinout.height) / 2 - header_height - 100
+        x_margin = 100
+        y_margin = 50
+        q_width = (border.width / 2) - (2 * x_margin)
+        q_height = (border.height - pinout.height) / 2 - header.height - x_margin
 
         for i in range(4):
-            if i in [0,2] : x = -self.canvas_width/2 + 100
-            if i in [0,1] : y = header_bottom + 50
+            if i in [0,2] : x = -border.width/2 + x_margin
+            if i in [0,1] : y = header.bottom + y_margin
 
-            if i in [1,3] : x = 100
-            if i in [2,3] : y = package_bottom + 50
+            if i in [1,3] : x = x_margin
+            if i in [2,3] : y = pinout_bottom + y_margin
 
             #x = 0
             #y = 0
@@ -384,77 +456,9 @@ class Page:
             quads.append(quad.place(md, x, y))
             
         dw_page.append(quads)
-        
-        
-        # if 'custom_image' in self.data:
 
-        # if 'text_field' in self.data:
-
-        # if 'line' in self.data:
-
-        # if 'custom_label' in self.data:
         return dw_page
 
-    def _generate_title(self):
-        title = dw.Group(id="title")
-        title.append(dw.Text(self.data['name'], 40, 0, 0,
-                            text_anchor='middle', dominant_baseline='middle',
-                            fill="black", font_weight='bold', font_family='Roboto Mono'))
-        title.append(dw.Text(self.data['subtitle'], 20, 0, 50,
-                            text_anchor='middle', dominant_baseline='middle',
-                            fill="black", font_weight='bold', font_family='Roboto Mono'))
-        return title
-
-    def _generate_image(self):
-        #     print("Custom Image Found")
-        #     programmer = fp.Programmer()
-        #     board = programmer.draw()
-        #     self.dwPinout.append(dw.Use(board, self.data['custom_image']['x_offset'], self.data['custom_image']['y_offset']))
-        #     #for l in self.data['custom_image']['connections']:
-        #     #    print(l[1])
-        #     #    img_line_op = label_pos_index[l[1]]
-        #     #    print(img_line_op)
-        #     #    img_line = programmer.line(l[0], img_line_op.end_x, img_line_op.end_y, **line)
-        #     #    self.dwPinout.append(img_line)
-        return
-
-    def _generate_text_field(self):
-        #     for field in self.data['text_field']:
-        #         self.dwPinout.append(dw.Text(field['text'], field['font_size'], field['x'], field['y'], **field['style']))
-        return
-
-    def _generate_line(self):
-        dw_lineholder = dw.Group(id="lines")
-        #     for l in self.data['line']:
-        #         c_line = dw.Path(**l['style'])
-        #         for cmd in l['path']:
-        #             if cmd[0] == 'M':
-        #                 c_line.M(cmd[1], cmd[2])
-        #             elif cmd[0] == 'L':
-        #                 c_line.L(cmd[1], cmd[2])
-        #             elif cmd[0] == 'H':
-        #                 c_line.H(cmd[1])
-        #             elif cmd[0] == 'V':
-        #                 c_line.V(cmd[1])
-        #             elif cmd[0] == 'Q':
-        #                 c_line.Q(cmd[1], cmd[2], cmd[3], cmd[4])
-        #             elif cmd[0] == 'C':
-        #                 c_line.C(cmd[1], cmd[2], cmd[3], cmd[4], cmd[5], cmd[6])
-        #             elif cmd[0] == 'Z':
-        #                 c_line.Z()
-        #         self.dwPinout.append(c_line)
-        return
-
-    def _generate_custom_label(self):
-        #     for l in self.data['custom_label']:
-        #         ftype  = self.data['types'][l["type"]]
-        #         if "width" in ftype:
-        #             label_width = ftype["width"]
-        #         c_label = self._generate_label(l['text'], ftype, label_width)
-        #         self.dwPinout.append(dw.Use(c_label, l['x'], l['y']))
-        return
-    
-        
     def save(self, out):
         dw = self.generate()
         if out == "":
