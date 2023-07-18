@@ -8,13 +8,15 @@ package_text:
   text: "VQFN-20\nTOP VIEW"
   sub_text: "AVR16DD20\nAVR32DD20\nAVR64DD20"
 
-package: !include ../default/package_qfn.yaml
+package: !include ../default/package_qfn_dia.yaml
+
+markdown: !include vqfn20_text.yaml
 
 footprint: QFN-20
 name: AVR32DD20
 subtitle: "xyz"
-canvas_width: 2000
-canvas_height: 1200
+canvas_width: 2200
+canvas_height: 1700
 
 mapping: [P1, P2, P3, P4, P5,
           P6, P7, P8, P9, P10,

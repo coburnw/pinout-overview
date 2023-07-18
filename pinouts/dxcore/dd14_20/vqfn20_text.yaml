@@ -1,0 +1,30 @@
+quad_0: >
+      # Lorem ipsum dolor
+      
+      #  The AVR DD Family uses the latest technologies from Microchip
+      Technology, with a flexible and low-power architecture, including
+      the Event System, intelligent analog features, and advanced digital
+      peripherals. see the [datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR32-16DD20-14-Prel-DataSheet-DS40002413.pdf) for more info
+quad_1: >
+      # It is recommended to place the decoupling capacitor on the same side
+      of the PCB as the microcontroller. If space does not allow it, the
+      decoupling capacitor may be placed on the other side through a via, but
+      make sure to keep the distance to the supply pin as short as possible.
+      If the board is experiencing high-frequency noise (upward of tens of
+      MHz), add a second ceramic type capacitor parallel to the decoupling
+      capacitor described above. Place this second capacitor next to the
+      primary decoupling capacitor.
+quad_2: >
+      # The CCL peripheral provides a number of Look-up Tables (LUTs).
+      Each LUT consists of three inputs, a truth table, a synchronizer/filter,
+      and an edge detector. Each LUT can generate an output as a user
+      programmable logic expression with three inputs. The output is generated
+      from the inputs using the combinatorial logic and can be filtered to
+      remove spikes. The CCL can be configured to generate an interrupt
+      request on changes in the LUT outputs.
+quad_3: >
+      # The AVR32/16DD14/20 microcontrollers of the AVR® DD Family of
+      microcontrollers are using the AVR® CPU with hardware multiplier
+      running at clock speeds up to 24 MHz, with up to 32 KB of Flash,
+      up to 4 KB of SRAM, and 256 bytes of EEPROM. The microcontrollers
+      are available in 14- or 20-pin packages.

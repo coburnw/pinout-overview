@@ -4,9 +4,60 @@ import sys
 import drawsvg as dw
 import yaml
 from yamlinclude import YamlIncludeConstructor
+import markdown as md
 
 from pinoutOverview import shapes
 from pinoutOverview import packages
+
+class HtmlDiv(dw.DrawingParentElement):
+    # https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject
+    # https://stackoverflow.com/a/66771364
+    # css https://stackoverflow.com/a/20720935
+    
+    TAG_NAME = 'foreignObject'
+
+    def __init__(self, width, height, **kwargs):
+        self.x = 0
+        self.y = 0
+        self.width = width
+        self.height = height
+        self.kwargs = kwargs
+        return
+    
+    def place(self, html, x, y, rotation=0):
+        # one dirty little trick
+        super().__init__(x=x, y=y, width=self.width, height=self.height, **self.kwargs)
+        self.x = x
+        self.y = y
+        self.rotation = rotation
+
+        raw = dw.Raw('<div xmlns="http://www.w3.org/1999/xhtml">{}</div>'.format(html))
+        self.append(raw)
+
+        return self
+
+    @property
+    def top(self):
+        return self.y - self.height
+
+    @property
+    def bottom(self):
+        return self.y + self.height
+
+    @property
+    def left(self):
+        return self.x - self.width/2
+
+    @property
+    def right(self):
+        return self.x + self.width/2
+
+class Markdown(HtmlDiv):
+    def place(self, markdown, x, y, rotation=0):
+        html = md.markdown(markdown)
+        p = super().place(html, x, y, rotation)
+        return p
+
 
 class Label():
     def __init__(self, data, direction=1):
@@ -127,6 +178,8 @@ class Pinout:
         pkg         = self.data['footprint'].split('-')[0]
         pin_count   = int(self.data['footprint'].split('-')[1])
         pin_spacing = self._calculate_pin_spacing()
+
+        self.height = (pin_count+1)/2 * pin_spacing
         
         if pkg == 'QFN':
             self.package = packages.Quad(self.data, pin_count, pin_spacing)
@@ -144,6 +197,7 @@ class Pinout:
                         max_lines = len(m)
         
         pin_spacing = (max_lines-1) * (self.data['label']['height'] + self.data['label']['vert_spacing'])
+
         return pin_spacing
 
     def generate(self):        
@@ -272,6 +326,8 @@ class Page:
         return data
 
     def generate(self):
+        print(self.canvas_width, "  ", self.canvas_height)
+
         # start with a page
         dw_page = dw.Drawing(self.canvas_width, self.canvas_height, origin='center', displayInline=True)
         dw_page.embed_google_font("Roboto Mono")
@@ -280,7 +336,8 @@ class Page:
         dw_page.append(dw.Rectangle(-self.canvas_width/2, -self.canvas_height/2, self.canvas_width,
                                       self.canvas_height, stroke="black", stroke_width=2, fill="white"))
 
-        print(self.canvas_width, "  ", self.canvas_height)
+        # Attach Title
+        dw_page.append(dw.Use(self._generate_title(), 0, -self.canvas_height/2+60))
 
         # Build and place pinout
         pinout = Pinout(self.data)
@@ -290,9 +347,45 @@ class Page:
         legend = PinLegend(self.data)
         dw_page.append(dw.Use(legend.generate(self.canvas_width), -self.canvas_width/2, self.canvas_height/2-160))
 
-        # Attach Title
-        dw_page.append(dw.Use(self._generate_title(), 0, -self.canvas_height/2+60))
+        # Add markdown text fields
+        quads = dw.Group(id="quad_markdown")
 
+        print('pinout height:{}'.format(pinout.height))
+        canvas_top = -self.canvas_height/2
+        canvas_bot = self.canvas_height/2
+        
+        header_height = 120
+        #package_height = pinout.height
+        footer_height = header_height
+
+        header_bottom = canvas_top + header_height
+        package_top = -pinout.height/2
+        upper_quad_height = package_top - header_bottom
+
+        footer_top = canvas_bot - footer_height
+        package_bottom = pinout.height/2
+        lower_quad_height = footer_top - package_bottom
+
+        q_width = self.canvas_width/2 - 200
+        q_height = (self.canvas_height - pinout.height) / 2 - header_height - 100
+
+        for i in range(4):
+            if i in [0,2] : x = -self.canvas_width/2 + 100
+            if i in [0,1] : y = header_bottom + 50
+
+            if i in [1,3] : x = 100
+            if i in [2,3] : y = package_bottom + 50
+
+            #x = 0
+            #y = 0
+            id = f'quad_{i}'
+            md = self.data['markdown'][id]
+            quad = Markdown(id=id, width=q_width, height=q_height, fill='none', stroke='black')
+            quads.append(quad.place(md, x, y))
+            
+        dw_page.append(quads)
+        
+        
         # if 'custom_image' in self.data:
 
         # if 'text_field' in self.data:
