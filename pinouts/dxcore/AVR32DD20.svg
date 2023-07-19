@@ -10,10 +10,6 @@
 }
 /*]]>*/</style>
 <defs>
-<g id="title">
-<text x="0" y="0" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">AVR32DD20</text>
-<text x="0" y="50" font-size="20" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">xyz</text>
-</g>
 <text x="0" y="0" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" fill="black" id="d0">1</text>
 <g id="p1">
 <rect x="-17.5" y="-10.0" width="35" height="20" stroke="black" stroke-width="2" fill="lightgray" />
@@ -904,11 +900,6 @@
 <use xlink:href="#PIN-P19-0-right--1" x="115.52854441715581" y="-121.81980515339464" />
 <use xlink:href="#PIN-P20-0-right--1" x="94.31534098155939" y="-151.81980515339464" />
 </g>
-<g id="pinout">
-<use xlink:href="#AVR32DD20" x="0" y="0" />
-<use xlink:href="#lines" x="0" y="0" />
-<use xlink:href="#labels" x="0" y="0" />
-</g>
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="start" font-weight="bold" fill="black" id="d40">UART0</text>
 <g id="Label-USART-std-1">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke="#CC0092" fill="#FFA3E5" transform=" skewX(-10.0)" />
@@ -1082,22 +1073,35 @@
 <use xlink:href="#legend_alt" x="1466.6666666666667" y="30" />
 </g>
 </defs>
-<rect x="-1100.0" y="-850.0" width="2200" height="1700" stroke="black" stroke-width="2" fill="white" />
-<use xlink:href="#title" x="0" y="-790.0" />
-<use xlink:href="#pinout" x="0" y="0" />
+<g>
+<rect x="-1087.5" y="-837.5" width="2175" height="1675" stroke="black" stroke-width="2" fill="white" />
+</g>
+<g>
+<text x="0" y="-802.5" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">AVR32DD20</text>
+<text x="0" y="-752.5" font-size="20" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">xyz</text>
+</g>
+<g>
+<text x="0" y="767.5" font-size="40" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">AVR32DD20</text>
+<text x="0" y="817.5" font-size="20" text-anchor="middle" dominant-baseline="middle" fill="black" font-weight="bold" font-family="Roboto Mono">xyz</text>
+</g>
+<g>
+<use xlink:href="#AVR32DD20" x="0" y="0" />
+<use xlink:href="#lines" x="0" y="0" />
+<use xlink:href="#labels" x="0" y="0" />
+</g>
 <use xlink:href="#legends" x="-1100.0" y="690.0" />
 <g id="quad_markdown">
-<foreignObject x="-1000.0" y="-680.0" width="900.0" height="472.5" id="quad_0" fill="none" stroke="black">
+<foreignObject x="-978.75" y="-683.75" width="870.0" height="501.25" id="quad_0" fill="none" stroke="black">
 <div xmlns="http://www.w3.org/1999/xhtml"><h1>Lorem ipsum dolor</h1>
 <h1>The AVR DD Family uses the latest technologies from Microchip Technology, with a flexible and low-power architecture, including the Event System, intelligent analog features, and advanced digital peripherals. see the <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR32-16DD20-14-Prel-DataSheet-DS40002413.pdf">datasheet</a> for more info</h1></div>
 </foreignObject>
-<foreignObject x="100" y="-680.0" width="900.0" height="472.5" id="quad_1" fill="none" stroke="black">
+<foreignObject x="108.75" y="-683.75" width="870.0" height="501.25" id="quad_1" fill="none" stroke="black">
 <div xmlns="http://www.w3.org/1999/xhtml"><h1>It is recommended to place the decoupling capacitor on the same side of the PCB as the microcontroller. If space does not allow it, the decoupling capacitor may be placed on the other side through a via, but make sure to keep the distance to the supply pin as short as possible. If the board is experiencing high-frequency noise (upward of tens of MHz), add a second ceramic type capacitor parallel to the decoupling capacitor described above. Place this second capacitor next to the primary decoupling capacitor.</h1></div>
 </foreignObject>
-<foreignObject x="-1000.0" y="207.5" width="900.0" height="472.5" id="quad_2" fill="none" stroke="black">
+<foreignObject x="-978.75" y="241.25" width="870.0" height="501.25" id="quad_2" fill="none" stroke="black">
 <div xmlns="http://www.w3.org/1999/xhtml"><h1>The CCL peripheral provides a number of Look-up Tables (LUTs). Each LUT consists of three inputs, a truth table, a synchronizer/filter, and an edge detector. Each LUT can generate an output as a user programmable logic expression with three inputs. The output is generated from the inputs using the combinatorial logic and can be filtered to remove spikes. The CCL can be configured to generate an interrupt request on changes in the LUT outputs.</h1></div>
 </foreignObject>
-<foreignObject x="100" y="207.5" width="900.0" height="472.5" id="quad_3" fill="none" stroke="black">
+<foreignObject x="108.75" y="241.25" width="870.0" height="501.25" id="quad_3" fill="none" stroke="black">
 <div xmlns="http://www.w3.org/1999/xhtml"><h1>The AVR32/16DD14/20 microcontrollers of the AVR® DD Family of microcontrollers are using the AVR® CPU with hardware multiplier running at clock speeds up to 24 MHz, with up to 32 KB of Flash, up to 4 KB of SRAM, and 256 bytes of EEPROM. The microcontrollers are available in 14- or 20-pin packages.</h1></div>
 </foreignObject>
 </g>

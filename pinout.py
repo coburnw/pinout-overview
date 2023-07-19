@@ -182,11 +182,11 @@ class Region(dw.Group):
 
     @property
     def top(self):
-        return self.y - self.height
+        return self.y - self.height/2
 
     @property
     def bottom(self):
-        return self.y + self.height
+        return self.y + self.height/2
 
     @property
     def left(self):
@@ -199,8 +199,8 @@ class Region(dw.Group):
     def place(self, x, y, **kwargs):
         raise NotImplmented
         
-class Pinout:
-    def __init__(self, data):
+class Pinout(Region):
+    def __init__(self, data, **kwargs):
         self.data = data
         self.mapping = self.data['mapping']        
 
@@ -208,7 +208,8 @@ class Pinout:
         pin_count   = int(self.data['footprint'].split('-')[1])
         pin_spacing = self._calculate_pin_spacing()
 
-        self.height = (pin_count+1)/2 * pin_spacing
+        height = (pin_count+1)/2 * pin_spacing
+        super().__init__(width=0, height=height, **kwargs)
         
         if pkg == 'QFN':
             self.package = packages.Quad(self.data, pin_count, pin_spacing)
@@ -216,6 +217,7 @@ class Pinout:
             self.package = SOP(self.data, pin_count)
         else:
             raise 'unsupported package'
+
         return
 
     def _calculate_pin_spacing(self):
@@ -229,11 +231,13 @@ class Pinout:
 
         return pin_spacing
 
-    def generate(self):        
-        dw_pinout = dw.Group(id="pinout")
+    def place(self, x, y):
+        self.x = x
+        self.y = y
+        #dw_pinout = dw.Group(id="pinout")
 
         dw_footprint = self.package.generate()
-        dw_pinout.append(dw.Use(dw_footprint, 0, 0))
+        self.append(dw.Use(dw_footprint, 0, 0))
         
         label = Label(self.data)
 
@@ -267,11 +271,10 @@ class Pinout:
                 dw_lineholder.append(shapes.label_line(line_op, extent, 0, **label.line_style))
                 dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
 
-        dw_pinout.append(dw.Use(dw_lineholder, 0, 0))
-        dw_pinout.append(dw.Use(dw_labels, 0, 0))
+        self.append(dw.Use(dw_lineholder, 0, 0))
+        self.append(dw.Use(dw_labels, 0, 0))
     
-        return dw_pinout                
-
+        return self                
 
 class PinLegend:
     def __init__(self, data):
@@ -331,10 +334,12 @@ class PinLegend:
         return legends
 
 class Header(Region):
-    def place(self, data, x, y, rotation=0):
+    def place(self, data, x, y):
+        self.height = 50 + 20
+        y += self.height / 2
+        
         self.x = x
         self.y = y
-        self.rotation = rotation
 
         print(data['name'], self.x, self.y)
         self.append(dw.Text(data['name'], 40, x, y,
@@ -344,17 +349,17 @@ class Header(Region):
         self.append(dw.Text(data['subtitle'], 20, x, y+50,
                             text_anchor='middle', dominant_baseline='middle',
                             fill="black", font_weight='bold', font_family='Roboto Mono'))
-
-        self.height = 40 + 20 + 50
 
         return self
 
     
 class Footer(Region):
-    def place(self, data, x, y, rotation=0):
+    def place(self, data, x, y):
+        self.height = 50 + 20
+        y -= self.height
+
         self.x = x
-        self.y = y
-        self.rotation = rotation
+        self.y = y 
 
         print(data['name'], self.x, self.y)
         self.append(dw.Text(data['name'], 40, x, y,
@@ -365,7 +370,6 @@ class Footer(Region):
                             text_anchor='middle', dominant_baseline='middle',
                             fill="black", font_weight='bold', font_family='Roboto Mono'))
 
-        self.height = 40 + 20 + 50
         
         return self
 
@@ -410,21 +414,23 @@ class Page:
         dw_page = dw.Drawing(self.canvas_width, self.canvas_height, origin='center', displayInline=True)
         dw_page.embed_google_font("Roboto Mono")
 
+        # add a Border
         border = Border(self.canvas_width-25, self.canvas_height-25)
         dw_page.append(border.place(0, 0))
                        
-        # Attach Title
-        header = Header(width=self.canvas_width*0.9, height=0) #self.canvas_height*0.1
-        dw_page.append(header.place(self.data, x=0, y=-self.canvas_height/2+60))
+        # Attach Header
+        header = Header(width=border.width, height=0)
+        dw_page.append(header.place(self.data, x=0, y=border.top)) #-self.canvas_height/2+60
         print(header.bottom)
         
-        footer = Footer(width=self.canvas_width*0.9, height=0) #self.canvas_height*0.1
-        dw_page.append(footer.place(self.data, x=0, y=self.canvas_height/2-60))
+        # Attach Footer
+        footer = Footer(width=border.width, height=0)
+        dw_page.append(footer.place(self.data, x=0, y=border.bottom))
         print(footer.top)
         
         # Build and place pinout
         pinout = Pinout(self.data)
-        dw_page.append(dw.Use(pinout.generate(), self.package_x_offset, self.package_y_offset))
+        dw_page.append(pinout.place(self.package_x_offset, self.package_y_offset))
 
         # Attach Pin Function Legend
         legend = PinLegend(self.data)
@@ -433,11 +439,8 @@ class Page:
         # Add quadrant text fields
         quads = dw.Group(id="quad_markdown")
 
-        print('pinout height:{}'.format(pinout.height))        
-        pinout_bottom = pinout.height / 2
-        
-        x_margin = 100
-        y_margin = 50
+        x_margin = border.width / 20  #100
+        y_margin = border.height / 20 #50
         q_width = (border.width / 2) - (2 * x_margin)
         q_height = (border.height - pinout.height) / 2 - header.height - x_margin
 
@@ -446,10 +449,8 @@ class Page:
             if i in [0,1] : y = header.bottom + y_margin
 
             if i in [1,3] : x = x_margin
-            if i in [2,3] : y = pinout_bottom + y_margin
+            if i in [2,3] : y = pinout.bottom + y_margin
 
-            #x = 0
-            #y = 0
             id = f'quad_{i}'
             md = self.data['markdown'][id]
             quad = Markdown(id=id, width=q_width, height=q_height, fill='none', stroke='black')
