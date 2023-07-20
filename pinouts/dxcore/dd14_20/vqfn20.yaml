@@ -13,7 +13,7 @@ types: !include ../default/pin_types.yaml
 pins: !include quad20_pins.yaml
 
 # override diagonal here (not yet)
-package_diagonal: true
+package_diagonal: false
 
 package_text:
   text: "VQFN-20\nTOP VIEW"

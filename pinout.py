@@ -398,6 +398,9 @@ class Page:
         self.package_x_offset = 0 if 'package_x_offset' not in self.data else self.data['package_x_offset']
         self.package_y_offset = 0 if 'package_y_offset' not in self.data else self.data['package_y_offset']
 
+        if 'package_diagonal' in self.data:
+            self.data['package']['diagonal'] = self.data['package_diagonal']
+            
         return
 
     def load_data(self, path):
