@@ -170,26 +170,26 @@
 <text x="0" y="20" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic"><tspan x="0" dy="0em">AVR16DD20</tspan><tspan x="0" dy="1em">AVR32DD20</tspan><tspan x="0" dy="1em">AVR64DD20</tspan></text>
 </g>
 <g id="lines">
-<path d="M-105.0,-60.0 H-105.0 V-60.0 H-700.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-105.0,-30.0 H-105.0 V-30.0 H-700.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-105.0,0.0 H-105.0 V0.0 H-700.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-105.0,30.0 H-105.0 V30.0 H-940.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-105.0,60.0 H-105.0 V60.0 H-940.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-60.0,105.0 H-60.0 V180.0 H-1260.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-30.0,105.0 H-30.0 V210.0 H-1100.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M0.0,105.0 H0.0 V240.0 H-300.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M30.0,105.0 H30.0 V195.0 H700.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M60.0,105.0 H60.0 V165.0 H700.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M105.0,60.0 H105.0 V60.0 H860.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M105.0,30.0 H105.0 V30.0 H860.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M105.0,0.0 H105.0 V0.0 H300.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M105.0,-30.0 H105.0 V-30.0 H300.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M105.0,-60.0 H105.0 V-60.0 H380.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M60.0,-105.0 H60.0 V-180.0 H540.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M30.0,-105.0 H30.0 V-210.0 H860.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M0.0,-105.0 H0.0 V-210.0 H-780.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-30.0,-105.0 H-30.0 V-180.0 H-1020.0" stroke="black" stroke-width="2" fill="none" />
-<path d="M-60.0,-105.0 H-60.0 V-150.0 H-940.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-105.0,-60.0 H-105.0 V-60.0 H-600.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-105.0,-30.0 H-105.0 V-30.0 H-600.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-105.0,0.0 H-105.0 V0.0 H-600.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-105.0,30.0 H-105.0 V30.0 H-840.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-105.0,60.0 H-105.0 V60.0 H-840.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-60.0,105.0 H-60.0 V180.0 H-1160.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-30.0,105.0 H-30.0 V210.0 H-1000.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M0.0,105.0 H0.0 V240.0 H-200.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M30.0,105.0 H30.0 V195.0 H600.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M60.0,105.0 H60.0 V165.0 H600.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M105.0,60.0 H105.0 V60.0 H760.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M105.0,30.0 H105.0 V30.0 H760.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M105.0,0.0 H105.0 V0.0 H200.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M105.0,-30.0 H105.0 V-30.0 H200.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M105.0,-60.0 H105.0 V-60.0 H280.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M60.0,-105.0 H60.0 V-180.0 H440.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M30.0,-105.0 H30.0 V-210.0 H760.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M0.0,-105.0 H0.0 V-210.0 H-680.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-30.0,-105.0 H-30.0 V-180.0 H-920.0" stroke="black" stroke-width="2" fill="none" />
+<path d="M-60.0,-105.0 H-60.0 V-150.0 H-840.0" stroke="black" stroke-width="2" fill="none" />
 </g>
 <g id="Label-PA4-std-1">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke="black" fill="grey" transform=" skewX(-10.0)" />
@@ -887,26 +887,26 @@
 <use xlink:href="#Label-0,OUT-std-1" x="-675.0" y="0" />
 </g>
 <g id="labels">
-<use xlink:href="#PIN-P1-0-left-1" x="-255.0" y="-60.0" />
-<use xlink:href="#PIN-P2-0-left-1" x="-255.0" y="-30.0" />
-<use xlink:href="#PIN-P3-0-left-1" x="-255.0" y="0.0" />
-<use xlink:href="#PIN-P4-0-left-1" x="-255.0" y="30.0" />
-<use xlink:href="#PIN-P5-0-left-1" x="-255.0" y="60.0" />
-<use xlink:href="#PIN-P6-0-left-1" x="-255.0" y="180.0" />
-<use xlink:href="#PIN-P7-0-left-1" x="-255.0" y="210.0" />
-<use xlink:href="#PIN-P8-0-left-1" x="-255.0" y="240.0" />
-<use xlink:href="#PIN-P9-0-right-1" x="255.0" y="195.0" />
-<use xlink:href="#PIN-P10-0-right-1" x="255.0" y="165.0" />
-<use xlink:href="#PIN-P11-0-right-1" x="255.0" y="60.0" />
-<use xlink:href="#PIN-P12-0-right-1" x="255.0" y="30.0" />
-<use xlink:href="#PIN-P13-0-right-1" x="255.0" y="0.0" />
-<use xlink:href="#PIN-P14-0-right-1" x="255.0" y="-30.0" />
-<use xlink:href="#PIN-P15-0-right-1" x="255.0" y="-60.0" />
-<use xlink:href="#PIN-P16-0-right-1" x="255.0" y="-180.0" />
-<use xlink:href="#PIN-P17-0-right-1" x="255.0" y="-210.0" />
-<use xlink:href="#PIN-P18-0-left-1" x="-255.0" y="-210.0" />
-<use xlink:href="#PIN-P19-0-left-1" x="-255.0" y="-180.0" />
-<use xlink:href="#PIN-P20-0-left-1" x="-255.0" y="-150.0" />
+<use xlink:href="#PIN-P1-0-left-1" x="-155.0" y="-60.0" />
+<use xlink:href="#PIN-P2-0-left-1" x="-155.0" y="-30.0" />
+<use xlink:href="#PIN-P3-0-left-1" x="-155.0" y="0.0" />
+<use xlink:href="#PIN-P4-0-left-1" x="-155.0" y="30.0" />
+<use xlink:href="#PIN-P5-0-left-1" x="-155.0" y="60.0" />
+<use xlink:href="#PIN-P6-0-left-1" x="-155.0" y="180.0" />
+<use xlink:href="#PIN-P7-0-left-1" x="-155.0" y="210.0" />
+<use xlink:href="#PIN-P8-0-left-1" x="-155.0" y="240.0" />
+<use xlink:href="#PIN-P9-0-right-1" x="155.0" y="195.0" />
+<use xlink:href="#PIN-P10-0-right-1" x="155.0" y="165.0" />
+<use xlink:href="#PIN-P11-0-right-1" x="155.0" y="60.0" />
+<use xlink:href="#PIN-P12-0-right-1" x="155.0" y="30.0" />
+<use xlink:href="#PIN-P13-0-right-1" x="155.0" y="0.0" />
+<use xlink:href="#PIN-P14-0-right-1" x="155.0" y="-30.0" />
+<use xlink:href="#PIN-P15-0-right-1" x="155.0" y="-60.0" />
+<use xlink:href="#PIN-P16-0-right-1" x="155.0" y="-180.0" />
+<use xlink:href="#PIN-P17-0-right-1" x="155.0" y="-210.0" />
+<use xlink:href="#PIN-P18-0-left-1" x="-155.0" y="-210.0" />
+<use xlink:href="#PIN-P19-0-left-1" x="-155.0" y="-180.0" />
+<use xlink:href="#PIN-P20-0-left-1" x="-155.0" y="-150.0" />
 </g>
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="start" font-weight="bold" fill="black" id="d40">UART0</text>
 <g id="Label-USART-std-1">

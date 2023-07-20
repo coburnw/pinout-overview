@@ -47,22 +47,26 @@ class Quad:
         self.data = data
         self.pin_count = int(pin_count)
         self.pin_spacing = pin_spacing # need to to make local adjustment for diagonal
+
+        self.is_diag = self.data['package']['diagonal']
+        self.pkg_pin_spacing = self.pin_spacing
+        if self.is_diag:
+            self.pkg_pin_spacing = self.pin_spacing * 1.414
         
-        self.is_diag         = self.data['package']['diagonal']
         self.sides           = [0,1,2,3] # dip might be [0,3]
         self.side_count      = 4
         self.pins_per_side   = int(self.pin_count/self.side_count)
         
-        self.corner_spacing  = self.pin_spacing*1.5
-        self.width   = (self.pin_count/4-1) * self.pin_spacing + 2*self.corner_spacing
-        self.height  = (self.pin_count/4-1) * self.pin_spacing + 2*self.corner_spacing
+        self.corner_spacing  = self.pkg_pin_spacing*1.5
+        self.width   = (self.pin_count/4-1) * self.pkg_pin_spacing + 2*self.corner_spacing
+        self.height  = (self.pin_count/4-1) * self.pkg_pin_spacing + 2*self.corner_spacing
         
         return
 
     def build_side_pins(self, proto_pin, side):
         pins = dw.Group(id="side_pins")
         for i in range(self.pins_per_side):
-            pin_offset = (self.pin_spacing * i) - (self.width/2 - self.corner_spacing)
+            pin_offset = (self.pkg_pin_spacing * i) - (self.width/2 - self.corner_spacing)
             row_offset = (self.width - proto_pin.length) / 2
             
             direction = 1
@@ -107,7 +111,7 @@ class Quad:
         # Left side
         for i in range(pin_side1):
             line = label_line()
-            y = -self.width/2 + self.corner_spacing + i*self.pin_spacing
+            y = -self.width/2 + self.corner_spacing + i*self.pkg_pin_spacing
             line.start_x = -self.width/2
             line.start_y = y
             line.end_x = -label_start-self.width/2
@@ -118,10 +122,10 @@ class Quad:
         # Bottom Left
         for i in range(pin_side2+extra_side):
             line = label_line()
-            line.start_x = self.corner_spacing + i*self.pin_spacing-self.width/2
+            line.start_x = self.corner_spacing + i*self.pkg_pin_spacing-self.width/2
             line.start_y = self.width/2
             line.end_x = -label_start-self.width/2
-            line.end_y = 2*self.corner_spacing + (i+3)*self.pin_spacing
+            line.end_y = 2*self.corner_spacing + (i+3)*self.pkg_pin_spacing
             label_pos_index.append(line)
             
         # Bottom Right
@@ -129,10 +133,10 @@ class Quad:
             line = label_line()
             i2 = pin_side1 + pin_side2 - i - 1 + extra_side
             i3 = pin_side2 + extra_side + i
-            line.start_x = self.corner_spacing + i3*self.pin_spacing-self.width/2
+            line.start_x = self.corner_spacing + i3*self.pkg_pin_spacing-self.width/2
             line.start_y = self.width/2
             line.end_x = self.width/2 + label_start
-            line.end_y =2*self.corner_spacing + i2*self.pin_spacing-self.width/2
+            line.end_y =2*self.corner_spacing + i2*self.pkg_pin_spacing-self.width/2
             line.side = 1
             label_pos_index.append(line)
             
@@ -141,9 +145,9 @@ class Quad:
             line = label_line()
             i2 = pin_side1 - i - 1
             line.start_x = self.width/2
-            line.start_y = self.corner_spacing + i2*self.pin_spacing-self.width/2
+            line.start_y = self.corner_spacing + i2*self.pkg_pin_spacing-self.width/2
             line.end_x = self.width/2 + label_start
-            line.end_y = self.corner_spacing + i2*self.pin_spacing-self.width/2
+            line.end_y = self.corner_spacing + i2*self.pkg_pin_spacing-self.width/2
             line.side = 1
             label_pos_index.append(line)
             
@@ -151,10 +155,10 @@ class Quad:
         for i in range(pin_side2):
             line = label_line()
             i2 = pin_side1 - i - 1
-            line.start_x = self.corner_spacing + i2*self.pin_spacing-self.width/2
+            line.start_x = self.corner_spacing + i2*self.pkg_pin_spacing-self.width/2
             line.start_y = -self.width/2
             line.end_x = label_start+self.width/2
-            line.end_y = -self.corner_spacing - (i+extra_side)*self.pin_spacing-self.width/2
+            line.end_y = -self.corner_spacing - (i+extra_side)*self.pkg_pin_spacing-self.width/2
             line.side = 1
             label_pos_index.append(line)
             
@@ -163,23 +167,22 @@ class Quad:
             line = label_line()
             i2 = pin_side1 - pin_side2 - i -1
             i3 = pin_side2 + extra_side - i -1
-            line.start_x = self.corner_spacing + i2*self.pin_spacing-self.width/2
+            line.start_x = self.corner_spacing + i2*self.pkg_pin_spacing-self.width/2
             line.start_y = -self.width/2
             line.end_x = -label_start-self.width/2
-            line.end_y = -self.corner_spacing - i3*self.pin_spacing-self.width/2
+            line.end_y = -self.corner_spacing - i3*self.pkg_pin_spacing-self.width/2
             label_pos_index.append(line)
         return label_pos_index
     
     def _calc_wire_index_diag(self, label_offset, horizontal):
         label_pos_index     = []
-        #self.pin_count      = int(self.data['footprint'].split('-')[1])
         pin_side1           = int(self.pin_count/4)
-        label_start         = label_offset + (-self.corner_spacing*2.75) * SIN_45
-        center_offset       = 0 # if not 'center_offset' in self.data['label'] else self.data['label']['center_offset']
+        label_start         = label_offset *1.414 # + (-self.corner_spacing*2.75) * SIN_45
+        center_offset       = 0
 
         # Left Top side
         start_x0 = (-self.corner_spacing) * SIN_45
-        start_y0 = (self.corner_spacing - self.width) * SIN_45
+        start_y0 = (self.corner_spacing - self.width)  * SIN_45
 
         start_x1 = (self.corner_spacing - self.width) * SIN_45
         start_y1 = (self.corner_spacing) * SIN_45
@@ -187,23 +190,23 @@ class Quad:
         # Left Top side
         for i in range(pin_side1):
             line = label_line()
-            step = self.pin_spacing*SIN_45*i
+            step = self.pin_spacing * i
             line.start_x = start_x0 - step
             line.start_y = start_y0 + step
-            line.end_x = start_x0 - step-label_start
-            line.end_y = - (pin_side1-i) * self.pin_spacing - center_offset
+            line.end_x = start_x0 - step - label_start
+            line.end_y = line.start_y  #- (pin_side1-i) * self.pin_spacing # - center_offset
 
             label_pos_index.append(line)
 
         # Left Bottom side
         for i in range(pin_side1):
             line = label_line()
-            step = self.pin_spacing*SIN_45*i
+            step = self.pin_spacing * i
             
             line.start_x = start_x1 + step
             line.start_y = start_y1 + step
-            line.end_x = start_x1 + step-label_start
-            line.end_y = start_y1 + (i) * self.pin_spacing + center_offset
+            line.end_x = start_x1 + step - label_start
+            line.end_y = line.start_y #start_y1 + (i) * self.pin_spacing + center_offset
             line.direction = -1
 
             label_pos_index.append(line)
@@ -211,11 +214,11 @@ class Quad:
         # Right Bottom side
         for i in range(pin_side1):
             line = label_line()
-            step = self.pin_spacing*SIN_45*i
+            step = self.pin_spacing * i
             line.start_x = - start_x0 + step
             line.start_y = - start_y0 - step
             line.end_x = - start_x0 + step + label_start
-            line.end_y = + (pin_side1-i) * self.pin_spacing + center_offset
+            line.end_y = line.start_y #+ (pin_side1-i)  * self.pin_spacing + center_offset
             line.side = 1
 
             label_pos_index.append(line)
@@ -223,12 +226,12 @@ class Quad:
         # Right Top side
         for i in range(pin_side1):
             line = label_line()
-            step = self.pin_spacing*SIN_45*i
+            step = self.pin_spacing * i
             
             line.start_x = - start_x1 - step
             line.start_y = - start_y1 - step
             line.end_x = - start_x1 - step + label_start
-            line.end_y = - start_y1 - (i) * self.pin_spacing - center_offset
+            line.end_y = line.start_y #- start_y1 - (i) * self.pin_spacing - center_offset
             line.side = 1
             line.direction = -1
 
@@ -239,7 +242,7 @@ class Quad:
 class QFN(Quad):
     def generate(self):
         pad_width       = self.width - self.corner_spacing*2
-        dot_width       = self.pin_spacing/4  #pin_width/3
+        dot_width       = self.pkg_pin_spacing/4  #pin_width/3
         dot_position    = -self.width/2 + self.corner_spacing + dot_width/2
         rotate_opt      = f"rotate({45 if self.is_diag else 0}, {0}, {0})"
         
@@ -272,7 +275,7 @@ class QFN(Quad):
     
 class QFP(Quad):
     def generate(self):
-        dot_width     = self.pin_spacing/3  #pin_width/3
+        dot_width     = self.pkg_pin_spacing/3  #pin_width/3
         dot_position  = -self.width/2 + self.corner_spacing + dot_width/2
         rotate_opt    = f"rotate({45 if self.is_diag else 0}, {0}, {0})"
         

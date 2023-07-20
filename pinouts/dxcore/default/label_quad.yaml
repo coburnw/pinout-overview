@@ -2,7 +2,7 @@
 width: 70
 height: 20
 spacing: 10
-offset: 150
+offset: 50
 vert_spacing: 10
 center_offset: 20
 box_style:
