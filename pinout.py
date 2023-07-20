@@ -212,9 +212,11 @@ class Pinout(Region):
         super().__init__(width=0, height=height, **kwargs)
         
         if pkg == 'QFN':
-            self.package = packages.Quad(self.data, pin_count, pin_spacing)
+            self.package = packages.QFN(self.data, pin_count, pin_spacing)
+        elif pkg == 'QFP':
+            self.package = packages.QFP(self.data, pin_count, pin_spacing)
         elif pkg == 'SOP':
-            self.package = SOP(self.data, pin_count)
+            self.package = packages.SOP(self.data, pin_count)
         else:
             raise 'unsupported package'
 

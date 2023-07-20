@@ -1,6 +1,6 @@
 # define package shape and style
-package: !include ../default/package_qfn.yaml
-pin: !include ../default/pin_qfn.yaml
+package: !include ../default/package_qfp.yaml
+pin: !include ../default/pin_qfp.yaml
 
 # define function label size and style
 # Note: majority of shapes derive their size from label size
@@ -16,12 +16,12 @@ pins: !include quad20_pins.yaml
 package_diagonal: true
 
 package_text:
-  text: "VQFN-20\nTOP VIEW"
+  text: "QFP-20\nTOP VIEW"
   sub_text: "AVR16DD20\nAVR32DD20\nAVR64DD20"
 
 markdown: !include quad20_text.yaml
 
-footprint: QFN-20
+footprint: QFP-20
 name: AVR32DD20
 subtitle: "xyz"
 canvas_width: 2200

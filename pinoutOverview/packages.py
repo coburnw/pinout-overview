@@ -18,9 +18,8 @@ class label_line:
         self.direction = 1
 
 class Pin:
-    def __init__(self, data, is_diag=False):
+    def __init__(self, data):
         self.data = data
-        self.is_diag = is_diag
         
         self.length      = self.data['pin']['length']
         self.width       = self.data['pin']['width']
@@ -50,6 +49,7 @@ class Quad:
         self.pin_spacing = pin_spacing # need to to make local adjustment for diagonal
         
         self.is_diag         = self.data['package']['diagonal']
+        self.sides           = [0,1,2,3] # dip might be [0,3]
         self.side_count      = 4
         self.pins_per_side   = int(self.pin_count/self.side_count)
         
@@ -58,81 +58,34 @@ class Quad:
         self.height  = (self.pin_count/4-1) * self.pin_spacing + 2*self.corner_spacing
         
         return
-    
-    def generate(self):
-        pad_width       = self.width - self.corner_spacing*2
-        dot_width       = Pin(self.data).width/3  #pin_width/3
-        dot_position    = -self.width/2 + self.corner_spacing + dot_width/2
-        rotate_opt      = f"rotate({45 if self.is_diag else 0}, {0}, {0})"
-        
-        package     = dw.Group(id="package", transform=rotate_opt)
-        footprint   = dw.Group(id=self.data['name'])
-        pins        = dw.Group(id="pins")
 
-        border  = shapes.qfn_border(self.width, **self.data['package']['style'])
-        pad     = shapes.qfn_pad(pad_width, **self.data['pin']['style'])
-        dot     = dw.Circle( dot_position, dot_position, dot_width,
-                            **self.data['package']['marker_style'])
-        
-        pt = pinout.Text(self.data, 'package')
-        fp_text = pt.generate('text')
-        pd_text = pt.generate('sub_text')
-        
-        pin = Pin(self.data, self.is_diag)
-        start_x = self.width/2 - pin.length/2 # - 3
-        start_y = -self.width/2 + self.corner_spacing
-        # start_x = self.width/2 - pin.width/2 # - 3
-        # start_y = -self.width/2 + self.corner_spacing
-        
+    def build_side_pins(self, proto_pin, side):
+        pins = dw.Group(id="side_pins")
         for i in range(self.pins_per_side):
-            pin_side = 0
-            number_x = 0
-            number_y = self.pin_spacing * i #+ pin.width/10
-
-            pin_number = i + 1 + pin_side * self.pins_per_side
-            dw_pin = pin.generate(pin_number, pin_side)
-            pins.append(dw.Use(dw_pin, -start_x-number_x, start_y+number_y))
-                        
-        for i in range(self.pins_per_side):
-            pin_side = 1
-            number_x = self.pin_spacing * i
-            number_y = 0 #pin.width/10
-
-            pin_number = i + 1 + pin_side * self.pins_per_side
-            dw_pin = pin.generate(pin_number, pin_side)
-            pins.append(dw.Use(dw_pin, start_y+number_x, start_x+number_y+1))
-
-        for i in range(self.pins_per_side):
-            pin_side = 2
-            number_x = 0
-            number_y = self.pin_spacing * i # -pin.width/10
-
-            pin_number = i + 1 + pin_side * self.pins_per_side
-            dw_pin = pin.generate(pin_number, pin_side)
-            pins.append(dw.Use(dw_pin, start_x+number_x, -start_y-number_y+1))
-
-        for i in range(self.pins_per_side):
-            pin_side = 3
-            number_x = self.pin_spacing * i
-            number_y = 0 #-pin.width/10
-
-            pin_number = i + 1 + pin_side * self.pins_per_side
-            dw_pin = pin.generate(pin_number, pin_side)
-            pins.append(dw.Use(dw_pin, -start_y-number_x, -start_x-number_y+1))
-
-        package.append(border)
-        package.append(pad)
-        package.append(dot)
-        package.append(pins)
-
-        footprint.append(package)
-        footprint.append(fp_text)
-        footprint.append(pd_text)
-
+            pin_offset = (self.pin_spacing * i) - (self.width/2 - self.corner_spacing)
+            row_offset = (self.width - proto_pin.length) / 2
             
-        
-        return footprint
+            direction = 1
+            if side in [0,1]:
+                direction = -direction
+                
+            if side in [0,2]:
+                offset_x = row_offset * direction
+                offset_y = pin_offset * -direction
+            else:
+                offset_x = pin_offset *- direction
+                offset_y = row_offset * -direction
 
+            pin_number = i + 1 + side * self.pins_per_side
+            dw_pin = proto_pin.generate(pin_number, side)
+            pins.append(dw.Use(dw_pin, offset_x, offset_y))
+
+        return pins
+
+    def generate(self):
+        # construct and return a dw_footprint
+        raise NotImplemented
+    
     def calc_wire_paths(self, label_offset, horizontal=True):
         if self.is_diag:
             wire_paths = self._calc_wire_index_diag(label_offset, horizontal)
@@ -282,6 +235,71 @@ class Quad:
             label_pos_index.append(line)
 
         return label_pos_index
+
+class QFN(Quad):
+    def generate(self):
+        pad_width       = self.width - self.corner_spacing*2
+        dot_width       = self.pin_spacing/4  #pin_width/3
+        dot_position    = -self.width/2 + self.corner_spacing + dot_width/2
+        rotate_opt      = f"rotate({45 if self.is_diag else 0}, {0}, {0})"
+        
+        border  = shapes.qfn_border(self.width, **self.data['package']['style'])
+        pad     = shapes.qfn_pad(pad_width, **self.data['pin']['style'])
+        dot     = dw.Circle( dot_position, dot_position, dot_width,
+                            **self.data['package']['marker_style'])
+        
+        pt = pinout.Text(self.data, 'package')
+        fp_text = pt.generate('text')
+        pd_text = pt.generate('sub_text')
+        
+        pins = dw.Group(id="pins")
+        proto = Pin(self.data)
+        for side in range(4):
+            pins.append(self.build_side_pins(proto, side))
+            
+        package = dw.Group(id="package", transform=rotate_opt)
+        package.append(border)
+        package.append(pad)
+        package.append(dot)
+        package.append(pins)
+
+        footprint = dw.Group(id=self.data['name'])
+        footprint.append(package)
+        footprint.append(fp_text)
+        footprint.append(pd_text)
+
+        return footprint
+    
+class QFP(Quad):
+    def generate(self):
+        dot_width     = self.pin_spacing/3  #pin_width/3
+        dot_position  = -self.width/2 + self.corner_spacing + dot_width/2
+        rotate_opt    = f"rotate({45 if self.is_diag else 0}, {0}, {0})"
+        
+        proto_pin     = Pin(self.data)
+        border  = shapes.qfn_border(self.width-2*proto_pin.length, **self.data['package']['style'])
+        dot     = dw.Circle( dot_position, dot_position, dot_width,
+                            **self.data['package']['marker_style'])
+        
+        pt = pinout.Text(self.data, 'package')
+        fp_text = pt.generate('text')
+        pd_text = pt.generate('sub_text')
+        
+        pins = dw.Group(id="pins")
+        for side in range(4):
+            pins.append(self.build_side_pins(proto_pin, side))
+            
+        package = dw.Group(id="package", transform=rotate_opt)
+        package.append(border)
+        package.append(dot)
+        package.append(pins)
+
+        footprint = dw.Group(id=self.data['name'])
+        footprint.append(package)
+        footprint.append(fp_text)
+        footprint.append(pd_text)
+
+        return footprint
 
 class SOP:
     def __init__(self, data):
