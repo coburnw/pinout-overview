@@ -22,7 +22,7 @@ package_text:
 markdown: !include quad20_text.yaml
 
 footprint: QFN-20
-name: AVR32DD20
+name: AVR32DD20_VQFN
 subtitle: "xyz"
 canvas_width: 2200
 canvas_height: 1700
