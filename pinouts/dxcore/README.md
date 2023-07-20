@@ -2,6 +2,8 @@
 
 To compile the config files to an svg file:
 `python pinout.py pinouts/dxcore/dd20_14/vqfn_20.yaml`
+ or
+`python pinout.py pinouts/dxcore/dd20_14/qfp_20.yaml`
 
  * default directory contains default configurations used across variants
    * `pin_types.yaml`   Available pin functions containing key, description,
@@ -10,7 +12,7 @@ To compile the config files to an svg file:
    * `pin_qfn.yaml`     shape and style of package pin
    * `label_qfn.yaml`   shape and style of function label
    
- * package directories (such as DD20_14) contain variant specific configuration
+ * variant directories (such as DD20_14) contain variant specific configuration
    * `vqfn_20.yaml`     main variant configuration file.  Sets up page and
    pulls in other config files.
    * `vqfn_pins.yaml`   defines available pin functions on variant
