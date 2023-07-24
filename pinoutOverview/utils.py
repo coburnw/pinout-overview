@@ -1,5 +1,35 @@
 import drawsvg as dw
 
+class Region(dw.Group):
+    # a group of drawing elements that keeps a simplistic view of its own size and position
+    def __init__(self, width=0, height=0, **kwargs):
+        super().__init__(**kwargs)
+        self.x = 0
+        self.y = 0
+        self.width = width
+        self.height = height
+        self.rotation = 0
+        return
+
+    @property
+    def top(self):
+        return self.y - self.height/2
+
+    @property
+    def bottom(self):
+        return self.y + self.height/2
+
+    @property
+    def left(self):
+        return self.x - self.width/2
+
+    @property
+    def right(self):
+        return self.x + self.width/2
+
+    def place(self, x, y, **kwargs):
+        raise NotImplmented
+        
 class TextStyle:
     def __init__(self, section, style_key):
         self.style_dict    = section[style_key]
