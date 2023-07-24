@@ -5,6 +5,8 @@ To compile the config files to an svg file:
  or
 `python pinout.py pinouts/dxcore/dd20_14/qfp_20.yaml`
 
+Draws the pinout diagram in horizontal, diagonal, or orthogonal styles
+
  * default directory contains default configurations used across variants
    * `pin_types.yaml`   Available pin functions containing key, description,
    and styling for function labels
