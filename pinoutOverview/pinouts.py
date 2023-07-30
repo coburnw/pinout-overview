@@ -5,7 +5,7 @@ import drawsvg as dw
 from pinoutOverview import utils
 from pinoutOverview import packages
 from pinoutOverview import shapes
-from pinoutOverview import functions
+from pinoutOverview import pins as Pin
 
 SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
 
@@ -19,16 +19,15 @@ class label_line:
         self.direction = 1
 
 class Pinout(utils.Region):
-    def __init__(self, data, diagonal=False, **kwargs):
+    def __init__(self, data, pins, diagonal=False, **kwargs):
         self.data = data
+        self.pins = pins
         self.diagonal = diagonal
         
-        self.mapping = self.data['mapping']        
-
         pkg         = self.data['footprint'].split('-')[0]
-        pin_count   = int(self.data['footprint'].split('-')[1])
+        pin_count   = len(self.pins) #int(self.data['footprint'].split('-')[1])
 
-        self.row_spacing = self._calculate_row_spacing()
+        self.row_spacing = self.pins.spacing # self._calculate_row_spacing()
 
         if diagonal:
             pin_spacing = self.row_spacing * math.sqrt(2)
@@ -53,30 +52,33 @@ class Pinout(utils.Region):
         
         return
 
-    def _calculate_row_spacing(self):
-        max_lines = 1
+    def place(self, x, y):
+        self.x = x
+        self.y = y
+
+        transform = ''
+        if self.diagonal is True:
+            transform = transform='rotate(45)'
+            
+        dw_footprint = self.package.generate(self.diagonal)
+        self.append(dw.Use(dw_footprint, x, y, transform=transform))
         
-        for i, m in enumerate(self.mapping):
-                if hasattr( m, "__len__" ) and not isinstance( m, str ):
-                    if len(m) > max_lines:
-                        max_lines = len(m)
-
-        if max_lines > 1:
-            raise 'multi-row pins not implemented'
+        fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, Pin.Label().offset)
+        self.append(dw.Use(dw_fanout, x, y))
         
-        row_spacing = max_lines * (self.data['label']['height'] + self.data['label']['vert_spacing'])
+        dw_pins = dw.Group(id='pins')
+        for pin in self.pins:
+            position = fanout[pin.number]
+            dw_pin = self.build_pin(pin)
+            dw_pins.append(dw.Use(dw_pin, position.end_x, position.end_y))
+            #dw_pins.append(dw.Circle(position.end_x, position.end_y, 2, stroke='black'))
 
-        return row_spacing
+        self.append(dw.Use(dw_pins, x, y))
 
-    def attach_label_row(self, pin_number, row):
-        pass
-
-    def place(self, x, y, orthogonal=False):
-        # construct a pinout
-        raise NotImplemented
-
+        return self
+    
 class OrthogonalPinout(Pinout):
-    def fanout(self, pin_numbers, offset):
+    def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
         
@@ -84,7 +86,7 @@ class OrthogonalPinout(Pinout):
             line = label_line()
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
             position, side, direction = self.package._calc_offset_point(pin_number)
-            print(side, direction, position['x'], position['y'])
+            #print(side, direction, position['x'], position['y'])
             if side in [0,2]:
                 line.start_x = position['x']
                 line.start_y = position['y']
@@ -108,75 +110,27 @@ class OrthogonalPinout(Pinout):
             
         return wires, dw_wires
         
-    def place(self, x, y):
-        self.x = x
-        self.y = y
-
-        dw_footprint = self.package.generate()
-        self.append(dw.Use(dw_footprint, 0, 0))
-        
-        label = functions.Label(self.data)
-
-        label_pos_index = []
-        #label_pos_index = self._calc_wire_paths(label.offset)
-        fanout, dw_fanout = self.fanout(self.package.pin_numbers, label.offset)
-        label_pos_index = fanout
-        
-        dw_labels = dw.Group(id="labels")
-        dw_lineholder = dw.Group(id="lines")
-
-        # attach function labels to each pin
-        for i, m in enumerate(self.mapping):
-            if i > int(self.package.number_of_pins)-1:
-                pass
-            elif hasattr( m, "__len__" ) and not isinstance( m, str ):
-                line_op = label_pos_index[i]
-                line_op.end_y -= (label.height + label.vert_spacing) * (len(m)*0.75 if len(m) % 2 == 0 else len(m)/1.5)
-                # multi-line function list
-                for j, k in enumerate(m):
-                    line_op.end_y += self.row_spacing
-                    pin = self.data['pins'][k]
-                    labels = PinLabels(self.data)
-                    dw_pin, extent, extentmin = labels.generate(str(i), pin, label_pos_index[i], afpin=j)
-                    dw_lineholder.append(shapes.label_line(line_op, extent, extentmin, **label.line_style))
-                    dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-            else:
-                line_op = fanout[i]
-                dw_pin = self.build_function_row(i, m)
-                dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-        self.append(dw.Use(dw_fanout, 0, 0))
-        self.append(dw.Use(dw_lineholder, 0, 0))
-        self.append(dw.Use(dw_labels, 0, 0))
-    
-        return self                
-
-    def build_function_row(self, number, name):
-        side_index, pin_index = self.package.side_from_pin_number(number)
+    def build_pin(self, pin):
+        side_index, pin_index = self.package.side_from_pin_number(pin.number)
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
-        append_direction = -1
+        label_direction = -1
         if side_index in [2,3]:
-            append_direction = -append_direction
+            label_direction = -label_direction
 
-        pin = self.data['pins'][name]
-        row = functions.FunctionRow(id='Pin_'+name, direction=append_direction)
-        for function in pin:
-            label = functions.FunctionLabel(function)
-            row.append(label.generate(slant=0))
+        dw_pin = pin.generate(label_direction, slant=Pin.Label().slant_none)
 
         transform = 'rotate(0)'
         if side_index in [1,3]:
             transform = 'rotate(-90)'
 
-        dw_row = dw.Use(row.generate(), 0, 0, transform=transform)
+        dw_pin = dw.Use(dw_pin, 0, 0, transform=transform)
         
-        return dw_row
+        return dw_pin
         
 class DiagonalPinout(Pinout):
-    def __init__(self, data, **kwargs):
-        super().__init__(data, diagonal=True, **kwargs)
+    def __init__(self, data, pins, **kwargs):
+        super().__init__(data, pins, diagonal=True, **kwargs)
         
         self.width = 0
         return
@@ -198,7 +152,7 @@ class DiagonalPinout(Pinout):
         point = {'x':x,'y':y}
         return point, side_index, direction 
 
-    def fanout(self, pin_numbers, offset):
+    def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
         
@@ -222,73 +176,26 @@ class DiagonalPinout(Pinout):
 
         return wires, dw_wires
         
-    def place(self, x, y):
-        self.x = x
-        self.y = y
-
-        dw_footprint = self.package.generate(diagonal=True)
-        self.append(dw.Use(dw_footprint, 0, 0, transform='rotate(45)'))
-        
-        label = functions.Label(self.data)
-
-        #label_pos_index = self._calc_wire_paths(label.offset)
-        fanout, dw_fanout = self.fanout(self.package.pin_numbers, label.offset)
-        label_pos_index = fanout
-        
-        dw_labels = dw.Group(id="labels")
-        dw_lineholder = dw.Group(id="lines")
-
-        # attach function labels to each pin
-        for i, m in enumerate(self.mapping):
-            if i > int(self.package.number_of_pins)-1:
-                pass
-            elif hasattr( m, "__len__" ) and not isinstance( m, str ):
-                line_op = label_pos_index[i]
-                line_op.end_y -= (label.height + label.vert_spacing) * (len(m)*0.75 if len(m) % 2 == 0 else len(m)/1.5)
-                # multi-line function list
-                for j, k in enumerate(m):
-                    pin = self.data['pins'][k]
-                    line_op.end_y += self.row_spacing
-                    labels = PinLabels(self.data)
-                    dw_pin, extent, extentmin = labels.generate(str(i), pin, label_pos_index[i], afpin=j)
-                    dw_lineholder.append(shapes.label_line(line_op, extent, extentmin, **label.line_style))
-                    dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-            else:
-                line_op = fanout[i]
-                dw_pin = self.build_function_row(i, m)
-                dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-        self.append(dw.Use(dw_fanout, 0, 0))
-        self.append(dw.Use(dw_lineholder, 0, 0))
-        self.append(dw.Use(dw_labels, 0, 0))
-    
-        return self                
-
-    def build_function_row(self, number, name):
-        side_index, pin_index = self.package.side_from_pin_number(number)
+    def build_pin(self, pin):
+        side_index, pin_index = self.package.side_from_pin_number(pin.number)
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
-        append_direction = -1
+        label_direction = -1
         if side_index in [2,3]:
-            append_direction = -append_direction
+            label_direction = -label_direction
 
-        slant_direction = -1
-        if side_index in [0,2]:
-            slant_direction = -slant_direction
+        slant = Pin.Label().slant_right
+        if side_index in [1,3]:
+            slant = Pin.Label().slant_left
             
-        pin = self.data['pins'][name]
-        row = functions.FunctionRow(id='Pin_'+name, direction=append_direction)
-        for function in pin:
-            label = functions.FunctionLabel(function)
-            row.append(label.generate(slant=slant_direction))
+        dw_pin = pin.generate(label_direction, slant=slant)
 
-        return row.generate()
+        return dw_pin
         
 class HorizontalPinout(Pinout):
     # fanout calculates our true height and width property.  Values are invalid until construction.
     
-    def fanout(self, pin_numbers, offset):
+    def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
         
@@ -298,7 +205,7 @@ class HorizontalPinout(Pinout):
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
             position, side, direction = self.package._calc_offset_point(pin_number)
 
-            print(side, direction, position['x'], position['y'])
+            #print(side, direction, position['x'], position['y'])
             if side in [0,2]:
                 line.start_x = position['x']
                 line.start_y = position['y']
@@ -346,49 +253,12 @@ class HorizontalPinout(Pinout):
             
         return wires, dw_wires
         
-    def place(self, x, y):
-        self.x = x
-        self.y = y
+    def build_pin(self, pin):
+        direction = self.direction_from_pin(pin.number)
+        dw_pin = pin.generate(direction, slant=Pin.Label().slant_none)
 
-        dw_footprint = self.package.generate()
-        self.append(dw.Use(dw_footprint, 0, 0))
+        return dw_pin
         
-        label = functions.Label(self.data)
-
-        #label_pos_index = self._calc_wire_paths(label.offset)
-        fanout, dw_fanout = self.fanout(self.package.pin_numbers, label.offset)
-        label_pos_index = fanout
-        
-        dw_labels = dw.Group(id="labels")
-        dw_lineholder = dw.Group(id="lines")
-
-        # attach function labels to each pin
-        for i, m in enumerate(self.mapping):
-            if i > int(self.package.number_of_pins)-1:
-                pass
-            elif hasattr( m, "__len__" ) and not isinstance( m, str ):
-                line_op = label_pos_index[i]
-                line_op.end_y -= (label.height + label.vert_spacing) * (len(m)*0.75 if len(m) % 2 == 0 else len(m)/1.5)
-                # multi-line function list
-                for j, k in enumerate(m):
-                    pin = self.data['pins'][k]
-                    line_op.end_y += self.row_spacing
-                    labels = PinLabels(self.data)
-                    dw_pin, extent, extentmin = labels.generate(str(i), pin, label_pos_index[i], afpin=j)
-                    dw_lineholder.append(shapes.label_line(line_op, extent, extentmin, **label.line_style))
-                    dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-            else:
-                line_op = fanout[i]
-                dw_pin = self.build_function_row(i, m)
-                dw_labels.append(dw.Use(dw_pin, line_op.end_x, line_op.end_y))
-
-        self.append(dw.Use(dw_fanout, 0, 0))
-        self.append(dw.Use(dw_lineholder, 0, 0))
-        self.append(dw.Use(dw_labels, 0, 0))
-    
-        return self                
-
     def direction_from_pin(self, number):
         # determine horizontal direction of row for split top and bottom sides.
         side_index, pin_index = self.package.side_from_pin_number(number)
@@ -407,17 +277,6 @@ class HorizontalPinout(Pinout):
             direction = right
 
         return direction
-    
-    def build_function_row(self, number, name):
-        append_direction = self.direction_from_pin(number)
-
-        pin = self.data['pins'][name]
-        row = functions.FunctionRow(id='Pin_'+name, direction=append_direction)
-        for function in pin:
-            label = functions.FunctionLabel(function)
-            row.append(label.generate(slant=0))
-
-        return row.generate()
     
 class PinLegend:
     def __init__(self, data):

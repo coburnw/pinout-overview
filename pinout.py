@@ -10,7 +10,7 @@ from pinoutOverview import utils
 from pinoutOverview import shapes
 from pinoutOverview import packages
 from pinoutOverview import pinouts
-from pinoutOverview import functions
+from pinoutOverview import pins as Pin
 
 class HtmlDiv(dw.DrawingParentElement):
     # https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject
@@ -137,11 +137,19 @@ class Page:
         with open(path, 'r', encoding='utf-8') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
 
+        template = dict()
+        template['label'] = data['label']
+        template['types'] = data['types']
 
         # load class static data.  Only happens once.
-        functions.Label(style=None, template=data['label'])
-        functions.FunctionLabel(function=None, types=data['types'])
-        
+        Pin.Label(style=None, template=template['label'])
+        Pin.Function(function=None, type_templates=template['types'])
+
+        self.variant = dict()
+        self.variant['pin_names'] = data['mapping']
+        self.variant['function_rows'] = data['pins']
+
+
         return data
 
     def generate(self):
@@ -167,12 +175,13 @@ class Page:
         print(footer.top)
         
         # Build and place pinout
+        pins = Pin.Pins(names=self.variant['pin_names'], rows=self.variant['function_rows'])
         if self.family == 'orthogonal':
-            pinout = pinouts.OrthogonalPinout(self.data)
+            pinout = pinouts.OrthogonalPinout(self.data, pins)
         elif self.family == 'diagonal':
-            pinout = pinouts.DiagonalPinout(self.data)
+            pinout = pinouts.DiagonalPinout(self.data, pins)
         else:
-            pinout = pinouts.HorizontalPinout(self.data)
+            pinout = pinouts.HorizontalPinout(self.data, pins)
             
         dw_page.append(pinout.place(self.package_x_offset, self.package_y_offset))
 

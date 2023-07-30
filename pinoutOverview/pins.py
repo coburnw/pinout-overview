@@ -159,8 +159,6 @@ class Function():
         return Label().spacing
 
     def generate(self, slant):
-        print('    generating functionlabel: {}'.format(self.name))
-        
         label = Label(style=self.style)
         return label.generate(self.name, slant=slant, is_alt=self.is_alt)
     
@@ -188,13 +186,11 @@ class Functions(dw.Group):
         return Label().line_style
 
     def generate(self, slant=0):
-        print('  generating function row')
         dw_row = dw.Group() 
         self.x = Label().width/2 * -self.direction
         
         for func in self.row:
             function = Function(func)
-            print('   appending function {}'.format(function.name))
             label = function.generate(slant)
 
             self.x += (label.width + label.spacing) * self.direction
@@ -207,11 +203,16 @@ class Functions(dw.Group):
 
 # a group of function label rows for a specific pin
 class Pin(dw.Group):
-    def __init__(self, rows):
+    def __init__(self, number, rows):
         super().__init__()
+        self._number = number
         self.rows = rows
         return
 
+    @property
+    def number(self):
+        return self._number
+    
     @property
     def label_spacing(self):
         return Label().spacing
@@ -229,32 +230,30 @@ class Pin(dw.Group):
     def width(self):
         return 0
     
-    def generate(self, x_direction, y_direction, slant=0):
-        print('generating pin with {} rows'.format(len(self.rows)))
-
+    def generate(self, direction, slant=0):
         x_start = 0
         y_start = 0
          
         row_count = len(self.rows)
         if row_count > 4:
-            raise 'four function rows per pin maximum'
+            raise 'exceeds four function rows per pin maximum'
         
         if row_count == 1:
             pass
         elif row_count % 2 == 0:
-            y_start = (self.row_spacing * row_count/2 - self.row_spacing/2) * -y_direction
+            y_start = -(self.row_spacing * row_count/2 - self.row_spacing/2)
         else:
-            y_start = self.row_spacing * row_count/3 * -y_direction
+            y_start = -(self.row_spacing * row_count/3)
 
         x = x_start
         y = y_start
 
         i = 0
         for r in self.rows:
-            row_labels = Functions(r, x_direction)
+            row_labels = Functions(r, direction)
             row = row_labels.generate(slant=slant)
             
-            offset = i * self.row_spacing * y_direction
+            offset = i * self.row_spacing
             self.append(dw.Use(row, x,y+offset))
             i += 1
             
@@ -284,7 +283,7 @@ class Pins():
             name = names
             rows.append(self.rows[name])
                 
-        return Pin(rows)
+        return Pin(i, rows)
 
     def __iter__(self):
         self.index = 0
@@ -346,7 +345,7 @@ if __name__ == '__main__':
     variant['mapping'] = data['mapping']
     variant['pins'] = data['pins']
 
-    #variant['mapping'][2] = ['P5','P6']
+    variant['mapping'][2] = ['P5','P6']
     #variant['mapping'][3] = ['P7','P8']
     #variant['mapping'][4] = ['P7', 'P9', 'P10']
     pprint.pprint(variant)
@@ -371,7 +370,7 @@ if __name__ == '__main__':
 
     dw_pins = dw.Group()
     for pin in pins:
-        dw_pin = pin.generate(x_direction, y_direction, slant=Label().slant_none)
+        dw_pin = pin.generate(x_direction, slant=Label().slant_none)
         dw_pins.append(dw.Use(dw_pin, x,y))
         dw_pins.append(dw.Circle(x,y, 2, stroke='black'))
         y += pins.spacing * y_direction 
