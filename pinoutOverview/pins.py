@@ -1,10 +1,6 @@
 import drawsvg as dw
 
-#stupid import hack
-if __name__ == '__main__':
-    import shapes
-else:
-    from pinoutOverview import shapes
+from pinoutOverview import shapes
 
 class Label(dw.Group):
     def __init__(self, style=None, template=None, id=None):
@@ -309,71 +305,3 @@ class Pins():
 
         return pin_spacing
 
-    
-if __name__ == '__main__':
-    import os
-    import yaml
-    from yamlinclude import YamlIncludeConstructor
-
-    import pprint
-    
-    path = '../pinouts/dxcore/dd14_20/qfp20.yaml'     
-    YamlIncludeConstructor.add_to_loader_class(loader_class=yaml.FullLoader , base_dir=os.path.dirname(path))
-    with open(path, 'r', encoding='utf-8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-
-    # Template dict has data used over many variants and is housed in various yaml files
-    #
-    # Label - contains the basic style of a label.
-    # Types - is a dict of function-name to label style to be applied to the basic label. 
-    #    Note that types contains a mechanism to disable display of particular functions (untested)
-    #
-    template = dict()
-    template['label'] = data['label']
-    template['types'] = data['types']
-
-    #pprint.pprint(template)
-
-    # Variant dict has variant specific data.
-    #    It is the dict that would be of most interest to the microchip variant parser.
-    #
-    # Mapping - is a list of pin-names, in order of variant pin numbers
-    # Pins    - contains a pin-name to list of variant specific functions with function-names
-    # The mapping seems rather silly on the surface, but it is how multirow pins are to be implemented.
-    #
-    variant = dict()
-    variant['mapping'] = data['mapping']
-    variant['pins'] = data['pins']
-
-    variant['mapping'][2] = ['P5','P6']
-    #variant['mapping'][3] = ['P7','P8']
-    #variant['mapping'][4] = ['P7', 'P9', 'P10']
-    pprint.pprint(variant)
-
-    x_max = 1500
-    y_max = 1000
-    dw_page = dw.Drawing(x_max, y_max, origin='center', displayInline=True)
-    dw_page.embed_google_font("Roboto Mono")
-
-    Label(style=None, template=template['label'])
-    Function(function=None, type_templates=template['types'])
-    pins = Pins(names=variant['mapping'], rows=variant['pins'])
-    
-    # svg coordinates: +x to the right, +y to the bottom
-    x_direction = -1  # +1 right, -1 left
-    y_direction = 1   # +1 down
-    x = -600 * x_direction
-    y = -400 * y_direction
-    
-    dw_page.append(dw.Line(x_max,y, -x_max,y, stroke='black'))
-    dw_page.append(dw.Line(x,y_max, x,-y_max, stroke='red'))
-
-    dw_pins = dw.Group()
-    for pin in pins:
-        dw_pin = pin.generate(x_direction, slant=Label().slant_none)
-        dw_pins.append(dw.Use(dw_pin, x,y))
-        dw_pins.append(dw.Circle(x,y, 2, stroke='black'))
-        y += pins.spacing * y_direction 
-
-    dw_page.append(dw_pins)
-    dw_page.save_svg('junk.svg')
