@@ -86,10 +86,10 @@ row of functions into two.
 the variant file describes how to buid the svg and is most likely machine generated.
   * section is this directory.  probably shouldnt be changed...
   * name is basename of both this config file and the target svg file.
-  * Family holds the basename of the family functions file defined above.
-  * pinout holds the mapping of pin-number to pin-names
-  * package type of qfn, qfp, or sop, and appropriate pin counts and text
-  * and page amends options of its respective page template.
+  * family holds the basename of the family functions file defined above.
+  * pins holds the mapping of pin-number to pin-names
+  * package type of qfn, qfp, or sop, and appropriate pin counts and text to be placed on the package
+  * page amends options of its respective page template.
 
 ```
 {
@@ -102,7 +102,7 @@ the variant file describes how to buid the svg and is most likely machine genera
         "text1": "AVR16DD20\nAVR32DD20\nAVR64DD20",
         "text2": "VQFN20"
     },
-    "pinout": {
+    "pins": {
         "split": "tca",
         "pin_map": [
     	    "PA4",
@@ -112,6 +112,7 @@ the variant file describes how to buid the svg and is most likely machine genera
     
     },
     "page": {
+        "template": "some_template_name",
         "header": {
             "text1": "big title",
             "text2": "sub title"
