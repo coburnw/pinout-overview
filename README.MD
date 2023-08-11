@@ -12,6 +12,10 @@ This has been heavily reworked, arguably to make it more modifiable.  We will se
 Configuration can be split across multiple config files to allow for sharing of common properties
 > "style" fields are standard SVG properties like fill, font_family, etc.
 
+#### Scaling
+The size of the function label determines the scale of many of the objects.
+Start by editing `template/function_label.py` to adjust width and height.
+
 #### Define family function types
 function types is a dictionary of style for function types that might be
 available on a broad range of products.  It defines colors, fonts and the
@@ -144,9 +148,10 @@ To generate a single Image
 
 # TODO
 - [ ] legend
-- [ ] merge changes to qfp and sop packages
+- [x] merge changes to qfp and sop packages
 - [ ] add split option
 - [ ] handle quadrant text internally rather than asking the browser to render it
+- [ ] expand on label size for object scaling
 
 - [ ] Error checking
 - [ ] Documentation
