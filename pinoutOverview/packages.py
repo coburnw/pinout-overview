@@ -3,7 +3,7 @@ import math
 import drawsvg as dw
 from pinoutOverview import shapes
 from pinoutOverview import footprint as fp
-
+from template import packages as package_templates
 from pinoutOverview import utils as pinout
 
 # SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
@@ -19,35 +19,57 @@ class label_line:
 
 # pin is confusing with pin in upper classes.  Perhaps pad would be better.
 class Pin:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, template):
+        self.template = template
         
-        self.length      = self.data['pin']['length']
-        self.width       = self.data['pin']['width']
+        self.length      = self.template['length']
+        self.width       = self.template['width']
 
         return
 
     def generate(self, number, side):
         dw_pin = dw.Group(id=f"p{number}")
-        shape = shapes.qfn_pin(self.width, self.length, **self.data['pin']['style'])
+        shape = shapes.qfn_pin(self.width, self.length, **self.template['style'])
 
         dw_pin.append(shape)
 
         #self.data['pin']['text_style']['text_anchor'] = 'middle'  # add to package_pin.yaml config
-        t = pinout.Text(self.data, 'pin')
-        text = t.generate('text', str(number), 0, 0)
-        
+        t = pinout.Text(self.template['text'])
+        text = t.generate(str(number))
+
         rotation = 180 if side in [2,3] else 0
         dw_pin.append(dw.Use(text, 0, 0, transform=f'rotate({rotation})'))
 
         rotation = side * -90
         return dw.Use(dw_pin, 0, 0, transform=f'rotate({rotation})')
 
-        
-class Quad:
-    def __init__(self, data, pin_count, pin_spacing):
-        self.data = data
-        self.number_of_pins = int(pin_count)
+
+class PackageFactory():
+    def __new__(cls, package_config, pin_spacing):
+        name = package_config['type'].lower()
+
+        #print(package_config)
+        if package_config['type'] == 'qfn':
+            package_template = package_templates.qfn_template
+            package = QFN(package_template, package_config, pin_spacing)
+        elif name == 'qfp':
+            package = QFP(package_config, pin_spacing)
+        elif name == 'sop':
+            package = SOP(package_config, pin_spacing)
+        else:
+            raise 'unrecognized package: "{}"'.format(name)
+
+        return package
+
+class Package(object):
+    pass
+
+class Quad(Package):
+    def __init__(self, package_template, package_config, pin_spacing):
+        self.template = package_template
+        self.data = package_config
+        #self.pin_map = package_config['pin_map']
+        self.number_of_pins = package_config['pin_count'] #len(self.pin_map)
 
         self.number_of_sides = 4
         self.pins_per_side   = int(self.number_of_pins/self.number_of_sides)
@@ -65,7 +87,7 @@ class Quad:
 
     @property
     def pin_offset(self):
-        proto_pin = Pin(self.data)
+        proto_pin = Pin(self.template.pad)
         return (self.width - proto_pin.length) / 2
 
     def get_pin_side(self, pin_number):
@@ -82,7 +104,8 @@ class Quad:
 
         if not (0 <= pin_number < self.number_of_pins):
             raise IndexOutOfBounds
-        
+
+        pin_index = 0 # huh
         for side_index in self.sides:
             if pin_number < (side_index+1) * self.pins_per_side:
                 pin_index = pin_number - side_index * self.pins_per_side
@@ -144,17 +167,23 @@ class QFN(Quad):
         dot_width       = self.pin_spacing/4
         dot_position    = -self.width/2 + self.corner_spacing + dot_width/2
         rotate_opt      = f"rotate({-45 if diagonal else 0}, {0}, {0})"
-        
-        border    = shapes.qfn_border(self.width, **self.data['package']['style'])
-        pad       = shapes.qfn_pad(pad_width, **self.data['pin']['style'])
-        dot       = dw.Circle( dot_position, dot_position, dot_width,
-                            **self.data['package']['marker_style'])
-        
-        pt = pinout.Text(self.data, 'package')
-        fp_text = pt.generate('text')
-        pd_text = pt.generate('sub_text')
 
-        proto_pin = Pin(self.data)
+        #print(self.template)
+        
+        border    = shapes.qfn_border(self.width, **self.template['style'])
+        pad       = shapes.qfn_pad(pad_width, **self.template['pad']['style'])
+        dot       = dw.Circle( dot_position, dot_position, dot_width,
+                               **self.template['marker_style'])
+
+        s = self.data.get('text', 'text')
+        t = pinout.Text(self.template['text'])
+        dw_text = t.generate(s)
+
+        s = self.data.get('sub_text', 'subtext')
+        t = pinout.Text(self.template['sub_text'])
+        dw_subtext = t.generate(s)
+
+        proto_pin = Pin(self.template['pad'])
         pins = self._build_pins(proto_pin)
         
         package = dw.Group(id="package")
@@ -163,8 +192,8 @@ class QFN(Quad):
         package.append(dot)
         package.append(pins)
 
-        package.append(dw.Use(fp_text, 0, 0, transform=rotate_opt))
-        package.append(dw.Use(pd_text, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_text, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_subtext, 0, 0, transform=rotate_opt))
 
         return package
     
@@ -174,23 +203,26 @@ class QFP(Quad):
         dot_position  = -self.width/2 + self.corner_spacing + dot_width/2
         rotate_opt    = f"rotate({-45 if diagonal else 0}, {0}, {0})"
         
-        proto_pin = Pin(self.data)
-        border    = shapes.qfn_border(self.width-2*proto_pin.length, **self.data['package']['style'])
-        dot       = dw.Circle( dot_position, dot_position, dot_width,
-                            **self.data['package']['marker_style'])
+        proto_pin = Pin(self.template['pad'])
+        border    = shapes.qfn_border(self.width-2*proto_pin.length, **self.template['style'])
+        dot       = dw.Circle(dot_position, dot_position, dot_width, **self.template['marker_style'])
         
         pins = self._build_pins(proto_pin)
 
-        pt = pinout.Text(self.data, 'package')
-        fp_text = pt.generate('text')
-        pd_text = pt.generate('sub_text')
+        s = variant.get('text', 'text')
+        t = pinout.Text(self.template['text'])
+        dw_text = t.generate(s)
+
+        s = variant.get('sub_text', 'subtext')
+        t = pinout.Text(self.template['sub_text'])
+        dw_subtext = t.generate(s)
         
         package = dw.Group(id="package")
         package.append(border)
         package.append(dot)
         package.append(pins)
-        package.append(dw.Use(fp_text, 0, 0, transform=rotate_opt))
-        package.append(dw.Use(pd_text, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_text, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_subtext, 0, 0, transform=rotate_opt))
 
         return package
 

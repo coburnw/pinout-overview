@@ -6,6 +6,7 @@ from pinoutOverview import utils
 from pinoutOverview import packages
 from pinoutOverview import shapes
 from pinoutOverview import pins as Pin
+from pinoutOverview import functions
 
 SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
 
@@ -18,54 +19,45 @@ class label_line:
         self.side = -1
         self.direction = 1
 
+class PinoutFactory():
+    def __new__(self, layout, variant):
+        if layout == 'orthogonal':
+            pinout = OrthogonalPinout(variant)
+        elif layout == 'diagonal':
+            pinout = DiagonalPinout(variant)
+        else: # horizontal
+            pinout = HorizontalPinout(variant)
+
+        return pinout
+        
 class Pinout(utils.Region):
-    def __init__(self, data, pins, diagonal=False, **kwargs):
-        self.data = data
-        self.pins = pins
-        self.diagonal = diagonal
+    def __init__(self, variant, **kwargs):
+        #self.data = variant.data
+        self.package = variant.package
+        self.pins = variant.pins
         
-        pkg         = self.data['footprint'].split('-')[0]
-        pin_count   = len(self.pins) #int(self.data['footprint'].split('-')[1])
-
-        self.row_spacing = self.pins.spacing # self._calculate_row_spacing()
-
-        if diagonal:
-            pin_spacing = self.row_spacing * math.sqrt(2)
-        else:
-            pin_spacing = self.row_spacing
-        
-        if pkg == 'QFN':
-            self.package = packages.QFN(self.data, pin_count, pin_spacing)
-        elif pkg == 'QFP':
-            self.package = packages.QFP(self.data, pin_count, pin_spacing)
-        elif pkg == 'SOP':
-            self.package = packages.SOP(self.data, pin_count)
-        else:
-            raise 'unrecognized package: "{}"'.format(pkg)
-
+        self.row_spacing = self.pins.spacing
         width = self.package.width
         height = width
-        if diagonal:
-            height = height * math.sqrt(2)
             
         super().__init__(width=width, height=height, **kwargs)
         
         return
 
-    def place(self, x, y):
+    def place(self, x, y, transform=''):
         self.x = x
         self.y = y
 
-        transform = ''
-        if self.diagonal is True:
-            transform = transform='rotate(45)'
+        diagonal = False
+        if transform != '':
+            diagonal = True  # true hack
             
-        dw_footprint = self.package.generate(self.diagonal)
+        dw_footprint = self.package.generate(diagonal)
         self.append(dw.Use(dw_footprint, x, y, transform=transform))
         
-        fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, Pin.Label().offset)
+        fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, functions.Label().offset)
         self.append(dw.Use(dw_fanout, x, y))
-        
+
         dw_pins = dw.Group(id='pins')
         for pin in self.pins:
             position = fanout[pin.number]
@@ -110,7 +102,7 @@ class OrthogonalPinout(Pinout):
             
         return wires, dw_wires
         
-    def build_pin(self, pin):
+    def build_pin(self, pin, x=0, y=0):
         side_index, pin_index = self.package.side_from_pin_number(pin.number)
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
@@ -118,7 +110,7 @@ class OrthogonalPinout(Pinout):
         if side_index in [2,3]:
             label_direction = -label_direction
 
-        dw_pin = pin.generate(label_direction, slant=Pin.Label().slant_none)
+        dw_pin = pin.generate(label_direction, slant=functions.Label().slant_none)
 
         transform = 'rotate(0)'
         if side_index in [1,3]:
@@ -130,11 +122,22 @@ class OrthogonalPinout(Pinout):
         
 class DiagonalPinout(Pinout):
     def __init__(self, data, pins, **kwargs):
-        super().__init__(data, pins, diagonal=True, **kwargs)
+        super().__init__(data, pins, **kwargs)
         
+        self.pin_spacing = self.pin_spacing * math.sqrt(2)
+        self.height = self.height * math.sqrt(2)
         self.width = 0
+        
         return
 
+    def place(self, x, y):
+        transform = ''
+        if self.diagonal is True:
+            transform = 'rotate(45)'
+
+        super().place(x, y, transform)
+        return
+        
     def _calc_offset_point(self, pin_number, offset=None, rotation=None):
         sin_45 = math.sin(math.radians(45))
         cos_45 = math.cos(math.radians(45))

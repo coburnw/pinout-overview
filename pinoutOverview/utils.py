@@ -30,10 +30,34 @@ class Region(dw.Group):
     def place(self, x, y, **kwargs):
         raise NotImplmented
         
-class TextStyle:
-    def __init__(self, section, style_key):
-        self.style_dict    = section[style_key]
-        self.family   = self.style_dict['font_family']
+class Text:
+    def __init__(self, template):
+        self.template = template
+
+        self.x_offset = self.template.get('offset', 0)
+        self.y_offset = self.template.get('vert_offset', 0)
+        self.style    = self.template.get('style', dict())
+            
+        return
+
+    def generate(self, value, x=0, y=0):
+        text = value
+        if self.style.get('disabled', False):
+            text = ''
+
+        style = dict(self.style)
+        if 'font_size' in style:
+            del style['font_size']        
+        
+        x += self.x_offset
+        y += self.y_offset
+        
+        return  dw.Text(text, self.style['font_size'], x, y, **style)
+
+class xTextStyle:
+    def __init__(self, style):
+        self.style = style
+        self.family   = self.style['font_family']
         
         parent_height = section.get('height',30)
         self.size     = self.style_dict.get('font_size', parent_height-parent_height/5)
@@ -49,7 +73,7 @@ class TextStyle:
             del d['font_size']        
         return d
 
-class Text:
+class xText:
     def __init__(self, data, section_name):
         self.data = data
         self.section_key = section_name

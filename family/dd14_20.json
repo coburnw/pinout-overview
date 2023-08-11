@@ -1,0 +1,622 @@
+{
+    "section": "family",
+    "name": "dd14_20",
+    "styles": "dxcore_functions",
+    "functions": {
+        "PA0": [
+            {
+                "name": "PA0",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "XTAL",
+                "type": "sys",
+                "alt": false
+            },
+            {
+                "name": "0,TxD",
+                "type": "usart",
+                "alt": false
+            },
+            {
+                "name": "MOSI",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "SDA(H)",
+                "type": "twi",
+                "alt": true
+            },
+            {
+                "name": "WO0",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "0,IN0",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PA1": [
+            {
+                "name": "PA1",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "XTAL",
+                "type": "sys",
+                "alt": false
+            },
+            {
+                "name": "0,RxD",
+                "type": "usart",
+                "alt": false
+            },
+            {
+                "name": "MISO",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "SCL(H)",
+                "type": "twi",
+                "alt": true
+            },
+            {
+                "name": "WO1",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "0,IN1",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PA2": [
+            {
+                "name": "PA2",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN22",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,XCK\r0,TxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SDA(H)",
+                "type": "twi",
+                "alt": false
+            },
+            {
+                "name": "WO2",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "0,WO",
+                "type": "tcb",
+                "alt": false
+            },
+            {
+                "name": "EVOUTA",
+                "type": "evsys",
+                "alt": false
+            },
+            {
+                "name": "0,IN2",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PA3": [
+            {
+                "name": "PA3",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN23",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,XDIR\r0,RxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SCL(H)",
+                "type": "twi",
+                "alt": false
+            },
+            {
+                "name": "WO3",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "1,WO",
+                "type": "tcb",
+                "alt": false
+            },
+            {
+                "name": "0,OUT",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PA4": [
+            {
+                "name": "PA4",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN24",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,TxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "MOSI",
+                "type": "spi",
+                "alt": false
+            },
+            {
+                "name": "WO4",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "WOA",
+                "type": "tcd",
+                "alt": false
+            }
+        ],
+        "PA5": [
+            {
+                "name": "PA5",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN25",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,RxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "MISO",
+                "type": "spi",
+                "alt": false
+            },
+            {
+                "name": "WO5",
+                "type": "tca",
+                "alt": false
+            },
+            {
+                "name": "WOB",
+                "type": "tcd",
+                "alt": false
+            }
+        ],
+        "PA6": [
+            {
+                "name": "PA6",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN26",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,XCK",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SCK",
+                "type": "spi",
+                "alt": false
+            },
+            {
+                "name": "WOC",
+                "type": "tcd",
+                "alt": false
+            },
+            {
+                "name": "0,OUT",
+                "type": "ccl_lut",
+                "alt": true
+            }
+        ],
+        "PA7": [
+            {
+                "name": "PA7",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "CLKOUT",
+                "type": "sys",
+                "alt": false
+            },
+            {
+                "name": "AIN27",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "OUT",
+                "type": "ac",
+                "alt": false
+            },
+            {
+                "name": "ZCOUT",
+                "type": "zcd",
+                "alt": false
+            },
+            {
+                "name": "0,XDIR",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SS",
+                "type": "spi",
+                "alt": false
+            },
+            {
+                "name": "WOD",
+                "type": "tcd",
+                "alt": false
+            },
+            {
+                "name": "EVOUTA",
+                "type": "evsys",
+                "alt": true
+            }
+        ],
+        "PC1": [
+            {
+                "name": "PC1",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN29",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "1,RxD\r0,TxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SS\rMISO\rMOSI",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "WO1",
+                "type": "tca",
+                "alt": true
+            },
+            {
+                "name": "1,IN1",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PC2": [
+            {
+                "name": "PC2",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN30",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "AINN3",
+                "type": "ac",
+                "alt": false
+            },
+            {
+                "name": "ZCIN",
+                "type": "zcd",
+                "alt": false
+            },
+            {
+                "name": "1,XCK\r0,RxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SCK\rMISO",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "SDA(C)\rSDA(H)",
+                "type": "twi",
+                "alt": true
+            },
+            {
+                "name": "WO2",
+                "type": "tca",
+                "alt": true
+            },
+            {
+                "name": "EVOUTC",
+                "type": "evsys",
+                "alt": false
+            },
+            {
+                "name": "1,IN2",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "PC3": [
+            {
+                "name": "PC3",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN31",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "AINP4",
+                "type": "ac",
+                "alt": false
+            },
+            {
+                "name": "1,XDIR\r0,XCK",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SS\rSCK",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "SCL(C)\rSCL(H)",
+                "type": "twi",
+                "alt": true
+            },
+            {
+                "name": "WO3",
+                "type": "tca",
+                "alt": true
+            },
+            {
+                "name": "1,OUT",
+                "type": "ccl_lut",
+                "alt": false
+            }
+        ],
+        "VDDIO2": [
+            {
+                "name": "VDDIO2",
+                "type": "pin",
+                "alt": false
+            }
+        ],
+        "PD4": [
+            {
+                "name": "PD4",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN4",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,TxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "MOSI",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "WO4",
+                "type": "tca",
+                "alt": true
+            },
+            {
+                "name": "WOC",
+                "type": "tcd",
+                "alt": true
+            }
+        ],
+        "PD5": [
+            {
+                "name": "PD5",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN5",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "0,RxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "MISO",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "WO5",
+                "type": "tca",
+                "alt": true
+            },
+            {
+                "name": "WOD",
+                "type": "tcd",
+                "alt": true
+            }
+        ],
+        "PD6": [
+            {
+                "name": "PD6",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "AIN6",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "AINP3",
+                "type": "ac",
+                "alt": false
+            },
+            {
+                "name": "VOUT",
+                "type": "dac",
+                "alt": false
+            },
+            {
+                "name": "0,XCK\r1,TxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SCK",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "2,OUT",
+                "type": "ccl_lut",
+                "alt": true
+            }
+        ],
+        "PD7": [
+            {
+                "name": "PD7",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "VREFA",
+                "type": "sys",
+                "alt": false
+            },
+            {
+                "name": "AIN7",
+                "type": "adc",
+                "alt": false
+            },
+            {
+                "name": "AINN2",
+                "type": "ac",
+                "alt": false
+            },
+            {
+                "name": "0,XDIR\r1,RxD",
+                "type": "usart",
+                "alt": true
+            },
+            {
+                "name": "SS",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "EVOUTD",
+                "type": "evsys",
+                "alt": true
+            }
+        ],
+        "VDD": [
+            {
+                "name": "VDD",
+                "type": "pin",
+                "alt": false
+            }
+        ],
+        "GND": [
+            {
+                "name": "GND",
+                "type": "pin",
+                "alt": false
+            }
+        ],
+        "PF6(5)": [
+            {
+                "name": "PF6(5)",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "RESET",
+                "type": "sys",
+                "alt": false
+            }
+        ],
+        "PF7": [
+            {
+                "name": "PF7",
+                "type": "pin",
+                "alt": false
+            },
+            {
+                "name": "UPDI",
+                "type": "sys",
+                "alt": false
+            },
+            {
+                "name": "SS",
+                "type": "spi",
+                "alt": true
+            },
+            {
+                "name": "EVOUTF",
+                "type": "evsys",
+                "alt": true
+            }
+        ]
+    }
+}
