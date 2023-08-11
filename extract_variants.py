@@ -92,6 +92,7 @@ def build_variant_config(variant_name, package_type, csv_rows):
     variant = config.VariantConfig()
     variant.family = family_name
     pkg_name, pkg_type = package_type
+    variant_name = '{}_{}'.format(variant_name, pkg_type)
     
     variant.pins = dict(
         pin_map = extract_pin_map(pkg_name, csv_rows),
@@ -126,7 +127,7 @@ def build_variant_config(variant_name, package_type, csv_rows):
 if __name__ == '__main__':
 
     # use qfn package only!
-    #packages = [('VQFN20','qfn'),('SOIC20','soic'),('SOIC14','soic')]
+    packages = [('VQFN20','qfn'),('VQFN20','qfp'),('SOIC20','sop')]
     
     atp_path = 'atpack'
     family_name = 'dd14_20'
@@ -138,10 +139,9 @@ if __name__ == '__main__':
         print('opened {}'.format(path))
         build_family_functions(family_name, csv_rows)
 
-        csv_file.seek(0)
-        csv_rows = csv.DictReader(csv_file, delimiter=',')
-        build_variant_config(variant_name, ('VQFN20','qfn'), csv_rows)
-        # for package in packages:
-        #     build_variant_config(package, csv_rows)
+        for package in packages:
+            csv_file.seek(0)
+            csv_rows = csv.DictReader(csv_file, delimiter=',')
+            build_variant_config(variant_name, package, csv_rows)
         
     print('done')

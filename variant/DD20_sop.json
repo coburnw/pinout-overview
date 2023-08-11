@@ -1,0 +1,48 @@
+{
+    "section": "variant",
+    "name": "DD20_sop",
+    "family": "dd14_20",
+    "package": {
+        "type": "sop",
+        "pin_count": 20,
+        "text1": "AVR16DD20\nAVR32DD20\nAVR64DD20",
+        "text2": "SOIC20"
+    },
+    "page": {
+        "header": {
+            "text1": "big title",
+            "text2": "sub title"
+        },
+        "quadrant": {
+            "text1": "sldkfjlksjlkjsadfdjalksfdslkjalksf",
+            "text2": "jsadklfdslkjalksfsldkfjlksjlk",
+            "text3": "jalksfsldkfjlkjalksfksjlkjsadklfdsl",
+            "text4": "fdslkjalksfsldkfjlksjlkjsadkl"
+        }
+    },
+    "pins": {
+        "pin_map": [
+            "GND",
+            "PF6(5)",
+            "PF7",
+            "PA0",
+            "PA1",
+            "PA2",
+            "PA3",
+            "PA4",
+            "PA5",
+            "PA6",
+            "PA7",
+            "PC1",
+            "PC2",
+            "PC3",
+            "VDDIO2",
+            "PD4",
+            "PD5",
+            "PD6",
+            "PD7",
+            "VDD"
+        ],
+        "split": "tca"
+    }
+}
