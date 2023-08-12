@@ -68,7 +68,10 @@ class Pinout(utils.Region):
         self.append(dw.Use(dw_pins, x, y))
 
         return self
-    
+
+    def legend(self, layout='vertical'):
+        return(Legend(layout))
+        
 class OrthogonalPinout(Pinout):
     def build_fanout(self, pin_numbers, offset):
         wires = []
@@ -281,62 +284,42 @@ class HorizontalPinout(Pinout):
 
         return direction
     
-class PinLegend:
+class Legend(dw.Group):
     def __init__(self, data):
+        super().__init__(id='Legend')
         self.data = data
+
+        self._width = 0
+        self._height = 0
+        
         return
+
+    @property
+    def width(self):
+        return self._width
+
+    @property
+    def height(self):
+        return self._height
     
     def generate(self, canvas_width):
-        # label_amount = len(self.data['types'])
+        function_types = functions.Function(None).types
 
-        # column1 = canvas_width/7
-        # column2 = canvas_width/3.2
-        # column3 = canvas_width/2
-        # column4 = canvas_width/3*2
+        x = 0
+        y = 0
+        for type_name in function_types:
+            ftype = dict(
+                name = '',
+                type = type_name,
+                alt = False
+                )
+            label = functions.Function(ftype).label()
+            y += label.height + label.vert_spacing
+            self.append(dw.Use(label.generate(type_name.upper(), slant=0), x,y))
 
-        # legends = dw.Group(id="legends")
-
-        # for i, typ in enumerate(self.data['types']):
-        #     ftype = self.data['types'][typ]
-        #     if "skip" in ftype:
-        #         if ftype["skip"]:
-        #             continue
-        #     legend_group = dw.Group(id=f"legend_{typ}")
-
-        #     #label = Label(self.data)
-        #     label = functions.FunctionLabel()
-            
-        #     lbl = label.generate(typ.upper(), ftype, caption=ftype['description'])
-        #     legend_group.append(dw.Use(lbl, 0, 0))
-            
-        #     if i < label_amount/3-1:
-        #         legends.append(dw.Use(legend_group, column1, (i)*(label.height+label.spacing)))
-        #     elif i < label_amount/3*2-1:
-        #         legends.append(dw.Use(legend_group, column2, (i - label_amount/3)*(label.height+label.spacing)))
-        #     else:
-        #         legends.append(dw.Use(legend_group, column3, (i - label_amount/3*2)*(label.height+label.spacing)))
-
-        # legend_normal = dw.Group(id="legend_normal")
-
-        # label = Label(self.data)
-        # lbl = label.generate("FUNC", {'box_style': {'fill': 'white', 'stroke': 'black'}})
-        # legend_normal.append(dw.Use(lbl, 0, 0))
-        # text_normal = dw.Text("Default Function", label.height, 0, 0,
-        #                     text_anchor='start', dominant_baseline='middle',
-        #                     fill="black", font_weight='bold', font_family='Roboto Mono')
-        # legend_normal.append(dw.Use(text_normal, label.width + 10, (label.height-10)/10))
-        # legends.append(dw.Use(legend_normal, column4, 0))
-
-        # legend_alt = dw.Group(id="legend_alt")
-        # label = Label(self.data)
-        # lbl = label.generate("FUNC", {'box_style': {'fill': 'white', 'stroke': 'black'}}, is_alt=True)
+        self._width = label.width + label.spacing
+        self._height = y + label.vert_spacing
         
-        # legend_alt.append(dw.Use(lbl, 0, 0))
-        # text_alt = dw.Text("Alternate Function", label.height, 0, 0,
-        #                     text_anchor='start', dominant_baseline='middle',
-        #                     fill="black", font_weight='bold', font_family='Roboto Mono')
-        # legend_alt.append(dw.Use(text_alt, label.width + 10, (label.height-10)/10))
-        # legends.append(dw.Use(legend_alt, column4, label.height+label.spacing))
-
-        return legends
+        return self
+    
 

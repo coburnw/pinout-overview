@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
     variant = Variant(sys.argv[1])
     
-    layout = 'orthogonal'
+    layout = 'orthogonal' # horizontal, diagonal
     pinout = pinouts.PinoutFactory(layout, variant)
     
     page = page.Page(variant.page, pinout)

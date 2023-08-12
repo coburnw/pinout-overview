@@ -136,12 +136,12 @@ class Function():
         return self.function['type']
 
     @property
-    def style(self):
-        return self.types[self.type]
-
-    @property
     def is_alt(self):
         return self.function['alt']    
+
+    @property
+    def style(self):
+        return self.types[self.type]
 
     @property
     def skip(self):
@@ -156,6 +156,9 @@ class Function():
     def spacing(self):
         return Label().spacing
 
+    def label(self):
+        return Label(style=self.style)
+    
     def generate(self, slant):
         label = Label(style=self.style)
         return label.generate(self.name, slant=slant, is_alt=self.is_alt)

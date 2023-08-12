@@ -131,10 +131,6 @@ class Page():
 
         dw_page.append(self.pinout.place(self.package_x_offset, self.package_y_offset))
 
-        # Attach Pin Function Legend
-        # legend = pinouts.PinLegend(self.data)
-        # dw_page.append(dw.Use(legend.generate(self.canvas_width), -self.canvas_width/2, self.canvas_height/2-160))
-
         # Add quadrant text fields
         quads = dw.Group(id="quadrant_text")
 
@@ -143,8 +139,16 @@ class Page():
         q_width = (border.width - self.pinout.width) / 2 - (2 * x_margin)
         q_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
 
+        # Attach Pin Function Legend to first quadrant
+        x = -border.width/2 + x_margin
+        y = header.bottom + y_margin
+        
+        legend = self.pinout.legend()
+        dw_page.append(dw.Use(legend.generate(self.canvas_width), x,y))
+        
         for i in range(4):
             if i in [0,2] : x = -border.width/2 + x_margin
+            if i == 0     : x += legend.width
             if i in [0,1] : y = header.bottom + y_margin
 
             if i in [1,3] : x = x_margin + self.pinout.width/2
