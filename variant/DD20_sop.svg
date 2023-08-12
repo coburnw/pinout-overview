@@ -959,6 +959,93 @@
 <use xlink:href="#d213" x="120.0" y="-105.0" />
 <use xlink:href="#d217" x="120.0" y="-135.0" />
 </g>
+<g id="d218">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">USART</text>
+</g>
+<g id="d219">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TWI</text>
+</g>
+<g id="d220">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SPI</text>
+</g>
+<g id="d221">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">ADC</text>
+</g>
+<g id="d222">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">AC</text>
+</g>
+<g id="d223">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">DAC</text>
+</g>
+<g id="d224">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">ZCD</text>
+</g>
+<g id="d225">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SYS</text>
+</g>
+<g id="d226">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA</text>
+</g>
+<g id="d227">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCB</text>
+</g>
+<g id="d228">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCD</text>
+</g>
+<g id="d229">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">EVSYS</text>
+</g>
+<g id="d230">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CCL_LUT</text>
+</g>
+<g id="d231">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PIN</text>
+</g>
+<g id="d232">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="black" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">VSS</text>
+</g>
+<g id="d233">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="red" fill="red" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">VDD</text>
+</g>
+<g id="d234">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold">SPACER</text>
+</g>
+<g id="Legend">
+<use xlink:href="#d218" x="0" y="30" />
+<use xlink:href="#d219" x="0" y="60" />
+<use xlink:href="#d220" x="0" y="90" />
+<use xlink:href="#d221" x="0" y="120" />
+<use xlink:href="#d222" x="0" y="150" />
+<use xlink:href="#d223" x="0" y="180" />
+<use xlink:href="#d224" x="0" y="210" />
+<use xlink:href="#d225" x="0" y="240" />
+<use xlink:href="#d226" x="0" y="270" />
+<use xlink:href="#d227" x="0" y="300" />
+<use xlink:href="#d228" x="0" y="330" />
+<use xlink:href="#d229" x="0" y="360" />
+<use xlink:href="#d230" x="0" y="390" />
+<use xlink:href="#d231" x="0" y="420" />
+<use xlink:href="#d232" x="0" y="450" />
+<use xlink:href="#d233" x="0" y="480" />
+<use xlink:href="#d234" x="0" y="510" />
+</g>
 </defs>
 <g>
 <rect x="-1100.0" y="-850.0" width="2200" height="1700" stroke="black" stroke-width="2" fill="white" />
@@ -972,8 +1059,9 @@
 <use xlink:href="#d42" x="0" y="0" />
 <use xlink:href="#pins" x="0" y="0" />
 </g>
+<use xlink:href="#Legend" x="-990.0" y="-695.0" />
 <g id="quadrant_text">
-<foreignObject x="-990.0" y="-695.0" width="790.0" height="580.0" id="quadrant_0" fill="none" stroke="black">
+<foreignObject x="-910.0" y="-695.0" width="790.0" height="580.0" id="quadrant_0" fill="none" stroke="black">
 <div xmlns="http://www.w3.org/1999/xhtml"><p>sldkfjlksjlkjsadfdjalksfdslkjalksf</p></div>
 </foreignObject>
 <foreignObject x="200.0" y="-695.0" width="790.0" height="580.0" id="quadrant_1" fill="none" stroke="black">
