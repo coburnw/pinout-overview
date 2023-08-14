@@ -28,7 +28,7 @@ class Variant():
         
         self.package = packages.PackageFactory(self.config.package, 30)
         self.functions = Functions(self.config.family)
-        self.pins = pins.Pins(self.config.pins, self.functions)
+        self.pins = pins.Pins(self.config.pins, self.functions.functions.functions) #omg
         
         return
 

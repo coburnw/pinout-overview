@@ -66,7 +66,7 @@ class Pin(dw.Group):
 class Pins():
     def __init__(self, variant_pins, rows):
         self.variant = variant_pins   # each name can be a name or a list of names that point to a row in rows
-        self.rows = rows.functions.functions
+        self.rows = rows #rows.functions.functions
         self.spacing = self.calc_spacing(self.variant['pin_map'])
         return
 

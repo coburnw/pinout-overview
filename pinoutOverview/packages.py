@@ -199,11 +199,11 @@ class QFN(Quad):
         marker       = dw.Circle( marker_position, marker_position, marker_dia,
                                **self.template['marker_style'])
 
-        s = self.data.get('text', 'text')
+        s = self.data.get('text1', 'text')
         t = pinout.Text(self.template['text'])
         dw_text = t.generate(s)
 
-        s = self.data.get('sub_text', 'subtext')
+        s = self.data.get('text2', 'subtext')
         t = pinout.Text(self.template['sub_text'])
         dw_subtext = t.generate(s)
 
@@ -262,11 +262,11 @@ class SOP(Dual):
         
         pins = self._build_pins(proto_pin)
 
-        s = self.data.get('text', 'text')
+        s = self.data.get('text1', 'text')
         t = pinout.Text(self.template['text'])
         dw_text = t.generate(s)
 
-        s = self.data.get('sub_text', 'subtext')
+        s = self.data.get('text2', 'subtext')
         t = pinout.Text(self.template['sub_text'])
         dw_subtext = t.generate(s)
         

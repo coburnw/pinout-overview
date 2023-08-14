@@ -147,7 +147,7 @@ class Function():
     def skip(self):
         style = self.types[self.function['type']]
         return "skip" in style and style['skip']
-
+        
     @property
     def is_spacer(self):
         return self.function['type'] == 'spacer'
@@ -158,7 +158,12 @@ class Function():
 
     def label(self):
         return Label(style=self.style)
-    
+
+    def exists(self):
+        if self.function['type'] in self.types:
+            raise '{} function not found in function type styles'.format(self.type)
+        return True
+
     def generate(self, slant):
         label = Label(style=self.style)
         return label.generate(self.name, slant=slant, is_alt=self.is_alt)

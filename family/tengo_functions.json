@@ -37,7 +37,7 @@
                 "fill": "black"
             }
         },
-        "ain": {
+        "adc": {
             "description": "ADC",
             "box_style": {
                 "stroke": "#0060CD",
@@ -81,7 +81,7 @@
                 "fill": "black"
             }
         },
-        "other": {
+        "sys": {
             "width": 150,
             "description": "SYSTEM",
             "box_style": {
@@ -137,19 +137,8 @@
                 "fill": "black"
             }
         },
-        "ccl": {
+        "ccl_lut": {
             "description": "Logic Table",
-            "box_style": {
-                "stroke": "#9600CC",
-                "fill": "#E399FF"
-            },
-            "text_style": {
-                "font_family": "Roboto Mono",
-                "fill": "black"
-            }
-        },
-        "clock": {
-            "description": "Clock",
             "box_style": {
                 "stroke": "#9600CC",
                 "fill": "#E399FF"
@@ -172,18 +161,6 @@
             }
         },
         "vss": {
-            "width": 80,
-            "description": "GND",
-            "box_style": {
-                "stroke": "black",
-                "fill": "black"
-            },
-            "text_style": {
-                "font_family": "Roboto Mono",
-                "fill": "white"
-            }
-        },
-        "gnd": {
             "width": 80,
             "description": "GND",
             "box_style": {

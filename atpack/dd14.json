@@ -1,0 +1,30 @@
+{ "DD14":{  
+    "shape":"SOIC-14",
+    "part_family":"DD14",
+    "part_range":["AVR16DD14","AVR32DD14","AVR64DD14"],
+    "negadcpins" :"All",
+    "notes": ["#All pins are fully async and can wake from powerdown sleep on rising/falling edge", 
+	      "#DxCore's PWM system is *PORTMUX aware* for both TCA and TCD; just set PORTMUX, and analogWrite/digitalWrite() will react appropriately", 
+	      "#TCA and TCD must be set as a group, they cannot be set individually. ",
+	      "#Errata/Clarif: TCD and TCA override the port direction on these parts."
+	     ],
+    "pin_map":["GND", "PF6", "PF7", "PA0", "PA1", "PC1", "PC2", "PC3", "VDDIO2", "PD4", "PD5", "PD6", "PD7", "VDD"],
+    "pins":{
+	"PA0":{"PIN":["PA0"], "USART0":["TX"], "SPI0":["MOSI_ALT1"], "TWI0":["SDA_ALT2 (MS)"], "TCA0":["TCA_A"], "CCL":["0IN0"], "CLOCK":["CLKIN", "XTAL1"]},
+	"PA1":{"PIN":["PA1"], "USART0":["RX"], "SPI0":["MISO_ALT1"], "TWI0":["SDA_ALT2 (MS)"], "TCA0":["TCA_A"], "CCL":["0IN1"], "CLOCK":["CLKIN", "XTAL1"]},
+	"PC1":{"PIN":["PC1"], "AIN":[29], "USART0":["TX_ALT4"], "USART1":["RX"], "SPI0":["MISO_ALT1", "MOSI_ALT6", "SS_ALT3"], "TCA0":["TCA_C"], "CCL":["1IN1"]},
+	"PC2":{"PIN":["PC2"], "AIN":[30], "AC":["IN_N3"], "ZCD":["IN3"], "USART0":["RX_ALT4"], "USART1":["XCK"], "SPI0":["SCK_ALT1", "MISO_ALT6"], "TWI0":["SDA (S)", "SDA_ALT2 (MS)"], "TCA0":["TCA_C"], "CCL":["1IN2"], "EVSYS":["EVOUTC"]},
+	"PC3":{"PIN":["PC3"], "AIN":[31], "AC":["IN_P4"], "USART0":["XCK_ALT4"], "USART1":["XDIR"], "SPI0":["SS_ALT1", "SCK_ALT6"], "TWI0":["SCL (S)", "SCL_ALT2 (MS)"], "TCA0":["TCA_C"], "CCL":["1OUT"]},
+	"VDDIO2":{"PIN":["VDDIO2"]},
+	"PD4":{"PIN":["PD4"], "AIN":[4], "USART0":["TX_ALT3"], "SPI0":["MOSI_ALT4"], "TCA0":["TCA_D"], "TCD0":["TCD_C_ALT4"]},
+	"PD5":{"PIN":["PD5"], "AIN":[5], "USART0":["RX_ALT3"], "SPI0":["MISO_ALT4"], "TCA0":["TCA_D"], "TCD0":["TCD_D_ALT4"]},
+	"PD6":{"PIN":["PD6"], "AIN":[6], "AC":["IN_P3"], "USART0":["XCK_ALT4"], "USART1":["TX_ALT2"], "SPI0":["SCK_ALT4"], "EVSYS":["EVOUTD_ALT"]},
+	"PD7":{"PIN":["PD7"], "AIN":[7], "AC":["IN_N2"], "USART0":["XDIR_ALT4"], "USART1":["RX_ALT2"], "SPI0":["SS_ALT4"], "CCL":["2OUT_ALT"], "OTHER":["VREFA"]},
+	"PF6":{"PIN":["PF6"], "OTHER":["RESET"]},
+	"PF7":{"PIN":["PF7"], "SPI0":["SS_ALT6"], "EVSYS":["EVOUTF_ALT"], "OTHER":["UPDI"]},
+	"VDD":{"PIN":["VDD"]}, 
+	"GND":{"PIN":["GND"]}
+    }
+    
+}
+}
