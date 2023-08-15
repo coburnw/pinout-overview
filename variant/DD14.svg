@@ -135,8 +135,8 @@
 <path d="M90.0,-90.0 L120.0,-90.0" stroke-width="2" stroke="black" />
 </g>
 <g id="d31">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">GND</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">GND</text>
 </g>
 <g id="d32">
 <path d="M0,0 L-45.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -149,8 +149,8 @@
 </g>
 <use xlink:href="#d33" x="0" y="0" transform="rotate(0)" id="d34" />
 <g id="d35">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PF6</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PF6</text>
 </g>
 <g id="d36">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
@@ -168,16 +168,16 @@
 </g>
 <use xlink:href="#d38" x="0" y="0" transform="rotate(0)" id="d39" />
 <g id="d40">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PF7</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PF7</text>
 </g>
 <g id="d41">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SS6</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SS6</text>
 </g>
 <g id="d42">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">EVOUTF</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">EVOUTF</text>
 </g>
 <g id="d43">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
@@ -197,31 +197,31 @@
 </g>
 <use xlink:href="#d45" x="0" y="0" transform="rotate(0)" id="d46" />
 <g id="d47">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PA0</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PA0</text>
 </g>
 <g id="d48">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TX</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TX</text>
 </g>
 <g id="d49">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">MOSI1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">MOSI1</text>
 </g>
 <g id="d50">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SDA2 (MS)</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SDA2 (MS)</text>
 </g>
 <g id="d51">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_A</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_A</text>
 </g>
 <g id="d52">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">0IN0</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">0IN0</text>
 </g>
 <g id="d53">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CLKIN</text>
 </g>
 <g id="d54">
@@ -241,31 +241,31 @@
 </g>
 <use xlink:href="#d55" x="0" y="0" transform="rotate(0)" id="d56" />
 <g id="d57">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PA1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PA1</text>
 </g>
 <g id="d58">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">RX</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">RX</text>
 </g>
 <g id="d59">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">MISO1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">MISO1</text>
 </g>
 <g id="d60">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SDA2 (MS)</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SDA2 (MS)</text>
 </g>
 <g id="d61">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_A</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_A</text>
 </g>
 <g id="d62">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">0IN1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">0IN1</text>
 </g>
 <g id="d63">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CLKIN</text>
 </g>
 <g id="d64">
@@ -285,32 +285,32 @@
 </g>
 <use xlink:href="#d65" x="0" y="0" transform="rotate(0)" id="d66" />
 <g id="d67">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PC1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PC1</text>
 </g>
 <g id="d68">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">29</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">29</text>
 </g>
 <g id="d69">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">TX4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">TX4</text>
 </g>
 <g id="d70">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">RX</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">RX</text>
 </g>
 <g id="d71">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">MISO1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">MISO1</text>
 </g>
 <g id="d72">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_C</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_C</text>
 </g>
 <g id="d73">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">1IN1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">1IN1</text>
 </g>
 <g id="d74">
 <path d="M0,0 L-525.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -329,48 +329,48 @@
 </g>
 <use xlink:href="#d75" x="0" y="0" transform="rotate(0)" id="d76" />
 <g id="d77">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PC2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PC2</text>
 </g>
 <g id="d78">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">30</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">30</text>
 </g>
 <g id="d79">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">IN_N3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">IN_N3</text>
 </g>
 <g id="d80">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">IN3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">IN3</text>
 </g>
 <g id="d81">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">RX4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">RX4</text>
 </g>
 <g id="d82">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">XCK</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">XCK</text>
 </g>
 <g id="d83">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SCK1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SCK1</text>
 </g>
 <g id="d84">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SDA (S)</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">SDA (S)</text>
 </g>
 <g id="d85">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_C</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_C</text>
 </g>
 <g id="d86">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">1IN2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">1IN2</text>
 </g>
 <g id="d87">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">EVOUTC</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">EVOUTC</text>
 </g>
 <g id="d88">
 <path d="M0,0 L-845.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -393,40 +393,40 @@
 </g>
 <use xlink:href="#d89" x="0" y="0" transform="rotate(0)" id="d90" />
 <g id="d91">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PC3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PC3</text>
 </g>
 <g id="d92">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">31</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">31</text>
 </g>
 <g id="d93">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">IN_P4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">IN_P4</text>
 </g>
 <g id="d94">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">XCK4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">XCK4</text>
 </g>
 <g id="d95">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">XDIR</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">XDIR</text>
 </g>
 <g id="d96">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SS1</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SS1</text>
 </g>
 <g id="d97">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SCL (S)</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">SCL (S)</text>
 </g>
 <g id="d98">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_C</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_C</text>
 </g>
 <g id="d99">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">1OUT</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">1OUT</text>
 </g>
 <g id="d100">
 <path d="M0,0 L685.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -447,8 +447,8 @@
 </g>
 <use xlink:href="#d101" x="0" y="0" transform="rotate(0)" id="d102" />
 <g id="d103">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">VDDIO2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">VDDIO2</text>
 </g>
 <g id="d104">
 <path d="M0,0 L45.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -461,28 +461,28 @@
 </g>
 <use xlink:href="#d105" x="0" y="0" transform="rotate(0)" id="d106" />
 <g id="d107">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PD4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PD4</text>
 </g>
 <g id="d108">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">4</text>
 </g>
 <g id="d109">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">TX3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">TX3</text>
 </g>
 <g id="d110">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">MOSI4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">MOSI4</text>
 </g>
 <g id="d111">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_D</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_D</text>
 </g>
 <g id="d112">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">TCD_C4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">TCD_C4</text>
 </g>
 <g id="d113">
 <path d="M0,0 L445.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -500,28 +500,28 @@
 </g>
 <use xlink:href="#d114" x="0" y="0" transform="rotate(0)" id="d115" />
 <g id="d116">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PD5</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PD5</text>
 </g>
 <g id="d117">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">5</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">5</text>
 </g>
 <g id="d118">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">RX3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">RX3</text>
 </g>
 <g id="d119">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">MISO4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">MISO4</text>
 </g>
 <g id="d120">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA_D</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">TCA_D</text>
 </g>
 <g id="d121">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">TCD_D4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">TCD_D4</text>
 </g>
 <g id="d122">
 <path d="M0,0 L445.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -539,32 +539,32 @@
 </g>
 <use xlink:href="#d123" x="0" y="0" transform="rotate(0)" id="d124" />
 <g id="d125">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PD6</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PD6</text>
 </g>
 <g id="d126">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">6</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">6</text>
 </g>
 <g id="d127">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">IN_P3</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">IN_P3</text>
 </g>
 <g id="d128">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">XCK4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">XCK4</text>
 </g>
 <g id="d129">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">TX2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">TX2</text>
 </g>
 <g id="d130">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SCK4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SCK4</text>
 </g>
 <g id="d131">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">EVOUTD</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">EVOUTD</text>
 </g>
 <g id="d132">
 <path d="M0,0 L525.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -583,32 +583,32 @@
 </g>
 <use xlink:href="#d133" x="0" y="0" transform="rotate(0)" id="d134" />
 <g id="d135">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PD7</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PD7</text>
 </g>
 <g id="d136">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">7</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">7</text>
 </g>
 <g id="d137">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">IN_N2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">IN_N2</text>
 </g>
 <g id="d138">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">XDIR4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">XDIR4</text>
 </g>
 <g id="d139">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">RX2</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">RX2</text>
 </g>
 <g id="d140">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#00CC5F" fill="#8CEEBA" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">SS4</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">SS4</text>
 </g>
 <g id="d141">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="black">2OUT</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="3 4" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="-2.0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" fill="#FFFFFF">2OUT</text>
 </g>
 <g id="d142">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
@@ -632,8 +632,8 @@
 </g>
 <use xlink:href="#d144" x="0" y="0" transform="rotate(0)" id="d145" />
 <g id="d146">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">VDD</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">VDD</text>
 </g>
 <g id="d147">
 <path d="M0,0 L45.0,0" stroke="black" stroke-width="2" fill="none" />
@@ -662,8 +662,8 @@
 <use xlink:href="#d149" x="120.0" y="-90.0" />
 </g>
 <g id="d150">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CC0092" fill="#FFA3E5" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">USART</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1976D2" fill="#2196F3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">SERIAL</text>
 </g>
 <g id="d151">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00B8CC" fill="#88EBF7" transform="skewX(-0.0)" />
@@ -674,66 +674,78 @@
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SPI</text>
 </g>
 <g id="d153">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">AIN</text>
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#5D4037" fill="#795548" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">ANALOG</text>
 </g>
 <g id="d154">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">AC</text>
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">AIN</text>
 </g>
 <g id="d155">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">DAC</text>
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">AC</text>
 </g>
 <g id="d156">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">ZCD</text>
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">DAC</text>
 </g>
 <g id="d157">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#0060CD" fill="#A2CEFF" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">ZCD</text>
+</g>
+<g id="d158">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">SYS</text>
+</g>
+<g id="d159">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">OTHER</text>
 </g>
-<g id="d158">
+<g id="d160">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#CCAA00" fill="#FFE97C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CLOCK</text>
+</g>
+<g id="d161">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#7B1FA2" fill="#9C27B0" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PWM</text>
+</g>
+<g id="d162">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#00CCA0" fill="#99FFE9" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCA</text>
 </g>
-<g id="d159">
+<g id="d163">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCB</text>
 </g>
-<g id="d160">
+<g id="d164">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#69CC00" fill="#DAFFB3" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">TCD</text>
 </g>
-<g id="d161">
+<g id="d165">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#1F618D" fill="#2471A3" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">LOGIC</text>
+</g>
+<g id="d166">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">EVSYS</text>
 </g>
-<g id="d162">
+<g id="d167">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CCL</text>
 </g>
-<g id="d163">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#9600CC" fill="#E399FF" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">CLOCK</text>
-</g>
-<g id="d164">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="grey" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">PIN</text>
-</g>
-<g id="d165">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="black" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">VSS</text>
-</g>
-<g id="d166">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="black" fill="black" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="white">GND</text>
-</g>
-<g id="d167">
-<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="red" fill="red" transform="skewX(-0.0)" />
-<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="black">VDD</text>
-</g>
 <g id="d168">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#2E7D32" fill="#388E3C" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">PIN</text>
+</g>
+<g id="d169">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#000000" fill="#000000" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">VSS</text>
+</g>
+<g id="d170">
+<rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" stroke="#EF9A9A" fill="#EF9A9A" transform="skewX(-0.0)" />
+<text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold" fill="#FFFFFF">VDD</text>
+</g>
+<g id="d171">
 <rect x="-35.0" y="-10.0" width="70" height="20" stroke-width="2" rx="2" ry="2" stroke-dasharray="" transform="skewX(-0.0)" />
 <text x="0" y="2.0" font-size="16.0" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-weight="bold">SPACER</text>
 </g>
@@ -757,6 +769,9 @@
 <use xlink:href="#d166" x="0" y="510" />
 <use xlink:href="#d167" x="0" y="540" />
 <use xlink:href="#d168" x="0" y="570" />
+<use xlink:href="#d169" x="0" y="600" />
+<use xlink:href="#d170" x="0" y="630" />
+<use xlink:href="#d171" x="0" y="660" />
 </g>
 </defs>
 <g>

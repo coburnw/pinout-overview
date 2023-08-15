@@ -169,6 +169,7 @@ class Function():
         return label.generate(self.name, slant=slant, is_alt=self.is_alt)
 
 class Functions(dw.Group):
+    # a single row of functions
     def __init__(self, row, direction, id=None):
         super().__init__()
 

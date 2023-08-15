@@ -11,17 +11,6 @@ from pinoutOverview import functions
 
 from template import function_label
 
-# class Functions():
-#     def __init__(self, funcs):
-#         self.functions = funcs
-#         #self.functions = config.FamilyFunctions(family_name)
-#         functions.Label(template=function_label.label_template)
-        
-#         self.styles = config.FunctionStyles(self.functions.styles)
-#         functions.Function(function=None, type_templates=self.styles.styles)
-
-#         return
-    
 class Variant():
     def __init__(self, name):
         print("loading variant: {}".format(name))
@@ -95,6 +84,18 @@ class Atpack():
                 else:
                     fname = str(value[0])
 
+                if ftype in ['tca','tcb','tcd']:
+                    ftype = 'pwm'
+
+                if ftype in ['ac', 'ain', 'zcd']:
+                    ftype = 'analog'
+
+                if ftype in ['usart', 'twi', 'spi']:
+                    ftype = 'serial'
+                    
+                if ftype in['ccl', 'evsys']:
+                    ftype = 'logic'
+                    
                 is_alt = False
                 if 'ALT' in fname:
                     is_alt = True
@@ -122,10 +123,10 @@ def load(name):
     
 
 if __name__ == "__main__":
-
-    functions.Label(template=function_label.label_template)
-    styles = Config.FunctionStyles('dxcore_functions')
-    functions.Function(function=None, type_templates=styles.styles)
+    from template import dxcore
+    
+    functions.Label(template=dxcore.label_template)
+    functions.Function(function=None, type_templates=dxcore.function_types)
 
     layout = 'orthogonal' # horizontal, diagonal
 
