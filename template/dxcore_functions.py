@@ -111,12 +111,12 @@ function_types = dict(
         width = 150,
         description = 'SYSTEM',
         box_style = dict(
-            stroke = '#CCAA00',
-            fill = '#FFE97C'
+            stroke = get_colors(('sunflower', 500), palette=palette),
+            fill = get_colors(('sunflower', 500), palette=palette)
         ),
         text_style = dict(
             font_family = 'Roboto Mono',
-            fill = 'black'
+            fill = get_colors(('black', 500), palette=palette)
         )
     ),
     clock = dict(
@@ -208,11 +208,24 @@ function_types = dict(
             fill = 'black'
         )
     ),
+
+    vddio = dict(
+        width = 80,
+        description = 'MULTI-VOLTAGE PIN',
+        box_style = dict(
+            stroke = get_colors(('green', 900), palette=palette),
+            fill = get_colors(('green', 500), palette=palette)
+        ),
+        text_style= dict(
+            font_family = 'Roboto Mono',
+            fill = get_colors(('black', 800), palette=palette)
+        )
+    ),
     pin = dict(
         width = 80,
         description = 'PORT PIN',
         box_style = dict(
-            stroke = get_colors(('green', 800), palette=palette),
+            stroke = get_colors(('green', 900), palette=palette),
             fill = get_colors(('green', 700), palette=palette)
         ),
         text_style= dict(

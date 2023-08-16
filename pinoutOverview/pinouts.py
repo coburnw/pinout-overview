@@ -313,7 +313,12 @@ class Legend(dw.Group):
                 type = type_name,
                 alt = False
                 )
-            label = functions.Function(ftype).label()
+            
+            function = functions.Function(ftype)
+            if function.use_count == 0:
+                continue
+            
+            label = function.label()
             y += label.height + label.vert_spacing
             self.append(dw.Use(label.generate(type_name.upper(), slant=0), x,y))
 

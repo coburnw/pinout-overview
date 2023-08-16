@@ -124,9 +124,21 @@ class Function():
     
     @classmethod
     def set_types(cls, types):
+        cls._use_count = dict()
         cls.types = types
         return
 
+    @property
+    def use_count(self):
+        if self.type not in self._use_count:
+            return 0
+        
+        return self._use_count[self.type]
+
+    def reset_use_count(self):
+        self._use_count = dict()
+        return
+    
     @property
     def name(self):
         return self.function['name']    
@@ -165,8 +177,16 @@ class Function():
         return True
 
     def generate(self, slant):
+        
         label = Label(style=self.style)
-        return label.generate(self.name, slant=slant, is_alt=self.is_alt)
+        dw_lbl = label.generate(self.name, slant=slant, is_alt=self.is_alt)
+
+        if self.type not in self._use_count:
+            self._use_count[self.type] = 0
+            
+        self._use_count[self.type] += 1
+        
+        return dw_lbl
 
 class Functions(dw.Group):
     # a single row of functions

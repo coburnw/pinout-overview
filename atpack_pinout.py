@@ -12,9 +12,9 @@ from pinoutOverview import functions
 from template import function_label
 
 class Variant():
-    def __init__(self, name):
-        print("loading variant: {}".format(name))
-        atpack = Atpack(name)        
+    def __init__(self, data):
+        #print("loading variant: {}".format(data))
+        atpack = Atpack(data)
         self.config = atpack.build_variant_config()
 
         self.family_functions = atpack.get_family_functions()
@@ -74,35 +74,45 @@ class Atpack():
         family_functions.styles = 'dxcore_functions'
         
         for pin_name, function_list in self.variant['pins'].items():
-            print(pin_name)
-            for key,value in function_list.items():
-                print(' {} {}'.format(key,value))
-                ftype = key.lower()
-                ftype = ftype.rstrip('0123456789')
-                if ftype == 'pin':
-                    fname = str(value[0])
-                else:
-                    fname = str(value[0])
+            #print(pin_name)
+            for key,values in function_list.items():
+                #print(' {} {}'.format(key,values))
 
+                # get function type and peripheral index
+                ftype = key.rstrip('0123456789').lower()
+                try:
+                    index = int(key[len(ftype):])
+                except:
+                    index = 0
+                    
                 if ftype in ['tca','tcb','tcd']:
                     ftype = 'pwm'
 
                 if ftype in ['ac', 'ain', 'zcd']:
                     ftype = 'analog'
 
-                if ftype in ['usart', 'twi', 'spi']:
+                if ftype in ['usart', 'twi', 'spi', 'vrefa']:
                     ftype = 'serial'
                     
-                if ftype in['ccl', 'evsys']:
+                if ftype in ['ccl', 'evsys']:
                     ftype = 'logic'
                     
-                is_alt = False
-                if 'ALT' in fname:
-                    is_alt = True
-                    fname = fname.replace('_ALT','')
+                if ftype in ['pin', 'vddio', 'vdd', 'gnd']:
+                    index = 0
+
+                for fname in values:
+                    fname = str(fname)
+                    #print(fname)
+
+                    if index > 0:
+                        fname = '{},{}'.format(index, fname)
+
+                    is_alt = False
+                    if 'ALT' in fname:
+                        is_alt = True
+                        fname = fname.replace('_ALT','')
                     
-                                    
-                family_functions.append(pin_name, fname, ftype, is_alt)
+                    family_functions.append(pin_name, fname, ftype, is_alt)
 
         return family_functions
 
