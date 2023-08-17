@@ -1,2 +1,3 @@
 from template.function_label import label_template
 from template.dxcore_functions import function_types
+from template.dxcore_page import page_template

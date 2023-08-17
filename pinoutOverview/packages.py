@@ -168,8 +168,8 @@ class Quad(Package):
 
         self.corner_spacing  = self.pin_spacing*1.5
         
-        self.width   = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
-        self.height  = self.width
+        self.height   = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
+        self.width  = self.height
         
         return
 

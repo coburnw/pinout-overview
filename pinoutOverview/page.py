@@ -4,6 +4,10 @@ import sys
 import drawsvg as dw
 import markdown as md
 
+import requests
+from io import BytesIO
+from PIL import ImageFont
+
 from pinoutOverview import utils
 from pinoutOverview import config
 
@@ -69,14 +73,91 @@ class Header(utils.Region):
         self.x = x
         self.y = y
 
-        text = utils.Text(self.template['text1'])
+        print(self.template)
+        
+        text = utils.Text(self.template['text'])
         self.append(text.generate(items['text1'], x=self.x, y=self.y))
 
-        text = utils.Text(self.template['text2'])
+        text = utils.Text(self.template['subtext'])
         self.append(text.generate(items['text2'], x=self.x, y=self.y))
 
         return self
 
+class TextBlock(utils.Region):
+    def __init__(self, template, id=None, width=0, height=0):
+        self.template = template
+        super().__init__(id=id, width=width, height=height)
+
+        self.text = utils.Text(self.template['text'])
+        print(self.text.style['font_family'], self.text.style['font_size'], width, height)
+
+        font_family = self.get_font_family()
+        if font_family is None:
+            font_family = self.get_google_font(self.text.style['font_family'])
+            self.set_font_family(font_family)
+            
+        self.font = ImageFont.truetype(font_family, self.text.style['font_size'])
+        
+        return
+
+    @classmethod
+    def set_font_family(cls, font_family):
+        cls._font_family = font_family
+        return font_family
+
+    @classmethod
+    def get_font_family(cls):
+        try:
+            cls._font_family.seek(0)
+            return cls._font_family
+        except:
+            return None
+
+    def get_google_font(self, family_name, kwargs=dict()):
+        google_url = "https://fonts.googleapis.com/css2"
+        kwargs.update(dict(family=family_name))
+        req = requests.get(google_url, params=kwargs)
+        print(req.url)
+    
+        text = req.text
+        start = text.rfind('url(')
+        line = text[start+4:]
+        end = line.find(')')
+        font_url = line[:end]
+    
+        req = requests.get(font_url)
+        font_family = BytesIO(req.content)
+        print(req.url)
+    
+        return font_family
+
+    def place(self, string, x, y, rotation=0):
+        self.x = x
+        self.y = y
+
+        words = string.split(' ')
+        
+        lines = []
+        line = ''
+        line_length = self.font.getlength(line)
+        for word in words:
+            word = word.strip()
+            word_length = self.font.getlength(word)
+            if  (line_length + word_length) < (self.width):
+                line += word + ' '
+            else:
+                lines.append(line)
+                line = word + ' '
+
+            line_length = self.font.getlength(line)
+
+        lines.append(line)
+        for line in lines:
+            print(' {}'.format(self.font.getlength(line)))
+                  
+        self.append(self.text.generate(lines, x=self.x, y=self.y))
+
+        return self
     
 class Footer(Header):
     pass
@@ -92,11 +173,13 @@ class Border(utils.Region):
         return self
 
 class Page():
-    def __init__(self, variant, pinout):
-        self.variant = variant
+    def __init__(self, page, pinout):
+        self.template = page['template']
+        self.variant = page['data']
+        #self.template = config.PageConfig('dxcore_page').settings
+        
         self.pinout = pinout
 
-        self.template = config.PageConfig('dxcore_page').settings
 
         self.canvas_height = self.template.get('height', 1000)
         self.canvas_width = self.template.get('width', 1000)
@@ -113,7 +196,8 @@ class Page():
         #   drawsvg's original coordinates are top left corner.
         #   we move zero zero to center of page
         dw_page = dw.Drawing(self.canvas_width, self.canvas_height, origin='center', displayInline=True)
-        dw_page.embed_google_font("Roboto Mono")
+        dw_page.embed_google_font('Roboto Mono')
+        dw_page.embed_google_font('Roboto')
 
         # add a Border
         border = Border(self.canvas_width, self.canvas_height)
@@ -155,10 +239,10 @@ class Page():
             if i in [2,3] : y = self.pinout.bottom + y_margin
 
             id = f'quadrant_{i}'
-            md = self.variant['quadrant'][f'text{i+1}']
-            md = ' '.join(md.split())
-            quad = Markdown(id=id, width=q_width, height=q_height, fill='none', stroke='black')
-            quads.append(quad.place(md, x, y))
+            text = self.variant['quadrant'][f'text{i+1}']
+            quad = TextBlock(self.template['quadrant'], id=id, width=q_width, height=q_height) #, fill='none', stroke='black'
+            quads.append(quad.place(text, x, y))
+            # quads.append(dw.Circle(x,y, 6, fill='black'))
             
         dw_page.append(quads)
 

@@ -37,8 +37,8 @@ class Pinout(utils.Region):
         self.pins = variant.pins
         
         self.row_spacing = self.pins.spacing
-        width = self.package.width
-        height = width
+        height = self.package.height
+        width = height
             
         super().__init__(width=width, height=height, **kwargs)
         
@@ -254,14 +254,14 @@ class HorizontalPinout(Pinout):
             line.direction = direction
             wires.append(line)
 
-            self.height = row_count * self.row_spacing + self.package.corner_spacing * 2
+            self.height = self.height + row_count * self.row_spacing # + self.package.corner_spacing * 2
             self.width = 0
             
         return wires, dw_wires
         
     def build_pin(self, pin):
         direction = self.direction_from_pin(pin.number)
-        dw_pin = pin.generate(direction, slant=Pin.Label().slant_none)
+        dw_pin = pin.generate(direction, slant=functions.Label().slant_none)
 
         return dw_pin
         

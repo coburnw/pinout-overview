@@ -10,6 +10,7 @@ from pinoutOverview import pins
 from pinoutOverview import functions
 
 from template import function_label
+from template import dxcore
 
 class Variant():
     def __init__(self, data):
@@ -55,15 +56,18 @@ class Atpack():
 
     def get_page_config(self):
         page = dict(
-            header = dict(
-                text1 = 'xxx',
-                text2 = ''
-            ),
-            quadrant = dict(
-                text1 = '{}'.format(self.variant['notes'][0]),
-                text2 = '{}'.format(self.variant['notes'][1]),
-                text3 = '{}'.format(self.variant['notes'][2]),
-                text4 = '{}'.format(self.variant['notes'][3])
+            template = dxcore.page_template,
+            data = dict(
+                header = dict(
+                    text1 = 'xxx',
+                    text2 = ''
+                ),
+                quadrant = dict(
+                    text1 = '{}'.format(self.variant['notes'][0]),
+                    text2 = '{}'.format(self.variant['notes'][1]),
+                    text3 = '{}'.format(self.variant['notes'][2]),
+                    text4 = '{}'.format(self.variant['notes'][3])
+                )
             )
         )
         
@@ -133,19 +137,18 @@ def load(name):
     
 
 if __name__ == "__main__":
-    from template import dxcore
     
     functions.Label(template=dxcore.label_template)
     functions.Function(function=None, type_templates=dxcore.function_types)
 
-    layout = 'orthogonal' # horizontal, diagonal
+    layout = 'horizontal' #'orthogonal' # horizontal, diagonal
 
     variants = load(sys.argv[1])
     for name, item in variants.items():
         variant = Variant(item)
         pinout = pinouts.PinoutFactory(layout, variant)
     
-        page = page.Page(variant.page, pinout)
+        page = page.Page(variant.page, pinout) #.page
 
         print('saving to {}'.format(name))
         page.save(name)
