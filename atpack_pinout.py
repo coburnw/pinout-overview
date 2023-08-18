@@ -2,15 +2,13 @@ import os
 import sys
 import json
 
-from pinoutOverview import page
-from pinoutOverview import pinouts
+from pinoutOverview import page as Page
+from pinoutOverview import pinouts as Pinouts
 from pinoutOverview import config as Config
-from pinoutOverview import packages
-from pinoutOverview import pins
-from pinoutOverview import functions
+from pinoutOverview import packages as Packages
+from pinoutOverview import pins as Pins
 
-from template import function_label
-from template import dxcore
+from template import dxcore_page
 
 class Variant():
     def __init__(self, data):
@@ -21,8 +19,8 @@ class Variant():
         self.family_functions = atpack.get_family_functions()
 
         self.page = self.config.page
-        self.pins = pins.Pins(self.config.pins, self.family_functions.functions)
-        self.package = packages.PackageFactory(self.config.package, self.pins.spacing)
+        self.pins = Pins.Pins(self.config.pins, self.family_functions.functions)
+        self.package = Packages.PackageFactory(self.config.package, self.pins.spacing)
         
         return
 
@@ -56,10 +54,10 @@ class Atpack():
 
     def get_page_config(self):
         page = dict(
-            template = dxcore.page_template,
+            template = dxcore_page.page_template,
             data = dict(
                 header = dict(
-                    text1 = 'xxx',
+                    text1 = 'xyz',
                     text2 = ''
                 ),
                 quadrant = dict(
@@ -137,18 +135,18 @@ def load(name):
     
 
 if __name__ == "__main__":
-    
-    functions.Label(template=dxcore.label_template)
-    functions.Function(function=None, type_templates=dxcore.function_types)
+
+    entity_name = 'dxcore'
+    Pinouts.entity(entity_name)
 
     layout = 'horizontal' #'orthogonal' # horizontal, diagonal
 
     variants = load(sys.argv[1])
     for name, item in variants.items():
         variant = Variant(item)
-        pinout = pinouts.PinoutFactory(layout, variant)
+        pinout = Pinouts.PinoutFactory(layout, variant)
     
-        page = page.Page(variant.page, pinout) #.page
+        page = Page.Page(variant.page, pinout)
 
         print('saving to {}'.format(name))
         page.save(name)

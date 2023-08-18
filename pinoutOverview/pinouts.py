@@ -1,4 +1,5 @@
 import math
+import importlib
 
 import drawsvg as dw
 
@@ -8,7 +9,7 @@ from pinoutOverview import shapes
 from pinoutOverview import pins as Pin
 from pinoutOverview import functions
 
-SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
+#SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
 
 class label_line:
     def __init__(self):
@@ -19,6 +20,17 @@ class label_line:
         self.side = -1
         self.direction = 1
 
+
+def entity(name):
+    label_template = importlib.import_module(f'template.{name}_label')
+    functions_template = importlib.import_module(f'template.{name}_functions')
+
+    # configure the 'static' class variables for the callers name
+    functions.Label(template=label_template.label_template)
+    functions.Function(function=None, type_templates=functions_template.function_types)
+    
+    return
+    
 class PinoutFactory():
     def __new__(self, layout, variant):
         if layout == 'orthogonal':
@@ -29,7 +41,7 @@ class PinoutFactory():
             pinout = HorizontalPinout(variant)
 
         return pinout
-        
+
 class Pinout(utils.Region):
     def __init__(self, variant, **kwargs):
         #self.data = variant.data
