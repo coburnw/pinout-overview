@@ -64,17 +64,17 @@ class Pin(dw.Group):
         return self
 
 class Pins():
-    def __init__(self, variant_pins, rows):
-        self.variant = variant_pins   # each name can be a name or a list of names that point to a row in rows
+    def __init__(self, pin_list, rows):
+        self.pin_list = pin_list   # each pin can be a name or a list of names that point to a row in rows
         self.rows = rows #rows.functions.functions
-        self.spacing = self.calc_spacing(self.variant['pin_map'])
+        self.spacing = self.calc_spacing(self.pin_list)
         return
 
     def __len__(self):
-        return len(self.variant.pin_map)
+        return len(self.pin_list)
     
     def __getitem__(self, i):
-        names = self.variant['pin_map'][i]
+        names = self.pin_list[i]
         rows = []
         
         if hasattr(names, "__len__") and not isinstance(names, str):
@@ -91,7 +91,7 @@ class Pins():
         return self
 
     def __next__(self):
-        if self.index < len(self.variant['pin_map']):
+        if self.index < len(self.pin_list):
             next = self.__getitem__(self.index)
             self.index += 1
             return next

@@ -18,7 +18,7 @@ page_template = dict(
     
     header = dict(
         height = 80,
-        text = dict(
+        title = dict(
             vert_offset = 0,
             style = dict(
                 font_size = 40,
@@ -29,7 +29,7 @@ page_template = dict(
                 font_family='Roboto Mono'
             )
         ),
-        subtext = dict(
+        subtitle = dict(
             vert_offset = 50,
             style = dict(
                 font_size = 20,
@@ -44,10 +44,10 @@ page_template = dict(
 
     footer = dict(
         height = 80,
-        text = dict(
+        title = dict(
             vert_offset = 0,
             style = dict(
-                size = 40,
+                font_size = 40,
                 text_anchor='middle',
                 dominant_baseline='middle',
                 fill="black",
@@ -55,10 +55,10 @@ page_template = dict(
                 font_family='Roboto Mono'
             )
         ),
-        subtext = dict(
+        subtitle = dict(
             vert_offset = 50,
             style = dict(
-                size = 20,
+                font_size = 20,
                 text_anchor='middle',
                 dominant_baseline='middle',
                 fill="black",

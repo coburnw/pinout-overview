@@ -67,21 +67,24 @@ class Header(utils.Region):
         return
     
     def place(self, items, x, y):
-        self.height = 50 + 20
-        y += self.height / 2
+        #self.height = 50 + 20
+        #y += self.height / 2
         
         self.x = x
         self.y = y
 
-        print(self.template)
+        #print(self.template)
         
-        text = utils.Text(self.template['text'])
-        self.append(text.generate(items['text1'], x=self.x, y=self.y))
+        text = utils.Text(self.template['title'])
+        self.append(text.generate(items['title'], x=self.x, y=self.y))
 
-        text = utils.Text(self.template['subtext'])
-        self.append(text.generate(items['text2'], x=self.x, y=self.y))
+        text = utils.Text(self.template['subtitle'])
+        self.append(text.generate(items['subtitle'], x=self.x, y=self.y))
 
         return self
+
+class Footer(Header):
+    pass
 
 class TextBlock(utils.Region):
     def __init__(self, template, id=None, width=0, height=0):
@@ -89,14 +92,15 @@ class TextBlock(utils.Region):
         super().__init__(id=id, width=width, height=height)
 
         self.text = utils.Text(self.template['text'])
-        print(self.text.style['font_family'], self.text.style['font_size'], width, height)
+        #print(self.text.style['font_family'], self.text.style['font_size'], width, height)
 
         font_family = self.get_font_family()
         if font_family is None:
             font_family = self.get_google_font(self.text.style['font_family'])
             self.set_font_family(font_family)
-            
-        self.font = ImageFont.truetype(font_family, self.text.style['font_size'])
+
+        self.font_size = self.text.style['font_size']
+        self.font = ImageFont.truetype(font_family, self.font_size)
         
         return
 
@@ -117,7 +121,7 @@ class TextBlock(utils.Region):
         google_url = "https://fonts.googleapis.com/css2"
         kwargs.update(dict(family=family_name))
         req = requests.get(google_url, params=kwargs)
-        print(req.url)
+        print('downloading {}'.format(req.url))
     
         text = req.text
         start = text.rfind('url(')
@@ -127,14 +131,11 @@ class TextBlock(utils.Region):
     
         req = requests.get(font_url)
         font_family = BytesIO(req.content)
-        print(req.url)
+        #print(req.url)
     
         return font_family
 
-    def place(self, string, x, y, rotation=0):
-        self.x = x
-        self.y = y
-
+    def wrap_string(self, string):
         words = string.split(' ')
         
         lines = []
@@ -152,16 +153,23 @@ class TextBlock(utils.Region):
             line_length = self.font.getlength(line)
 
         lines.append(line)
-        for line in lines:
-            print(' {}'.format(self.font.getlength(line)))
-                  
-        self.append(self.text.generate(lines, x=self.x, y=self.y))
+        height = len(lines) * self.font_size * 1.2
+
+        return lines, height
+    
+    def place(self, strings, x, y, rotation=0):
+        self.x = x
+        self.y = y
+
+        y_offset = 0
+        for string in strings:
+            #print(string)
+            lines, height = self.wrap_string(string)
+            self.append(self.text.generate(lines, x=self.x, y=self.y+y_offset))
+            y_offset += height
 
         return self
     
-class Footer(Header):
-    pass
-
 class Border(utils.Region):
     def place(self, x, y, rotation=0):
         self.x = x
@@ -203,23 +211,24 @@ class Page():
         border = Border(self.canvas_width, self.canvas_height)
         dw_page.append(border.place(0, 0))
 
-        # Attach Header
+        x_margin = border.width / 20
+        y_margin = border.height / 20 
+
+        # Attach Header (FIX height/2)
         if 'header' in self.variant:
             header = Header(self.template['header'])
-            dw_page.append(header.place(self.variant['header'], x=0, y=border.top))
+            dw_page.append(header.place(self.variant['header'], x=0, y=border.top+header.height/2))
         
         # Attach Footer
         if 'footer' in self.variant:
             footer = Footer(self.template['footer'])
-            dw_page.append(footer.place(self.variant['footer'], x=0, y=border.bottom))
+            dw_page.append(footer.place(self.variant['footer'], x=0, y=border.bottom-footer.height))
 
         dw_page.append(self.pinout.place(self.package_x_offset, self.package_y_offset))
 
         # Add quadrant text fields
         quads = dw.Group(id="quadrant_text")
 
-        x_margin = border.width / 20
-        y_margin = border.height / 20 
         q_width = (border.width - self.pinout.width) / 2 - (2 * x_margin)
         q_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
 
@@ -229,7 +238,8 @@ class Page():
         
         legend = self.pinout.legend()
         dw_page.append(dw.Use(legend.generate(self.canvas_width), x,y))
-        
+
+        #print(self.variant['quadrant']
         for i in range(4):
             if i in [0,2] : x = -border.width/2 + x_margin
             if i == 0     : x += legend.width

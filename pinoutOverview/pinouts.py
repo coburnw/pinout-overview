@@ -4,7 +4,7 @@ import importlib
 import drawsvg as dw
 
 from pinoutOverview import utils
-from pinoutOverview import packages
+#from pinoutOverview import packages
 from pinoutOverview import shapes
 from pinoutOverview import pins as Pin
 from pinoutOverview import functions
@@ -32,21 +32,21 @@ def entity(name):
     return
     
 class PinoutFactory():
-    def __new__(self, layout, variant):
+    def __new__(self, layout, pins, package):
         if layout == 'orthogonal':
-            pinout = OrthogonalPinout(variant)
+            pinout = OrthogonalPinout(pins, package)
         elif layout == 'diagonal':
-            pinout = DiagonalPinout(variant)
+            pinout = DiagonalPinout(pins, package)
         else: # horizontal
-            pinout = HorizontalPinout(variant)
+            pinout = HorizontalPinout(pins, package)
 
         return pinout
 
 class Pinout(utils.Region):
-    def __init__(self, variant, **kwargs):
+    def __init__(self, pins, package, **kwargs):
         #self.data = variant.data
-        self.package = variant.package
-        self.pins = variant.pins
+        self.package = package
+        self.pins = pins
         
         self.row_spacing = self.pins.spacing
         height = self.package.height
