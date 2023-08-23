@@ -9,7 +9,7 @@ qfn_template = dict(
         fill = 'grey',
     ),
     text = dict(
-        vert_offset = -35,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',
@@ -18,7 +18,7 @@ qfn_template = dict(
         )
     ),
     sub_text = dict(
-        vert_offset = 20,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',
@@ -64,7 +64,7 @@ qfp_template = dict(
         fill = 'grey',
     ),
     text = dict(
-        vert_offset = -35,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',
@@ -73,7 +73,7 @@ qfp_template = dict(
         )
     ),
     sub_text = dict(
-        vert_offset = 20,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',
@@ -119,7 +119,7 @@ sop_template = dict(
         fill = 'grey',
     ),
     text = dict(
-        vert_offset = -35,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',
@@ -128,7 +128,7 @@ sop_template = dict(
         )
     ),
     sub_text = dict(
-        vert_offset = 20,
+        vert_offset = 0,
         style = dict(
             font_family = 'Roboto Mono',
             dominant_baseline = 'middle',

@@ -402,8 +402,8 @@
 <use xlink:href="#d126" x="0" y="0" transform="rotate(180)" />
 </g>
 <use xlink:href="#p64" x="0" y="0" transform="rotate(-270)" id="d127" />
-<text x="0" y="-35" font-size="20" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" id="d128"><tspan x="0" dy="0em">AVR128DA64</tspan><tspan x="0" dy="1em">AVR64DA64</tspan><tspan x="0" dy="1em">AVR32DA64</tspan></text>
-<text x="0" y="20" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" id="d129"><tspan x="0" dy="0em">TQFP</tspan><tspan x="0" dy="1em">VQFN</tspan></text>
+<text x="0" y="0" font-size="20" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" id="d128"><tspan x="0" dy="0em">AVR128DA64</tspan><tspan x="0" dy="1em">AVR64DA64</tspan><tspan x="0" dy="1em">AVR32DA64</tspan></text>
+<text x="0" y="0" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" id="d129"><tspan x="0" dy="0em">TQFP</tspan><tspan x="0" dy="1em">VQFN</tspan></text>
 <g id="package">
 <rect x="-270.0" y="-270.0" width="540.0" height="540.0" stroke="black" stroke-width="2" fill="grey" />
 <path d="M-135.0,-225.0 H225.0 V225.0 H-225.0 V-135.0 Z" stroke="black" stroke-width="2" fill="lightgray" />
@@ -474,8 +474,8 @@
 <use xlink:href="#d125" x="-195.0" y="-252.5" />
 <use xlink:href="#d127" x="-225.0" y="-252.5" />
 </g>
-<use xlink:href="#d128" x="0" y="0" transform="rotate(0, 0, 0)" />
-<use xlink:href="#d129" x="0" y="0" transform="rotate(0, 0, 0)" />
+<use xlink:href="#d128" x="0" y="-108.0" transform="rotate(0, 0, 0)" />
+<use xlink:href="#d129" x="0" y="108.0" transform="rotate(0, 0, 0)" />
 </g>
 <g id="d130">
 <path d="M-270.0,-225.0 L-300.0,-225.0" stroke-width="2" stroke="black" />
@@ -2602,24 +2602,24 @@
 <use xlink:href="#Legend" x="-990.0" y="-685.0" />
 <g id="quadrant_text">
 <g id="quadrant_0">
-<text x="-910.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Differential ADC (analogReadDiff()) can only </tspan><tspan x="-910.0" dy="1em">use pins on PORTD and PORTE (if present) as </tspan><tspan x="-910.0" dy="1em">the negative input </tspan></text>
-<text x="-910.0" y="-577.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Only pins 2 and 6 on any given port are able </tspan><tspan x="-910.0" dy="1em">to wake the chip from standby or power down </tspan><tspan x="-910.0" dy="1em">sleep modes from a pin interrupt on the </tspan><tspan x="-910.0" dy="1em">'rising' or 'falling' edge. </tspan></text>
-<text x="-910.0" y="-433.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">DxCore's PWM system is *PORTMUX aware* </tspan><tspan x="-910.0" dy="1em">for TCA </tspan></text>
+<text x="-910.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Differential ADC (analogReadDiff()) can </tspan><tspan x="-910.0" dy="1em">only use pins on PORTD and PORTE (if </tspan><tspan x="-910.0" dy="1em">present) as the negative input </tspan></text>
+<text x="-910.0" y="-580.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Only pins 2 and 6 on any given port are </tspan><tspan x="-910.0" dy="1em">able to wake the chip from standby or </tspan><tspan x="-910.0" dy="1em">power down sleep modes from a pin </tspan><tspan x="-910.0" dy="1em">interrupt on the 'rising' or 'falling' edge. </tspan></text>
+<text x="-910.0" y="-445.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">DxCore's PWM system is *PORTMUX </tspan><tspan x="-910.0" dy="1em">aware* for TCA </tspan></text>
 </g>
 <g id="quadrant_1">
 <text x="380.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">TCA must be moved as a group, not as </tspan><tspan x="380.0" dy="1em">individual pins </tspan></text>
-<text x="380.0" y="-613.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">DxCore only supports PWM on one of the two </tspan><tspan x="380.0" dy="1em">TCB options, depending on pincount </tspan></text>
-<text x="380.0" y="-541.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">Errata/Clarif: TCD and TCA do NOT override </tspan><tspan x="380.0" dy="1em">port direction (TCB still does) </tspan></text>
+<text x="380.0" y="-610.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">DxCore only supports PWM on one of the two </tspan><tspan x="380.0" dy="1em">TCB options, depending on pincount </tspan></text>
+<text x="380.0" y="-535.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">Errata/Clarif: TCD and TCA do NOT override </tspan><tspan x="380.0" dy="1em">port direction (TCB still does) </tspan></text>
 </g>
 <g id="quadrant_2">
 <text x="-990.0" y="355.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">Errata: TCD does not function on any pins </tspan><tspan x="-990.0" dy="1em">other than the default mux option in currently </tspan><tspan x="-990.0" dy="1em">available silicon. </tspan></text>
-<text x="-990.0" y="463.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">USART0 defaults to PA0/PA1 - unless the </tspan><tspan x="-990.0" dy="1em">system clock source is CLKIN.
+<text x="-990.0" y="460.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">USART0 defaults to PA0/PA1 - unless the </tspan><tspan x="-990.0" dy="1em">system clock source is CLKIN.
 In that case, </tspan><tspan x="-990.0" dy="1em">since that takes PA0, we default to PA4/5 </tspan><tspan x="-990.0" dy="1em">instead. </tspan></text>
-<text x="-990.0" y="607.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">All other peripherals are left at their default </tspan><tspan x="-990.0" dy="1em">mux options unless specified otherwise. </tspan></text>
+<text x="-990.0" y="595.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">All other peripherals are left at their default </tspan><tspan x="-990.0" dy="1em">mux options unless specified otherwise. </tspan></text>
 </g>
 <g id="quadrant_3">
 <text x="380.0" y="355.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">#Errata: TCA1 does not function on PE or PG </tspan><tspan x="380.0" dy="1em">in currently available silicon on the </tspan><tspan x="380.0" dy="1em">AVR128DA64. It is available in the </tspan><tspan x="380.0" dy="1em">AVR64DA64 </tspan></text>
-<text x="380.0" y="499.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">#Errata: EVSYS is not connected to PB6-7 or </tspan><tspan x="380.0" dy="1em">PE4-7 on the AVR128DA64 </tspan></text>
+<text x="380.0" y="490.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="380.0" dy="0em">#Errata: EVSYS is not connected to PB6-7 or </tspan><tspan x="380.0" dy="1em">PE4-7 on the AVR128DA64 </tspan></text>
 </g>
 </g>
 </svg>

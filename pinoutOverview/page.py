@@ -153,7 +153,7 @@ class TextBlock(utils.Region):
             line_length = self.font.getlength(line)
 
         lines.append(line)
-        height = len(lines) * self.font_size * 1.2
+        height = len(lines) * self.font_size + self.font_size/2
 
         return lines, height
     
@@ -184,10 +184,8 @@ class Page():
     def __init__(self, page, pinout):
         self.template = page['template']
         self.variant = page['data']
-        #self.template = config.PageConfig('dxcore_page').settings
         
         self.pinout = pinout
-
 
         self.canvas_height = self.template.get('height', 1000)
         self.canvas_width = self.template.get('width', 1000)
@@ -229,9 +227,13 @@ class Page():
         # Add quadrant text fields
         quads = dw.Group(id="quadrant_text")
 
-        q_width = (border.width - self.pinout.width) / 2 - (2 * x_margin)
-        q_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
-
+        if self.pinout.width > 0:
+            quadrant_width = (border.width - self.pinout.width) / 2 - (2 * x_margin)
+            quadrant_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
+        else:
+            quadrant_width = (border.width - self.pinout.width) / 2 - (1.5 * x_margin)
+            quadrant_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
+            
         # Attach Pin Function Legend to first quadrant
         x = -border.width/2 + x_margin
         y = header.bottom + y_margin
@@ -241,18 +243,34 @@ class Page():
 
         #print(self.variant['quadrant']
         for i in range(4):
-            if i in [0,2] : x = -border.width/2 + x_margin
-            if i == 0     : x += legend.width
-            if i in [0,1] : y = header.bottom + y_margin
+            q_width = quadrant_width
+            q_height = quadrant_height
 
-            if i in [1,3] : x = x_margin + self.pinout.width/2
+            # left quadrants
+            if i in [0,2]:
+                x = -border.width/2 + x_margin
+            if i == 0:
+                x += legend.width
+                q_width -= legend.width
+
+            # top quadrants
+            if i in [0,1]:
+                y = header.bottom + y_margin
+
+            # right quadrants
+            if i in [1,3]:
+                x = x_margin + self.pinout.width/2
+                if self.pinout.width == 0:
+                    x -= x_margin/2
+
+            # bottom quadrants
             if i in [2,3] : y = self.pinout.bottom + y_margin
 
             id = f'quadrant_{i}'
             text = self.variant['quadrant'][f'text{i+1}']
-            quad = TextBlock(self.template['quadrant'], id=id, width=q_width, height=q_height) #, fill='none', stroke='black'
+            quad = TextBlock(self.template['quadrant'], id=id, width=q_width, height=q_height)
+            
             quads.append(quad.place(text, x, y))
-            # quads.append(dw.Circle(x,y, 6, fill='black'))
             
         dw_page.append(quads)
 

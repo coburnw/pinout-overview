@@ -73,6 +73,9 @@ class Variant():
         # merge variant data
         page_data = dict(family_data)
         
+        if 'layout' in self.data:
+            page_data['layout'] = self.data['layout']
+            
         if 'header' in self.data:
             page_data['header'] |= self.data['header']
 

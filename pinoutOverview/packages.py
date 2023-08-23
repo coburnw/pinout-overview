@@ -216,8 +216,8 @@ class QFN(Quad):
         package.append(marker)
         package.append(pins)
 
-        package.append(dw.Use(dw_text, 0, 0, transform=rotate_opt))
-        package.append(dw.Use(dw_subtext, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_text, 0, -self.height/5, transform=rotate_opt))
+        package.append(dw.Use(dw_subtext, 0, self.height/5, transform=rotate_opt))
 
         return package
     
@@ -233,11 +233,11 @@ class QFP(Quad):
         
         pins = self._build_pins(proto_pin)
 
-        s = self.data.get('text', 'text')
+        s = self.data.get('text1', 'text')
         t = pinout.Text(self.template['text'])
         dw_text = t.generate(s)
 
-        s = self.data.get('sub_text', 'subtext')
+        s = self.data.get('text2', 'subtext')
         t = pinout.Text(self.template['sub_text'])
         dw_subtext = t.generate(s)
         
@@ -245,8 +245,8 @@ class QFP(Quad):
         package.append(border)
         package.append(marker)
         package.append(pins)
-        package.append(dw.Use(dw_text, 0, 0, transform=rotate_opt))
-        package.append(dw.Use(dw_subtext, 0, 0, transform=rotate_opt))
+        package.append(dw.Use(dw_text, 0, -self.height/5, transform=rotate_opt))
+        package.append(dw.Use(dw_subtext, 0, self.height/4, transform=rotate_opt))
 
         return package
 
@@ -274,8 +274,8 @@ class SOP(Dual):
         package.append(border)
         package.append(marker)
         package.append(pins)
-        package.append(dw.Use(dw_text, 0, 0))
-        package.append(dw.Use(dw_subtext, 0, 0))
+        package.append(dw.Use(dw_text, 0, -self.height/5))
+        package.append(dw.Use(dw_subtext, 0, self.height/4))
 
         return package
 

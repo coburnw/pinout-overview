@@ -50,7 +50,7 @@ class Pinout(utils.Region):
         
         self.row_spacing = self.pins.spacing
         height = self.package.height
-        width = height
+        width = self.package.width 
             
         super().__init__(width=width, height=height, **kwargs)
         

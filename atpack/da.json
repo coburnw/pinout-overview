@@ -35,6 +35,7 @@
 	]
     },
     "DA28":{
+	"layout":"horizontal",
 	"shapes":["rect_2sides"],
 	"package":"SOIC-28",
 	"package_range":["SOIC-28","SSOP-28","DIP-28"],
@@ -42,7 +43,7 @@
 	"part_range":["AVR128DA28","AVR64DA28","AVR32DA28"],
 	"notes": ["","","",
 		  ["1. Both VDD and VDDA are internally connected. Each power pin must be connected to its respective rail and decoupled with 0.1uF capacitors",
-		   "2. default serial is re-assigned to PA4 when CLKIN in use",
+		   "2. USART0 is re-assigned to PA4/PA5 when CLKIN enabled",
 		   "3. ",
 		   "S. TWI function with server capability only"]
 		 ],
@@ -50,7 +51,7 @@
 	"pin_map":["PA7", "PC0", "PC1", "PC2", "PC3", "PD0", "PD1", "PD2", "PD3", "PD4", "PD5", "PD6", "PD7", "AVDD", "GND3", "PF0", "PF1", "PF6", "UPDI", "VDD4", "GND4", "PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6"],
 	"pins":{
 	    "PA0":{"PIN":["PA0"], "USART0":["TX[2]"], "TCA0":["TCA_A"], "CCL":["0IN0"], "CLOCK":["CLKIN"]},
-	    "PA1":{"PIN":["PA1"], "USART0":["RX"], "TCA0":["TCA_A"], "CCL":["0IN1"]},
+	    "PA1":{"PIN":["PA1"], "USART0":["RX[2]"], "TCA0":["TCA_A"], "CCL":["0IN1"]},
 	    "PA2":{"PIN":["PA2"], "USART0":["XCK"], "TWI0":["SDA", "SDA_ALT1"], "TCA0":["TCA_A"], "CCL":["0IN2"], "EVSYS":["EVOUTA"]},
 	    "PA3":{"PIN":["PA3"], "USART0":["XDIR"], "TWI0":["SCL", "SCL_ALT1"], "TCA0":["TCA_A"], "CCL":["0OUT"]},
 	    "PA4":{"PIN":["PA4"], "USART0":["TX_ALT"], "SPI0":["MOSI"], "TCA0":["TCA_A"], "TCD0":["TCD_A"]},

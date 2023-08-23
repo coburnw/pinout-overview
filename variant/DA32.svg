@@ -210,8 +210,8 @@
 <use xlink:href="#d62" x="0" y="0" transform="rotate(180)" />
 </g>
 <use xlink:href="#p32" x="0" y="0" transform="rotate(-270)" id="d63" />
-<text x="0" y="-35" font-size="20" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" id="d64"><tspan x="0" dy="0em">AVR128DA32</tspan><tspan x="0" dy="1em">AVR64DA32</tspan><tspan x="0" dy="1em">AVR32DA32</tspan></text>
-<text x="0" y="20" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" id="d65"><tspan x="0" dy="0em">TQFP</tspan><tspan x="0" dy="1em">VQFN</tspan></text>
+<text x="0" y="0" font-size="20" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" id="d64"><tspan x="0" dy="0em">AVR128DA32</tspan><tspan x="0" dy="1em">AVR64DA32</tspan><tspan x="0" dy="1em">AVR32DA32</tspan></text>
+<text x="0" y="0" font-size="15" font-family="Roboto Mono" dominant-baseline="middle" text-anchor="middle" font-style="italic" id="d65"><tspan x="0" dy="0em">TQFP</tspan><tspan x="0" dy="1em">VQFN</tspan></text>
 <g id="package">
 <rect x="-150.0" y="-150.0" width="300.0" height="300.0" stroke="black" stroke-width="2" fill="grey" />
 <path d="M-63.0,-105.0 H105.0 V105.0 H-105.0 V-63.0 Z" stroke="black" stroke-width="2" fill="lightgray" />
@@ -250,8 +250,8 @@
 <use xlink:href="#d61" x="-75.0" y="-132.5" />
 <use xlink:href="#d63" x="-105.0" y="-132.5" />
 </g>
-<use xlink:href="#d64" x="0" y="0" transform="rotate(0, 0, 0)" />
-<use xlink:href="#d65" x="0" y="0" transform="rotate(0, 0, 0)" />
+<use xlink:href="#d64" x="0" y="-60.0" transform="rotate(0, 0, 0)" />
+<use xlink:href="#d65" x="0" y="60.0" transform="rotate(0, 0, 0)" />
 </g>
 <g id="d66">
 <path d="M-150.0,-105.0 L-180.0,-105.0" stroke-width="2" stroke="black" />
@@ -1321,26 +1321,26 @@
 <use xlink:href="#Legend" x="-990.0" y="-685.0" />
 <g id="quadrant_text">
 <g id="quadrant_0">
-<text x="-910.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Differential ADC (analogReadDiff()) can only use pins </tspan><tspan x="-910.0" dy="1em">on PORTD and PORTE (if present) as the negative input </tspan></text>
-<text x="-910.0" y="-613.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Only pins 2 and 6 on any given port are able to wake </tspan><tspan x="-910.0" dy="1em">the chip from standby or power down sleep modes </tspan><tspan x="-910.0" dy="1em">from a pin interrupt on the 'rising' or 'falling' edge. </tspan></text>
-<text x="-910.0" y="-505.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">DxCore's PWM system is *PORTMUX aware* for TCA </tspan></text>
+<text x="-910.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Differential ADC (analogReadDiff()) can only use </tspan><tspan x="-910.0" dy="1em">pins on PORTD and PORTE (if present) as the </tspan><tspan x="-910.0" dy="1em">negative input </tspan></text>
+<text x="-910.0" y="-580.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">Only pins 2 and 6 on any given port are able to </tspan><tspan x="-910.0" dy="1em">wake the chip from standby or power down </tspan><tspan x="-910.0" dy="1em">sleep modes from a pin interrupt on the 'rising' </tspan><tspan x="-910.0" dy="1em">or 'falling' edge. </tspan></text>
+<text x="-910.0" y="-445.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-910.0" dy="0em">DxCore's PWM system is *PORTMUX aware* for </tspan><tspan x="-910.0" dy="1em">TCA </tspan></text>
 </g>
 <g id="quadrant_1">
 <text x="260.0" y="-685.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">TCA must be moved as a group, not as individual pins </tspan></text>
-<text x="260.0" y="-649.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">DxCore only supports PWM on one of the two TCB </tspan><tspan x="260.0" dy="1em">options, depending on pincount </tspan></text>
-<text x="260.0" y="-577.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">Errata/Clarif: TCD and TCA do NOT override port </tspan><tspan x="260.0" dy="1em">direction (TCB still does) </tspan></text>
+<text x="260.0" y="-640.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">DxCore only supports PWM on one of the two TCB </tspan><tspan x="260.0" dy="1em">options, depending on pincount </tspan></text>
+<text x="260.0" y="-565.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">Errata/Clarif: TCD and TCA do NOT override port </tspan><tspan x="260.0" dy="1em">direction (TCB still does) </tspan></text>
 </g>
 <g id="quadrant_2">
 <text x="-990.0" y="235.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">Errata: TCD does not function on any pins other than </tspan><tspan x="-990.0" dy="1em">the default mux option in currently available silicon. </tspan></text>
-<text x="-990.0" y="307.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">USART0 defaults to PA0/PA1 - unless the system clock </tspan><tspan x="-990.0" dy="1em">source is CLKIN.
+<text x="-990.0" y="310.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">USART0 defaults to PA0/PA1 - unless the system clock </tspan><tspan x="-990.0" dy="1em">source is CLKIN.
 In that case, since that takes PA0, we </tspan><tspan x="-990.0" dy="1em">default to PA4/5 instead. </tspan></text>
 <text x="-990.0" y="415.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">All other peripherals are left at their default mux </tspan><tspan x="-990.0" dy="1em">options unless specified otherwise. </tspan></text>
 </g>
 <g id="quadrant_3">
 <text x="260.0" y="235.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">1. Both VDD and VDDA are internally connected. Each </tspan><tspan x="260.0" dy="1em">power pin must be connected to its respective rail and </tspan><tspan x="260.0" dy="1em">decoupled with 0.1uF capacitors </tspan></text>
-<text x="260.0" y="343.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">2. default serial is re-assigned to PA4 when CLKIN in </tspan><tspan x="260.0" dy="1em">use </tspan></text>
+<text x="260.0" y="340.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">2. USART0 is re-assigned to PA4/PA5 when CLKIN </tspan><tspan x="260.0" dy="1em">enabled </tspan></text>
 <text x="260.0" y="415.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">3.  </tspan></text>
-<text x="260.0" y="451.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">S. TWI function with server capability only </tspan></text>
+<text x="260.0" y="460.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">S. TWI function with server capability only </tspan></text>
 </g>
 </g>
 </svg>
