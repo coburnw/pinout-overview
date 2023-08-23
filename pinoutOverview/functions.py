@@ -73,16 +73,20 @@ class Label(dw.Group):
 
         return dw_shape
 
-    def text_generate(self, value, is_alt):
+    def text_generate(self, value, x_offset=0, is_alt=False, footnote=None):
 
         style = dict(self.template['text_style'])
         if is_alt:
             style = dict(self.template['alt_text_style'])
 
-        adders = self.style_adders['text_style'] if 'text_style' in self.style_adders else {}
+        adders = dict(self.style_adders['text_style']) if 'text_style' in self.style_adders else {}
+
+        # if x_offset != 0:
+        #     adders['text_anchor'] = 'end'
+            
         style |= adders
 
-        dw_shape = shapes.label_text(str(value), self.height, **style)
+        dw_shape = shapes.label_text(str(value), self.height, x_offset, **style)
 
         return dw_shape
 
@@ -100,12 +104,36 @@ class Label(dw.Group):
         dw_shape = shapes.label_text(str(value), self.height, **style)
         
         return dw_shape
+
+    def info_generate(self, value):
+        style = dict(self.template['text_style'])
+
+        dw_group = dw.Group()
+        dw_group.append(dw.Circle(0,0, self.height/2*0.9, stroke='black', fill='white'))
+        
+
+        # add a caption_text section to label template
+        adders = dict()
+        adders['fill'] = 'blue'
+        #adders['text_anchor'] = 'start'
+
+        style |= adders
+        dw_group.append(shapes.label_text(str(value), self.height, **style))
+                        
+        return dw_group
     
-    def generate(self, text, slant=0, is_alt=False, caption=None):
+    def generate(self, text, slant=0, is_alt=False, footnote=None, caption=None):
 
         self.append(self.box_generate(slant, is_alt))
-        self.append(self.text_generate(text, is_alt))
-        
+
+        x_offset = 0
+        if footnote is not None:
+            x_offset = self.width/2-self.height/2
+            self.append(dw.Use(self.info_generate(footnote), x_offset, 0))
+            x_offset = self.height/2
+
+        self.append(self.text_generate(text, x_offset, is_alt, footnote))
+                    
         if caption is not None:
             dx = self.width/2 + self.width/5
             dy = (self.height-10) / 10
@@ -149,7 +177,11 @@ class Function():
 
     @property
     def is_alt(self):
-        return self.function['alt']    
+        return self.function['alt']
+
+    @property
+    def footnote(self):
+        return self.function['footnote']
 
     @property
     def style(self):
@@ -163,7 +195,7 @@ class Function():
     @property
     def is_spacer(self):
         return self.function['type'] == 'spacer'
-    
+
     @property
     def spacing(self):
         return Label().spacing
@@ -179,7 +211,7 @@ class Function():
     def generate(self, slant):
         
         label = Label(style=self.style)
-        dw_lbl = label.generate(self.name, slant=slant, is_alt=self.is_alt)
+        dw_lbl = label.generate(self.name, slant=slant, is_alt=self.is_alt, footnote=self.footnote)
 
         if self.type not in self._use_count:
             self._use_count[self.type] = 0

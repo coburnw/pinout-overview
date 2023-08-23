@@ -141,8 +141,14 @@ class Variant():
                         if 'ALT' in fname:
                             is_alt = True
                             fname = fname.replace('_ALT','')
-                    
-                        family_functions.append(pin_name, fname, ftype, is_alt)
+
+                        footnote = None
+                        if '[' in fname:
+                            before,sep,after = fname.partition('[')
+                            footnote,sep,after = after.partition(']')
+                            fname = fname.replace('[{}]'.format(footnote), '')
+                            
+                        family_functions.append(pin_name, fname, ftype, is_alt, footnote)
         except:
             print('{}: failed to parse function list for pin {}'.format(self.variant_name, pin_name))
             raise

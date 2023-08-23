@@ -1336,6 +1336,11 @@
 In that case, since that takes PA0, we </tspan><tspan x="-990.0" dy="1em">default to PA4/5 instead. </tspan></text>
 <text x="-990.0" y="415.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">All other peripherals are left at their default mux </tspan><tspan x="-990.0" dy="1em">options unless specified otherwise. </tspan></text>
 </g>
-<g id="quadrant_3"></g>
+<g id="quadrant_3">
+<text x="260.0" y="235.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">1. Both VDD and VDDA are internally connected. Each </tspan><tspan x="260.0" dy="1em">power pin must be connected to its respective rail and </tspan><tspan x="260.0" dy="1em">decoupled with 0.1uF capacitors </tspan></text>
+<text x="260.0" y="343.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">2. default serial is re-assigned to PA4 when CLKIN in </tspan><tspan x="260.0" dy="1em">use </tspan></text>
+<text x="260.0" y="415.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">3.  </tspan></text>
+<text x="260.0" y="451.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="260.0" dy="0em">S. TWI function with server capability only </tspan></text>
+</g>
 </g>
 </svg>

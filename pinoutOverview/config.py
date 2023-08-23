@@ -63,11 +63,12 @@ class FamilyFunctions(ConfigFile):
             
         return
 
-    def append(self, pin_name, function_name, function_type, is_alt=False):
+    def append(self, pin_name, function_name, function_type, is_alt=False, footnote=''):
         func = dict(
             name = function_name,
             type = function_type,
-            alt = is_alt
+            alt = is_alt,
+            footnote = footnote
         )
 
         if pin_name not in self.functions:

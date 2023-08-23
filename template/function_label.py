@@ -30,7 +30,13 @@ label_template = dict(
         text_anchor = 'middle',
         font_style = 'italic',
         ),
-
+    info_style = dict(
+        stroke_width = '2',
+        rx = '2',
+        ry = '2',
+        stroke_dasharray = '',
+        ),
+    
     label_line_style = dict(
         stroke = 'black',
         stroke_width = '2',

@@ -55,13 +55,13 @@ def label_box(width, height, **kwargs):
     box = dw.Rectangle(-width/2, -height/2, width, height, **kwargs)
     return box
 
-def label_text(name, height, **kwargs):
+def label_text(name, height, x_offset=0, **kwargs):
     """
     Draw label text, additional args passed to drawsvg
     """
-    x_offset = 0
+    #x_offset = 0
     if "font_style" in kwargs and kwargs["font_style"] == "italic":
-        x_offset = height/10
+        x_offset += height/10
         
     text = dw.Text(name, height-height/5, -x_offset, height/10, **kwargs)
     return text
