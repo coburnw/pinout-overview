@@ -181,11 +181,8 @@ class Border(utils.Region):
         return self
 
 class Page():
-    def __init__(self, page, pinout):
-        self.template = page['template']
-        self.variant = page['data']
-        
-        self.pinout = pinout
+    def __init__(self, template):
+        self.template = template
 
         self.canvas_height = self.template.get('height', 1000)
         self.canvas_width = self.template.get('width', 1000)
@@ -195,7 +192,7 @@ class Page():
         
         return
 
-    def generate(self):
+    def generate(self, variant, page_data):
         print(self.canvas_width, "  ", self.canvas_height)
 
         # start with a page
@@ -213,32 +210,33 @@ class Page():
         y_margin = border.height / 20 
 
         # Attach Header (FIX height/2)
-        if 'header' in self.variant:
+        if 'header' in page_data:
             header = Header(self.template['header'])
-            dw_page.append(header.place(self.variant['header'], x=0, y=border.top+header.height/2))
+            dw_page.append(header.place(page_data['header'], x=0, y=border.top+header.height/2))
         
         # Attach Footer
-        if 'footer' in self.variant:
+        if 'footer' in page_data:
             footer = Footer(self.template['footer'])
-            dw_page.append(footer.place(self.variant['footer'], x=0, y=border.bottom-footer.height))
+            dw_page.append(footer.place(page_data['footer'], x=0, y=border.bottom-footer.height))
 
-        dw_page.append(self.pinout.place(self.package_x_offset, self.package_y_offset))
+        pinout = variant.pinout(page_data['layout'])
+        dw_page.append(pinout.place(self.package_x_offset, self.package_y_offset))
 
         # Add quadrant text fields
         quads = dw.Group(id="quadrant_text")
 
-        if self.pinout.width > 0:
-            quadrant_width = (border.width - self.pinout.width) / 2 - (2 * x_margin)
-            quadrant_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
+        if pinout.width > 0:
+            quadrant_width = (border.width - pinout.width) / 2 - (2 * x_margin)
+            quadrant_height = (border.height - pinout.height) / 2 - header.height - x_margin
         else:
-            quadrant_width = (border.width - self.pinout.width) / 2 - (1.5 * x_margin)
-            quadrant_height = (border.height - self.pinout.height) / 2 - header.height - x_margin
+            quadrant_width = (border.width - pinout.width) / 2 - (1.5 * x_margin)
+            quadrant_height = (border.height - pinout.height) / 2 - header.height - x_margin
             
         # Attach Pin Function Legend to first quadrant
         x = -border.width/2 + x_margin
         y = header.bottom + y_margin
         
-        legend = self.pinout.legend()
+        legend = pinout.legend()
         dw_page.append(dw.Use(legend.generate(self.canvas_width), x,y))
 
         #print(self.variant['quadrant']
@@ -259,15 +257,15 @@ class Page():
 
             # right quadrants
             if i in [1,3]:
-                x = x_margin + self.pinout.width/2
-                if self.pinout.width == 0:
+                x = x_margin + pinout.width/2
+                if pinout.width == 0:
                     x -= x_margin/2
 
             # bottom quadrants
-            if i in [2,3] : y = self.pinout.bottom + y_margin
+            if i in [2,3] : y = pinout.bottom + y_margin
 
             id = f'quadrant_{i}'
-            text = self.variant['quadrant'][f'text{i+1}']
+            text = page_data['quadrant'][f'text{i+1}']
             quad = TextBlock(self.template['quadrant'], id=id, width=q_width, height=q_height)
             
             quads.append(quad.place(text, x, y))

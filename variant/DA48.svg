@@ -2018,11 +2018,6 @@
 In that case, since that </tspan><tspan x="-990.0" dy="1em">takes PA0, we default to PA4/5 instead. </tspan></text>
 <text x="-990.0" y="505.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="-990.0" dy="0em">All other peripherals are left at their default mux </tspan><tspan x="-990.0" dy="1em">options unless specified otherwise. </tspan></text>
 </g>
-<g id="quadrant_3">
-<text x="320.0" y="295.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="320.0" dy="0em">1. Both VDD and VDDA are internally connected. </tspan><tspan x="320.0" dy="1em">Each power pin must be connected to its </tspan><tspan x="320.0" dy="1em">respective rail and decoupled with 0.1uF </tspan><tspan x="320.0" dy="1em">capacitors </tspan></text>
-<text x="320.0" y="430.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="320.0" dy="0em">2. USART0 is re-assigned to PA4/PA5 when CLKIN </tspan><tspan x="320.0" dy="1em">enabled </tspan></text>
-<text x="320.0" y="505.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="320.0" dy="0em">3.  </tspan></text>
-<text x="320.0" y="550.0" font-size="30" text-anchor="left" dominant-baseline="middle" fill="black" font-weight="normal" font-family="Roboto"><tspan x="320.0" dy="0em">S. TWI function with server capability only </tspan></text>
-</g>
+<g id="quadrant_3"></g>
 </g>
 </svg>
