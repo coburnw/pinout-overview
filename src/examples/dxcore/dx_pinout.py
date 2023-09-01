@@ -3,7 +3,7 @@ import sys
 import json
 import copy
 
-from pinoutOverview import page as Page
+import page as Page
 from pinoutOverview import pinouts as Pinouts
 from pinoutOverview import config as Config
 from pinoutOverview import packages as Packages

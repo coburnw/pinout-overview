@@ -2,7 +2,7 @@ import os
 import sys
 
 import drawsvg as dw
-import markdown as md
+#import markdown as md
 
 import requests
 from io import BytesIO
