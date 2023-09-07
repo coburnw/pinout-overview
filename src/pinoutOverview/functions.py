@@ -1,15 +1,53 @@
 import drawsvg as dw
 
 from pinoutOverview import shapes
-from template import function_label
+#from template import default_function_template #default_label
+#from template import default_label_template
+
+default_label_template = dict(
+    width = 70,
+    height = 20,
+    spacing= 10,
+    offset= 30,
+    vert_spacing = 10,
+    center_offset = 20,
+    
+    box_style = dict(
+        stroke_width = '2',
+        rx = '2',
+        ry = '2',
+        stroke_dasharray = '',
+        ),
+    text_style = dict(
+        font_family = 'Roboto Mono',
+        dominant_baseline = 'middle',
+        text_anchor = 'middle',
+        font_weight = 'bold',
+        ),
+    alt_box_style = dict(
+        stroke_width = '2',
+        rx = '2',
+        ry = '2',
+        stroke_dasharray = '3 4',
+        ),
+    alt_text_style = dict(
+        font_family = 'Roboto Mono',
+        dominant_baseline = 'middle',
+        text_anchor = 'middle',
+        font_style = 'italic',
+        ),
+
+    label_line_style = dict(
+        stroke = 'black',
+        stroke_width = '2',
+        fill = 'none',
+        )
+)
 
 class Label(dw.Group):
-    def __init__(self, style=None, template=None, id=None):
-        if template is not None:
-            self.set_template(template)
-            return
-
-        self.template = function_label.label_template
+    template = default_label_template #function_label.label_template
+    
+    def __init__(self, id=None, style=None):
         super().__init__(id=id)  #id's matter. dupes create odd problems...  Use None or a unique id.
         self.style_adders = style
         return
@@ -43,10 +81,6 @@ class Label(dw.Group):
     def line_style(self):
         return self.template['label_line_style']
          
-    @property
-    def skip(self):
-        return "skip" in self.style and self.style['skip']
-
     @property
     def slant_left(self):
         return -1
@@ -141,39 +175,35 @@ class Label(dw.Group):
 
         return self
 
+
+default_function_template = dict(
+    description = 'Default',
+    skip = False,
+    blank = False,
+    box_style = dict(
+        stroke = '#00B8CC',
+        fill = '#88EBF7'
+    ),
+    text_style = dict(
+        font_family = 'Roboto Mono',
+        fill = 'black'
+    )
+)
+
 class Function():
-    def __init__(self, function, type_templates=None):
-        if type_templates is not None:
-            self.set_types(type_templates)
-            return
-
-        self.function = function
-        return
+    template = default_function_template
     
-    @classmethod
-    def set_types(cls, types):
-        cls._use_count = dict()
-        cls.types = types
-        return
-
-    @property
-    def use_count(self):
-        if self.type not in self._use_count:
-            return 0
-        
-        return self._use_count[self.type]
-
-    def reset_use_count(self):
-        self._use_count = dict()
+    def __init__(self, function):
+        self.function = function
         return
     
     @property
     def name(self):
         return self.function['name']    
 
-    @property
-    def type(self):
-        return self.function['type']
+    # @property
+    # def type(self):
+    #     return self.function['type']
 
     @property
     def is_alt(self):
@@ -181,52 +211,42 @@ class Function():
 
     @property
     def footnote(self):
-        return self.function['footnote']
+        return self.function.get('footnote', None)
 
     @property
     def style(self):
-        return self.types[self.type]
+        return self.template
 
     @property
     def skip(self):
-        style = self.types[self.function['type']]
-        return "skip" in style and style['skip']
+        return "skip" in self.template and self.template['skip']
         
     @property
-    def is_spacer(self):
-        return self.function['type'] == 'spacer'
+    def blank(self):
+        return "blank" in self.template and self.template['blank']
 
     @property
     def spacing(self):
         return Label().spacing
 
-    def label(self):
-        return Label(style=self.style)
+    # def label(self):
+    #     return Label(style=self.template)
 
-    def exists(self):
-        if self.function['type'] in self.types:
-            raise '{} function not found in function type styles'.format(self.type)
-        return True
-
-    def generate(self, slant):
+    def generate(self, slant=False):
         
-        label = Label(style=self.style)
-        dw_lbl = label.generate(self.name, slant=slant, is_alt=self.is_alt, footnote=self.footnote)
-
-        if self.type not in self._use_count:
-            self._use_count[self.type] = 0
-            
-        self._use_count[self.type] += 1
+        label = Label(style=self.template)
+        dw_lbl = label.generate(self.text, slant=slant, is_alt=self.is_alt, footnote=self.footnote)
         
         return dw_lbl
 
 class Functions(dw.Group):
     # a single row of functions
-    def __init__(self, row, direction, id=None):
-        super().__init__()
-
-        self.row = row
-        self.direction = direction
+    def __init__(self, id=None):
+        super().__init__(id=id)
+        
+        #self.id = id
+        #self.direction = direction
+        self.row = []
 
         self.x = 0
         self.y = 0
@@ -244,21 +264,32 @@ class Functions(dw.Group):
     def line_style(self):
         return Label().line_style
 
-    def generate(self, slant=0):
-        dw_row = dw.Group() 
-        self.x = Label().width/2 * -self.direction
-        
-        for func in self.row:
-            function = Function(func)
+    def append(self, function):
+        self.row.append(function)
+        return
+
+    def sort(self):
+        self.row = sorted(self.row, key=lambda function: function.index)
+        return None
+    
+    def generate(self, direction, slant=0):
+        self.x = Label().width/2 * -direction
+
+        dw_labels = dw.Group() 
+        for function in self.row:
             if function.skip:
                 continue
-            
+
+            #print(function.name)
             label = function.generate(slant)
 
-            self.x += (label.width + label.spacing) * self.direction
-            dw_row.append(dw.Use(label, self.x, self.y))
+            self.x += (label.width + label.spacing) * direction
+            if not function.blank:
+                dw_labels.append(dw.Use(label, self.x, self.y))
 
-        self.append(dw.Line(0,0, self.width*self.direction,0, **self.line_style))
-        self.append(dw_row)
+        super().append(dw.Line(0,0, self.width*direction,0, **self.line_style))
+        super().append(dw_labels)
         
         return self
+
+    
