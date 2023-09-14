@@ -4,34 +4,70 @@ from pinoutOverview import functions
 
 # a group of function label rows for a specific pin
 class Pin(dw.Group):
+    '''A group of function label rows for a specific pin
+
+    Attributes:
+       number (int): pin number, most likely 1 indexed.
+       rows (list):  each item is a row of function. 
+
+    Todo:
+       * Perhaps emulate a list of rows.  Use append to fill, use split() to split on index
+    '''
+    
     def __init__(self, number, rows):
         super().__init__()
-        self._number = number
+        self.pin_number = number
+        self.pin_name = name
         self.rows = rows
         return
 
     @property
     def number(self):
-        return self._number
+        '''int: the number of the pin.'''
+        return self.pin_number
     
     @property
-    def label_spacing(self):
-        return functions.Label().spacing
+    def name(self):
+        '''int: the name of the pin.'''
+        return self.pin_name
     
-    @property
-    def row_spacing(self):
-        return functions.Label().height + functions.Label().vert_spacing
+    # @property
+    # def label_spacing(self):
+    #     '''int: spacing in pixels between labels.'''
+    #     return functions.Label().spacing
+    
+    # @property
+    # def row_spacing(self):
+    #     '''int: spacing in pixels between rows.'''
+    #     return functions.Label().height + functions.Label().vert_spacing
         
     @property
     def height(self):
+        '''int: height in pixels of combined rows.'''
         count = len(self.rows)
-        return self.spacing * count 
+        spacing = functions.Label().height + functions.Label().vert_spacing
+        return spacing * count 
 
     @property
     def width(self):
+        '''int: width in pixels of longest row.'''
         return 0
+
+    def split_on(self, function):
+        self.functions.split(function)
+        return
     
     def generate(self, direction, slant=0):
+        '''generate a drawingsvg object of the pin rows
+
+        Args:
+           direction (int): determines direction of label placement, left or right.  Use constants.
+           slant (optional int): determines slant of label box.  Use label constants.
+
+        Returns:
+           dw.Group (object): A drawingsvg group object of a constructed pin
+        '''
+        
         x_start = 0
         y_start = 0
          
@@ -64,9 +100,19 @@ class Pin(dw.Group):
         return self
 
 class Pins():
+    '''A group of pins
+
+    Args:
+       pin_list (list): a list of pin names.
+       rows (list): a list of function rows
+
+    Todo:
+       * add an item setter to allow filling of row list
+    '''
+    
     def __init__(self, pin_list, rows):
         self.pin_list = pin_list   # each pin can be a name or a list of names that point to a row in rows
-        self.rows = rows #rows.functions.functions
+        self.rows = rows
         self.spacing = self.calc_spacing(self.pin_list)
         return
 
@@ -99,6 +145,17 @@ class Pins():
         raise StopIteration
 
     def calc_spacing(self, names):
+        '''Finds maximum pin spacing in pixels
+        
+        Args: names (list): a list of names to scan to find max rows and calculate spacing
+
+        Returns:
+           pin_spacing (int): the maximum spacing required between pins
+
+        Todo:
+           * i think we should be using our local list rather than from an argument.
+        '''
+        
         max_lines = 1
         
         for i, m in enumerate(names):
