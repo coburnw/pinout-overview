@@ -21,32 +21,39 @@ class label_line:
         self.direction = 1
 
 
-def entity(name):
-    label_template = importlib.import_module(f'template.{name}_label')
-    functions_template = importlib.import_module(f'template.{name}_functions')
+# def entity(name):
+#     label_template = importlib.import_module(f'template.{name}_label')
+#     functions_template = importlib.import_module(f'template.{name}_functions')
 
-    # configure the 'static' class variables for the callers name
-    functions.Label(template=label_template.label_template)
-    functions.Function(function=None, type_templates=functions_template.function_types)
+#     # configure the 'static' class variables for the callers name
+#     functions.Label(template=label_template.label_template)
+#     functions.Function(function=None, type_templates=functions_template.function_types)
     
-    return
+#     return
     
 class PinoutFactory():
-    def __new__(self, layout, pins, package):
+    def __new__(self, layout, pinmap, package, pads):
         if layout == 'orthogonal':
-            pinout = OrthogonalPinout(pins, package)
+            pinout = OrthogonalPinout(pinmap, package, pads)
         elif layout == 'diagonal':
-            pinout = DiagonalPinout(pins, package)
+            pinout = DiagonalPinout(pinmap, package, pads)
         else: # horizontal
-            pinout = HorizontalPinout(pins, package)
+            pinout = HorizontalPinout(pinmap, package, pads)
 
         return pinout
 
 class Pinout(utils.Region):
-    def __init__(self, pins, package, **kwargs):
+    '''
+    Args:
+       pinmap (dict):
+       package (object):
+       pads (dict):
+    '''
+    def __init__(self, pinmap, package, pads, **kwargs):
         #self.data = variant.data
+        self.pins = pinmap
         self.package = package
-        self.pins = pins
+        self.pads = pads
         
         self.row_spacing = self.pins.spacing
         height = self.package.height

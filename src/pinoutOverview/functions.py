@@ -349,6 +349,7 @@ class Function():
         
         return dw_lbl
 
+#class Pad(dw.Group):
 class Functions(dw.Group):
     '''
     Functions Base Class.  Emulates a simple list containing a single row of function labels.
@@ -365,6 +366,7 @@ class Functions(dw.Group):
         #self.id = id
         #self.direction = direction
         self.row = []
+        #self.rows = [ [],[] ]
 
         self.x = 0
         self.y = 0
@@ -411,8 +413,21 @@ class Functions(dw.Group):
         '''
         
         self.row = sorted(self.row, key=lambda function: function.index)
-        return None
-    
+        return self
+
+    def split(self, function):
+        # row = self.rows[0]
+        # found = False
+        # i = 0
+        # for f in self.row:
+        #     if f.index == function.index and not found:
+        #         i += 1
+        #         found = True
+            
+        #     self.rows[i].append(f)
+        
+        return
+
     def generate(self, direction, slant=0):
         '''
         generate() method.  Builds row of function labels extending from the origin.
