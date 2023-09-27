@@ -5,7 +5,7 @@ from pinoutOverview import page
 from pinoutOverview import pinouts
 from pinoutOverview import config
 from pinoutOverview import packages
-from pinoutOverview import pins
+from pinoutOverview import pads
 from pinoutOverview import functions
 
 from template import function_label

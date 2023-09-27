@@ -5,7 +5,7 @@ if __name__ == '__main__':
     
     import drawsvg as dw
 
-    from pinoutOverview import pins as Pins
+    from pinoutOverview import pads as Pins
 
     package = importlib.import_module('templates.qfn')
     variant = importlib.import_module('variants.dd14_20')

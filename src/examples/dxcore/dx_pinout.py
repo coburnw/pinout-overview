@@ -7,7 +7,7 @@ import page as Page
 from pinoutOverview import pinouts as Pinouts
 from pinoutOverview import config as Config
 from pinoutOverview import packages as Packages
-from pinoutOverview import pins as Pins
+from pinoutOverview import pads as Pins
 
 from template import dxcore_page
 

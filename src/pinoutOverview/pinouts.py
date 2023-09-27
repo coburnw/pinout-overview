@@ -1,13 +1,10 @@
 import math
-import importlib
+import collections
+import copy
 
 import drawsvg as dw
 
-from pinoutOverview import utils
-#from pinoutOverview import packages
-from pinoutOverview import shapes
-from pinoutOverview import pins as Pin
-from pinoutOverview import functions
+from pinoutOverview import Functions, FunctionLabel, Region
 
 #SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
 
@@ -21,47 +18,102 @@ class label_line:
         self.direction = 1
 
 
-# def entity(name):
-#     label_template = importlib.import_module(f'template.{name}_label')
-#     functions_template = importlib.import_module(f'template.{name}_functions')
+class Pinmap(collections.UserDict):
+    """
+    Pinmap Base Class.  Maintains a collection of pin_number to Pad objects mappings
+    """
+    @property
+    def spacing(self):
+        """Finds maximum pin spacing in pixels
 
-#     # configure the 'static' class variables for the callers name
-#     functions.Label(template=label_template.label_template)
-#     functions.Function(function=None, type_templates=functions_template.function_types)
-    
-#     return
-    
+        Returns:
+           pin_spacing (int): the maximum spacing required between pins
+        """
+
+        max_height = 0
+        for name, pad in self.data.items():
+            if pad.height > max_height:
+                max_height = pad.height
+
+        return max_height
+
+    def sort(self):
+        """
+        Sorts functions in ascending order by their type_index value
+
+        Returns:
+            Nothing.  Functions are sorted in place.
+        """
+
+        for name, pad in self.data.items():
+            pad.sort()
+
+        return
+
+    def split(self, split_functions):
+        """
+        Splits the functions associated with each pad into rows of functions. Each function found in
+        split_functions acts as a break point
+
+        Args:
+            split_functions (Functions): A list of functions to split the row into multiple rows on.
+
+        Returns:
+
+        """
+        for name, pad in self.data.items():
+            pad.split(split_functions)
+
+        return
+
+
 class PinoutFactory():
-    def __new__(self, layout, pinmap, package, pads):
+    def __new__(self, layout, pinmap, package):
         if layout == 'orthogonal':
-            pinout = OrthogonalPinout(pinmap, package, pads)
+            pinout = OrthogonalPinout(pinmap, package)
         elif layout == 'diagonal':
-            pinout = DiagonalPinout(pinmap, package, pads)
+            pinout = DiagonalPinout(pinmap, package)
         else: # horizontal
-            pinout = HorizontalPinout(pinmap, package, pads)
+            pinout = HorizontalPinout(pinmap, package)
 
         return pinout
 
-class Pinout(utils.Region):
-    '''
-    Args:
-       pinmap (dict):
-       package (object):
-       pads (dict):
-    '''
-    def __init__(self, pinmap, package, pads, **kwargs):
-        #self.data = variant.data
-        self.pins = pinmap
+class Pinout(Region):
+    def __init__(self, pinmap, package, **kwargs):
+        """
+
+        Args:
+            pinmap (Pinouts.Pinmap): a mapping of pin numbers to Pads.Pads objects
+            package (Packages.Package): a package outline
+        """
+
+        self.pinmap = pinmap
         self.package = package
-        self.pads = pads
-        
-        self.row_spacing = self.pins.spacing
+
+        self.pin_spacing = self.pinmap.spacing
+        self.row_spacing = self.pin_spacing  # some goofyness
+
         height = self.package.height
         width = self.package.width 
             
         super().__init__(width=width, height=height, **kwargs)
         
         return
+
+    def build_fanout(self, pin_numbers, offset):
+        raise NotImplementedError
+
+    def build_pin(self, number, pad):
+        """
+
+        Args:
+            number (int): the number of the physical pin 
+            pad (Pad): a Pad object containing the rows of pad functions 
+
+        Returns:
+            dw.Group: a DrawingSVG group of image elements of a finished pin
+        """
+        raise NotImplementedError
 
     def place(self, x, y, transform=''):
         self.x = x
@@ -74,13 +126,13 @@ class Pinout(utils.Region):
         dw_footprint = self.package.generate(diagonal)
         self.append(dw.Use(dw_footprint, x, y, transform=transform))
         
-        fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, functions.Label().offset)
+        fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, FunctionLabel().offset)
         self.append(dw.Use(dw_fanout, x, y))
 
         dw_pins = dw.Group(id='pins')
-        for pin in self.pins:
-            position = fanout[pin.number]
-            dw_pin = self.build_pin(pin)
+        for number, pad in self.pinmap.items():
+            position = fanout[int(number-1)]
+            dw_pin = self.build_pin(number-1, pad)
             dw_pins.append(dw.Use(dw_pin, position.end_x, position.end_y))
             #dw_pins.append(dw.Circle(position.end_x, position.end_y, 2, stroke='black'))
 
@@ -89,7 +141,7 @@ class Pinout(utils.Region):
         return self
 
     def legend(self, layout='vertical'):
-        return(Legend(layout))
+        return Legend(self.pinmap)  # (Legend(layout))
         
 class OrthogonalPinout(Pinout):
     def build_fanout(self, pin_numbers, offset):
@@ -124,15 +176,15 @@ class OrthogonalPinout(Pinout):
             
         return wires, dw_wires
         
-    def build_pin(self, pin, x=0, y=0):
-        side_index, pin_index = self.package.side_from_pin_number(pin.number)
+    def build_pin(self, number, pad, x=0, y=0):
+        side_index, pin_index = self.package.side_from_pin_number(number)
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
         label_direction = -1
         if side_index in [2,3]:
             label_direction = -label_direction
 
-        dw_pin = pin.generate(label_direction, slant=functions.Label().slant_none)
+        dw_pin = pad.generate(label_direction, slant=FunctionLabel().slant_none)
 
         transform = 'rotate(0)'
         if side_index in [1,3]:
@@ -143,8 +195,8 @@ class OrthogonalPinout(Pinout):
         return dw_pin
         
 class DiagonalPinout(Pinout):
-    def __init__(self, data, pins, **kwargs):
-        super().__init__(data, pins, **kwargs)
+    def __init__(self, pinmap, package, pads, **kwargs):
+        super().__init__(pinmap, package, pads, **kwargs)
         
         self.pin_spacing = self.pin_spacing * math.sqrt(2)
         self.height = self.height * math.sqrt(2)
@@ -152,10 +204,8 @@ class DiagonalPinout(Pinout):
         
         return
 
-    def place(self, x, y):
-        transform = ''
-        if self.diagonal is True:
-            transform = 'rotate(45)'
+    def place(self, x, y, transform=''):
+        transform = 'rotate(45)'
 
         super().place(x, y, transform)
         return
@@ -209,9 +259,9 @@ class DiagonalPinout(Pinout):
         if side_index in [2,3]:
             label_direction = -label_direction
 
-        slant = Pin.Label().slant_right
+        slant = FunctionLabel().slant_right
         if side_index in [1,3]:
-            slant = Pin.Label().slant_left
+            slant = FunctionLabel().slant_left
             
         dw_pin = pin.generate(label_direction, slant=slant)
 
@@ -302,48 +352,37 @@ class HorizontalPinout(Pinout):
             direction = right
 
         return direction
-    
-class Legend(dw.Group):
-    def __init__(self, data):
-        super().__init__(id='Legend')
-        self.data = data
 
-        self._width = 0
-        self._height = 0
-        
+
+class Legend(Region):
+    def __init__(self, pinmap, **kwargs):
+        """
+
+        Args:
+            pinmap (Pinmap):
+        """
+        super().__init__(id='Legend')
+        self.pinmap = pinmap
+
         return
 
-    @property
-    def width(self):
-        return self._width
 
-    @property
-    def height(self):
-        return self._height
-    
-    def generate(self, canvas_width):
-        function_types = functions.Function(None).types
+    def place(self, x, y):
+        used_functions = Functions()
+        for number, pad in self.pinmap.items():
+            for function in pad:
+                if function not in used_functions:
+                    used_functions.append(function)
 
-        x = 0
-        y = 0
-        for type_name in function_types:
-            ftype = dict(
-                name = '',
-                type = type_name,
-                alt = False
-                )
-            
-            function = functions.Function(ftype)
-            if function.use_count == 0:
-                continue
-            
-            label = function.label()
+        used_functions.sort()
+        for label in used_functions:
             y += label.height + label.vert_spacing
-            self.append(dw.Use(label.generate(type_name.upper(), slant=0), x,y))
+            self.append(dw.Use(label.generate(legend=True, slant=0), x,y))
 
-        self._width = label.width + label.spacing
-        self._height = y + label.vert_spacing
+        self.width = used_functions[0].width + used_functions[0].spacing
+        self.height = y + label.vert_spacing
+
+        self.x = x
+        self.y = y
         
         return self
-    
-
