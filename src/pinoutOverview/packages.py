@@ -60,14 +60,42 @@ class PackageData(object):
         return
 
 
-class Package(object):
-    def __init__(self, package_template, package_data: PackageData):
+class PackageFactory(type):
+    def __call__(cls, package_shape, package_data, package_template=None):
         """
 
         Args:
-            package_template (dict): a package template describing shape and style
-            pin_spacing (int): distance in pixels between adjacent pins
+            package_shape (str): name of package shape to construct
             package_data (PackageData): package data to customize text and style
+            package_template (dict): a package template describing default shape and style
+        """
+        if cls is Package:
+            #name = package_data.shape.lower()
+
+            #print(package_config)
+            if package_shape == 'qfn':
+                package_template = templates.qfn_template
+                return QFN(package_shape, package_data, package_template)
+            elif package_shape == 'qfp':
+                package_template = templates.qfp_template
+                return QFP(package_shape, package_data, package_template)
+            elif package_shape == 'sop':
+                package_template = templates.sop_template
+                return SOP(package_shape, package_data, package_template)
+            else:
+                raise 'unrecognized package: "{}"'.format(package_shape)
+
+        return type.__call__(cls, package_shape, package_data, package_template)
+
+
+class Package(metaclass=PackageFactory):
+    def __init__(self, package_shape, package_data, package_template):
+        """
+
+        Args:
+            package_shape (str): name of package shape to construct
+            package_data (PackageData): package data to customize text and style
+            package_template (dict): a package template describing default shape and style
         """
         self.template = package_template
         self.data = package_data
@@ -87,7 +115,7 @@ class Package(object):
 
     @property
     def pin_offset(self):
-        proto_pin = Pin(self.template.pad)
+        proto_pin = Pin(self.template['pad'])
         return (self.width - proto_pin.length) / 2
 
     def _calc_offset_point(self, pin_number, offset=None, rotation=None):
@@ -107,10 +135,10 @@ class Package(object):
         row_offset = -(self.pin_spacing * pin_index) + (self.pin_spacing * (self.pins_per_side-1)) / 2 
 
         direction = 1
-        if side_index in [0,1]:
+        if side_index in [0, 1]:
             direction = -direction
 
-        if side_index in [1,3]:           # bottom and top
+        if side_index in [1, 3]:           # bottom and top
             x = row_offset * direction    # movement along line parallel to edge of package
             y = pin_offset * -direction   # distance from origin 
             direction = -direction        # invert direction for vertical pins so it works logically for caller
@@ -118,7 +146,7 @@ class Package(object):
             x = pin_offset * direction
             y = row_offset * direction
 
-        point = {'x':x,'y':y}
+        point = {'x':x, 'y':y}
         return point, side_index, direction 
 
     def _build_pins(self, proto_pin):
@@ -139,40 +167,20 @@ class Package(object):
         raise NotImplementedError
 
 
-class PackageFactory():
-    def __new__(cls, package_data: PackageData) -> Package:
-        name = package_data.shape.lower()
-
-        #print(package_config)
-        if name == 'qfn':
-            package_template = templates.qfn_template
-            package = QFN(package_template, package_data)
-        elif name == 'qfp':
-            package_template = templates.qfp_template
-            package = QFP(package_template, package_data)
-        elif name == 'sop':
-            package_template = templates.sop_template
-            package = SOP(package_template, package_data)
-        else:
-            raise 'unrecognized package: "{}"'.format(name)
-
-        return package
-
-
 class Dual(Package):
-    def __init__(self, package_template, package_config):
-        super().__init__(package_template, package_config)
+    def __init__(self, package_shape, package_config, package_template):
+        super().__init__(package_shape, package_config, package_template)
         
         self.number_of_sides = 2
-        self.pins_per_side   = int(self.number_of_pins/self.number_of_sides)
+        self.pins_per_side = int(self.number_of_pins/self.number_of_sides)
         
-        self.pin_numbers     = range(0, self.number_of_pins)
-        self.sides           = [0,2]
+        self.pin_numbers = range(0, self.number_of_pins)
+        self.sides = [0, 2]
 
-        self.corner_spacing  = self.pin_spacing*1.5
+        self.corner_spacing = self.pin_spacing*1.5
         
         self.height = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
-        self.width  = self.pin_spacing * 6
+        self.width = self.pin_spacing * 6
         
         return
 
@@ -192,19 +200,19 @@ class Dual(Package):
         return side_index, pin_index
     
 class Quad(Package):
-    def __init__(self, package_template, package_config):
-        super().__init__(package_template, package_config)
+    def __init__(self, package_shape, package_config, package_template):
+        super().__init__(package_shape, package_config, package_template)
         
         self.number_of_sides = 4
-        self.pins_per_side   = int(self.number_of_pins/self.number_of_sides)
+        self.pins_per_side = int(self.number_of_pins/self.number_of_sides)
         
-        self.pin_numbers     = range(0, self.number_of_pins)
-        self.sides           = [0,1,2,3] # dip might be [0,2]
+        self.pin_numbers = range(0, self.number_of_pins)
+        self.sides = [0,1,2,3] # dip might be [0,2]
 
-        self.corner_spacing  = self.pin_spacing*1.5
+        self.corner_spacing = self.pin_spacing*1.5
         
-        self.height   = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
-        self.width  = self.height
+        self.height = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
+        self.width = self.height
         
         return
 
@@ -258,13 +266,13 @@ class QFN(Quad):
     
 class QFP(Quad):
     def generate(self, diagonal=False):
-        marker_dia     = self.pin_spacing/3
-        marker_position  = -self.width/2 + self.corner_spacing + marker_dia/2
-        rotate_opt    = f"rotate({-45 if diagonal else 0}, {0}, {0})"
+        marker_dia = self.pin_spacing/3
+        marker_position = -self.width/2 + self.corner_spacing + marker_dia/2
+        rotate_opt = f"rotate({-45 if diagonal else 0}, {0}, {0})"
         
         proto_pin = Pin(self.template['pad'])
-        border    = shapes.qfn_border(self.width-2*proto_pin.length, **self.template['style'])
-        marker       = dw.Circle(marker_position, marker_position, marker_dia, **self.template['marker_style'])
+        border = shapes.qfn_border(self.width-2*proto_pin.length, **self.template['style'])
+        marker = dw.Circle(marker_position, marker_position, marker_dia, **self.template['marker_style'])
         
         pins = self._build_pins(proto_pin)
 
@@ -288,12 +296,12 @@ class QFP(Quad):
 class SOP(Dual):
     def generate(self, diagonal=False):
         marker_dia = self.pin_spacing/3
-        marker_x   = -self.width/2 + self.corner_spacing + marker_dia/2
-        marker_y   = -self.height/2 + self.corner_spacing + marker_dia/2
+        marker_x = -self.width/2 + self.corner_spacing + marker_dia/2
+        marker_y = -self.height/2 + self.corner_spacing + marker_dia/2
         
         proto_pin = Pin(self.template['pad'])
-        border    = shapes.sop_border(self.width-2*proto_pin.length, self.height-2*proto_pin.length, **self.template['style'])
-        marker    = dw.Circle(marker_x, marker_y, marker_dia, **self.template['marker_style'])
+        border = shapes.sop_border(self.width-2*proto_pin.length, self.height-2*proto_pin.length, **self.template['style'])
+        marker = dw.Circle(marker_x, marker_y, marker_dia, **self.template['marker_style'])
         
         pins = self._build_pins(proto_pin)
 

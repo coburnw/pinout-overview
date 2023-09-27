@@ -43,9 +43,7 @@ from pinoutOverview import shapes
 # )
 
 
-#class Label(dw.Group):
-class Label:
-
+class Label(object):
     """
     Label() Class
 
@@ -223,8 +221,8 @@ class Label:
             text (str):      The text to be shown on the label
             slant (int):     Optional. A slant constant to tip box outline left or right
             is_alt (bool):   Optional. A boolean to select alternate styling
-            footnote (str):  Optional single character (such as '1') to be shown in a footnote bubble
-            caption (str):   Optional text to be shown adjacent to the label
+            footnote (str):  Optional. Single character (such as '1') to be shown in a footnote bubble
+            caption (str):   Optional. Text to be shown adjacent to the label
 
         Returns:
               returns a drawsvg object of a completed label
@@ -246,20 +244,6 @@ class Label:
             dw_group.append(dw.Use(self._caption_generate(caption, is_alt), dx, dy))
 
         return dw_group
-
-# default_function_template = dict(
-#     description = 'Default',
-#     skip = False,
-#     blank = False,
-#     box_style = dict(
-#         stroke = '#00B8CC',
-#         fill = '#08EB07'
-#     ),
-#     text_style = dict(
-#         font_family = 'Roboto Mono',
-#         fill = 'black'
-#     )
-# )
 
 
 class FunctionLabel(Label):
@@ -299,18 +283,18 @@ class FunctionLabel(Label):
 
     @property
     def text(self):
-        """text (string):  parses function_data and assembles a string to be shown in function label"""
+        """text (str):  parses function_data and assembles a string to be shown in function label"""
         return self.name
 
     @property
     def is_alt(self):
-        """is_alt (boolean):  parses function_data and returns a boolean indicating an alternate function"""
+        """is_alt (bool):  parses function_data and returns a boolean indicating an alternate function"""
         
         raise NotImplementedError
 
     @property
     def footnote(self):
-        """footnote (string).  parses function_data and returns a footnote character if any"""
+        """footnote (str).  parses function_data and returns a footnote character if any"""
         
         raise NotImplementedError
 
@@ -319,7 +303,8 @@ class FunctionLabel(Label):
         Generate a DrawingSVG object of a function label
 
         Args:
-            slant (int): a label constant describing possible slant of the label.
+            slant (int): a label constant describing direction of slant of the label.
+            legend (bool): is label being used in a legend
 
         Returns:
             dw_lbl (drawsvg.Group): A DrawingSVG Group object of a FunctionLabel

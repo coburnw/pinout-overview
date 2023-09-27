@@ -67,24 +67,29 @@ class Pinmap(collections.UserDict):
         return
 
 
-class PinoutFactory():
-    def __new__(self, layout, pinmap, package):
-        if layout == 'orthogonal':
-            pinout = OrthogonalPinout(pinmap, package)
-        elif layout == 'diagonal':
-            pinout = DiagonalPinout(pinmap, package)
-        else: # horizontal
-            pinout = HorizontalPinout(pinmap, package)
+class PinoutFactory(type):
+    def __call__(cls, layout, pinmap, package):
+        if cls is Pinout:
+            if layout == 'orthogonal':
+                return OrthogonalPinout(layout, pinmap, package)
+            if layout == 'diagonal':
+                return DiagonalPinout(layout, pinmap, package)
+            if layout == horizontal:
+                return HorizontalPinout(layout, pinmap, package)
 
-        return pinout
+            print('PinoutFactory(): unrecognized layout.')
+            raise
 
-class Pinout(Region):
-    def __init__(self, pinmap, package, **kwargs):
+        return type.__call__(cls, layout, pinmap, package)
+
+class Pinout(Region, metaclass=PinoutFactory):
+    def __init__(self, layout_name, pinmap, package, **kwargs):
         """
 
         Args:
-            pinmap (Pinouts.Pinmap): a mapping of pin numbers to Pads.Pads objects
-            package (Packages.Package): a package outline
+            layout_name (str): name of layout. one of 'horizontal', 'orthogonal', 'diagonal'.
+            pinmap (Pinmap): a mapping of pin number to Pad objects
+            package (Package): a package object
         """
 
         self.pinmap = pinmap
@@ -195,8 +200,8 @@ class OrthogonalPinout(Pinout):
         return dw_pin
         
 class DiagonalPinout(Pinout):
-    def __init__(self, pinmap, package, pads, **kwargs):
-        super().__init__(pinmap, package, pads, **kwargs)
+    def __init__(self, layout, pinmap, package, **kwargs):
+        super().__init__(layout, pinmap, package, **kwargs)
         
         self.pin_spacing = self.pin_spacing * math.sqrt(2)
         self.height = self.height * math.sqrt(2)
