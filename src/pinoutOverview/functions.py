@@ -165,30 +165,6 @@ class Label(object):
 
         return dw_shape
 
-    def _caption_generate(self, value, is_alt=False):
-        """caption_generate method.  Generates the caption shown adjacent to a label.
-
-        Args:
-            value: the text to be shown adjacent to the label
-            is_alt: a boolean to select alternate styling
-
-        Returns:
-              returns a drawsvg object of the caption for a label
-        """
-
-        style = dict(self.text_style)
-
-        # add a caption_text section to label template
-        adders = dict()
-        adders['fill'] = 'black'
-        adders['text_anchor'] = 'start'
-
-        style |= adders
-        
-        dw_shape = shapes.label_text(str(value), self.height, **style)
-        
-        return dw_shape
-
     def _info_generate(self, value):
         """info_generate method.  Generates a footnote bubble at end of label.
 
@@ -213,7 +189,32 @@ class Label(object):
         dw_group.append(shapes.label_text(str(value), self.height, **style))
                         
         return dw_group
-    
+
+    def _caption_generate(self, value, is_alt=False):
+        """caption_generate method.  Generates the caption shown adjacent to a label.
+
+        Args:
+            value: the text to be shown adjacent to the label
+            is_alt: a boolean to select alternate styling
+
+        Returns:
+              returns a drawsvg object of the caption for a label
+        """
+
+        style = dict(self.text_style)
+
+        # add a caption_text section to label template
+        adders = dict()
+        adders['stroke'] = 'black'
+        adders['fill'] = 'black'
+        adders['text_anchor'] = 'start'
+
+        style |= adders
+
+        dw_shape = shapes.label_text(str(value), self.height, **style)
+
+        return dw_shape
+
     def generate(self, text, slant=0, is_alt=False, footnote=None, caption=None):
         """generate method. Generates a complete label.
 
@@ -312,19 +313,21 @@ class FunctionLabel(Label):
 
         text = self.text
         footnote = self.footnote
+        caption = None
 
         if legend:
             text = self.title
             footnote = None
+            caption = self.description
 
-        dw_lbl = super().generate(text, is_alt=self.is_alt, slant=slant, footnote=footnote)
+        dw_lbl = super().generate(text, is_alt=self.is_alt, slant=slant, footnote=footnote, caption=caption)
         
         return dw_lbl
 
 
 class Functions(dw.Group):
     """
-    Functions Base Class.  Emulates a simple list containing a single row of function labels.
+    Functions Base Class.  Emulates a simple list containing the function labels of a single row.
     """
     
     def __init__(self, id=None):
@@ -412,22 +415,19 @@ class Functions(dw.Group):
 
     def append(self, function):
         """
-        append() method.  Appends a function.
+        append() method.  Appends a function to the row.
 
         Args:
            function (FunctionLabel):  Subclassed FunctionLabel object.
-                                      When used for splitting, subclassed FunctionLabel class.
 
         Returns:
            nothing
 
         """
 
-        # check if an instance or a class
-        if isinstance(function, FunctionLabel):
-            self._width += (function.width + function.spacing)
-            if function.height > self._height:
-                self._height = function.height
+        self._width += (function.width + function.spacing)
+        if function.height > self._height:
+            self._height = function.height
 
         self._row.append(function)
         return
@@ -481,18 +481,19 @@ class Functions(dw.Group):
            Object (drawsvg.Group): of the finished row of function labels
         """
 
+        initialized = False
         x = self.x
         y = self.y
 
         dw_labels = dw.Group()
         for function in self._row:
-            if x == 0:
-                x = function.width / 2 * -direction
-
-            label = function.generate(slant)
+            if not initialized:
+                x += -function.width / 2 * direction
+                initialized = True
 
             x += (function.width + function.spacing) * direction
             if not function.blank:
+                label = function.generate(slant)
                 dw_labels.append(dw.Use(label, x, y))
 
         super().append(dw.Line(self.x, self.y, self.width*direction, y, **self.line_style))

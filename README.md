@@ -1,162 +1,87 @@
 
-# Pinout Generator
+# Pinout Overview Library
 
-A very work in progress pinout diagram generator using Python and drawsvg
+pinout diagram library using Python and drawsvg
 
-This has been heavily reworked, arguably to make it more modifiable.  We will see.
+A heavily reworked fork of [pinout-overview](https://github.com/Tengo10/pinout-overview) into a library by
+stripping out all parts unrelated to the pinout and legend objects themselves.
 
-# Usage
+Note:  At this point documentation is more conceptual than literal.  See
+dx-pinouts repository for a working example.  The library docstrings are 
+fairly helpful.
+
+## Usage
+
+Subclass the following: 
+1. Function() Create a subclass for each function that may be displayed in a pinout.  
+Override any style attributes to customise the functions visual, and any 
+exposed methods to parse the format of the source data.
+2. Pinmap() A mapping of pin numbers to Pad objects.  
+Add a method to parse the source data, instantiating a Function object for each, and
+appending to the proper Pad.
+3. Package() messy 
+
+instantiate a Pinmap, parse the device data for pad/function relationships and append.
+
+parse the device data for package shapes and pincounts and instantiate a Package.
+
+Choose a layout: 'horizontal', 'diagonal' or 'orthogonal',
+instantiate a Pinout(layout, package, pinmap) object and place
+
+Choose a layout: 'horizontal' or 'vertical'
+instantiate a Legend(layout, pinmap) object and place
+
+## Exposed Classes
+
+#### _Region()_ A subclass of the DrawSVG Group
+* Adds simplistic
+knowledge of a regions size and position.  Since Pinout and Legend are derived from
+Region the application can use their 'width', 'height', 'x' and 'y' attributes
+to dynamically help with size and placement of other items on the page. 
+
+#### _Function()_ A single function label
+* The primary visual effect of interest.  A container for a functions data
+to be visually represented on a page ultimately associated with some pin.
+* 
+#### _Functions()_ A single row of function labels with a connecting line
+* rarely needed by the library user.
+
+#### _Pad(pad_name)_ A group of functions assigned to a specific pad
+* rarely needed by the library user.
+
+#### _Pinmap([pad_names])_ A mapping of pin numbers to Pad's
+* The pad name list must be in order and without any missing pins.
+
+#### _PackageData()_ A container for package data
+* This should be moved to a package subclass
+
+#### _Package()_ a displayable package
+* QFP, QFN, or SOP
+
+#### _Pinout(layout, pinmap, package)_ A package with pad fanout
+* layout (str): 'horizontal', 'diagonal', or 'orthogonal'
+* pinmap (Pinmap): an initialized Pinmap object
+* package (Package): an initialized Package object
+
+#### _Legend(layout, pinmap)_ describes function types
+* layout (str): Vertical or Horizontal
+* pinmap (Pinmap):
 
 ## Config Files
 
-Configuration can be split across multiple config files to allow for sharing of common properties
-> "style" fields are standard SVG properties like fill, font_family, etc.
+There are no config files.  Configuration is done by subclassing and overriding.
 
-#### Scaling
+### Scaling
 The size of the function label determines the scale of many of the objects.
-Start by editing `template/function_label.py` to adjust width and height.
+Override the functions width and height attributes.
 
-#### Define family function types
-function types is a dictionary of style for function types that might be
-available on a broad range of products.  It defines colors, fonts and the
-description of the functions.  I suspect it will mostly be hand edited.
-
-``` json
-"section": "family",
-"name": "dxcore_functions",
-"shape": "quad_label",
-"styles": {
-   "usart": {
-      "description": "UART0",
-      "box_style": {
-         "stroke": "#CC0092",
-         "fill": "#FFA3E5"
-      },
-      "text_style": {
-         "font_family": "Roboto Mono",
-         "fill": "black"
-      }
-   },
-   "twi": {
-      "description": "I2C",
-      "skip": false,
-      "box_style": {
-         "stroke": "#00B8CC",
-         "fill": "#88EBF7"
-      },
-      "text_style": {
-         "font_family": "Roboto Mono",
-         "fill": "black"
-      }
-   }
-}
-
-```
-
-#### Define family port pins
-This is a dictionary of port pins containing lists of usable functions for
-some range of variants.  Most likely machine generated.
-
-``` json
-{
-    "section": "family",
-    "name": "dd14_20",
-    "styles": "dxcore_functions",
-    "functions": {
-        "PA0": [
-            {
-                "name": "PA0",
-                "type": "pin",
-                "alt": false
-            },
-            {
-                "name": "XTAL",
-                "type": "sys",
-                "alt": false
-            }
-        ]
-    }
-}
-```
-
-#### Map Pins to physical output on IC
-The pinmap is a simple ordered list of pin or port-names.
-Item zero is the name given to pin 1 of the chip.  The original implementation
-used a list of sub pins for multirow function pins.  That doesnt seem to flow
-well, and i am looking at adding a split option to the pinout section to split a
-row of functions into two.
-
-#### Chip options
-the variant file describes how to buid the svg and is most likely machine generated.
-  * section is this directory.  probably shouldnt be changed...
-  * name is basename of both this config file and the target svg file.
-  * family holds the basename of the family functions file defined above.
-  * pins holds the mapping of pin-number to pin-names
-  * package type of qfn, qfp, or sop, and appropriate pin counts and text to be placed on the package
-  * page amends options of its respective page template.
-
-```
-{
-    "section": "variant",
-    "name": "DD20",
-    "family": "dd14_20",
-    "package": {
-        "type": "qfn",
-        "pin_count": 20,
-        "text1": "AVR16DD20\nAVR32DD20\nAVR64DD20",
-        "text2": "VQFN20"
-    },
-    "pins": {
-        "split": "tca",
-        "pin_map": [
-    	    "PA4",
-            "PA5",
-            "PA6"
-	]
-    
-    },
-    "page": {
-        "template": "some_template_name",
-        "header": {
-            "text1": "big title",
-            "text2": "sub title"
-        },
-        "quadrant": {
-            "text1": "sldkfjlksjlkjsadfdjalksfdslkjalksf",
-            "text2": "jsadklfdslkjalksfsldkfjlksjlk",
-            "text3": "jalksfsldkfjlkjalksfksjlkjsadklfdsl",
-            "text4": "fdslkjalksfsldkfjlksjlkjsadkl"
-        }
-    }
-}
-
-```
-
-## Generating the Images
-
-To generate the variant config files
-
-``` shell
- python extract_variants.py [variant_range]
-```
-
-To generate a single Image
-
-``` shell
- python pinout.py [variant_name]
-```
-
-# TODO
-- [ ] legend
+## TODO
+- [x] legend
 - [x] merge changes to qfp and sop packages
-- [ ] add split option
-- [ ] handle quadrant text internally rather than asking the browser to render it
+- [x] add split option
+- [x] handle quadrant text internally rather than asking the browser to render it
 - [ ] expand on label size for object scaling
 
 - [ ] Error checking
 - [ ] Documentation
-- [ ] Improve SVG generation
-- [ ] Add different styling options
-- [x] Improve modularity to allow for more complex footprints
-- [ ] Clean up a lot of bad programming and improve readability 
-- [x] Use config files and cli
+- [ ] Improve modularity to allow for more complex footprints

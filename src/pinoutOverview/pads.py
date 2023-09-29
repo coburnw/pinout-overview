@@ -6,10 +6,8 @@ from pinoutOverview import FunctionLabel, Functions
 # a group of function label rows for a specific pin
 class Pad(dw.Group):
     """A collection of function label rows for a specific pad"""
-    _functions: Functions
-    _label: FunctionLabel
 
-    def __init__(self, function_label: FunctionLabel):
+    def __init__(self, function_label):
         """
         Attributes:
             function_label (FunctionLabel): a function label to be used as a root for this pad.
@@ -23,7 +21,6 @@ class Pad(dw.Group):
         self._functions = Functions()
 
         self._rows = []
-        #self._rows.append(self._functions)
         return
 
     def __getitem__(self, index):
@@ -55,31 +52,44 @@ class Pad(dw.Group):
 
         return item
 
-    # @property
-    # def functions(self):
-    #     return self._functions
-
     @property
     def name(self):
-        """string: the name of the pad."""
+        """
+
+        Returns:
+            str: the name of the pad.
+        """
         return self._label.name
     
     @property
     def height(self):
-        """int: height in pixels of combined rows of functions."""
+        """
+
+        Returns:
+            int:  Height of pad in pixels
+        """
         return self.row_spacing * len(self._rows)  # self.row_count
 
     @property
     def width(self):
-        """int: width in pixels of longest row."""
+        """
+
+        Returns:
+            int: width in pixels of longest function row.
+        """
         return 0
 
     @property
     def row_spacing(self):
         return FunctionLabel().height + FunctionLabel().vert_spacing
 
-    def append(self, function: FunctionLabel):
-        """Function: append a function to the list of available pad functions"""
+    def append(self, function):
+        """
+        append a function to the list of functions associated with this pad
+
+        Returns:
+            None
+        """
 
         if function.skip:
             return
@@ -92,18 +102,23 @@ class Pad(dw.Group):
         return
 
     def sort(self):
-        """Function: sort the list of functions by their type_index"""
+        """
+        Sorts pad functions in place by type_index
+
+        Returns:
+            None
+        """
         self._functions.sort()
         return
 
-    def split(self, split_functions: [FunctionLabel]):
+    def split(self, split_functions):
         """
         Function: split functions into rows of functions
 
         Attributes:
-            split_functions[]: a list of function class's that start a new row
+            split_functions (Functions): a collection of function that start a new row
 
-        Todo: make split_functions a list of functions allowing n-row splits
+        Todo: currently only splits on the first item in the collection
         """
         self._rows = []
 
@@ -115,7 +130,8 @@ class Pad(dw.Group):
         return
 
     def generate(self, direction, slant=0):
-        """generate a drawsvg object of the pad function rows
+        """
+        generate a drawsvg object of the pad function rows
 
         Args:
            direction (int): determines direction of label placement, left or right.  Use label constants.
@@ -169,56 +185,3 @@ class Pad(dw.Group):
 
         return self
 
-
-# look into subclassing a UserList here
-# class Pads(object):
-#     """A group of pads
-#     """
-#
-#     def __init__(self):
-#         self.pads = dict()
-#         return
-#
-#     def __len__(self):
-#         return len(self.pads)
-#
-#     def __getitem__(self, pad_name):
-#         return self.pads[pad_name]
-#
-#     # def __setitem__(self, pad_name, function):
-#     #     self.pads[pad_name] = function
-#     #     return
-#
-#     def __iter__(self):
-#         self.index = 0
-#         return self
-#
-#     def __next__(self):
-#         if self.index < len(self.pads):
-#             pad = self.__getitem__(self.index)
-#             self.index += 1
-#             return pad
-#
-#         raise StopIteration
-#
-#     def append(self, pad_name, pad):
-#         if pad_name in self.pads:
-#             raise 'pad already exists in pads collection'
-#
-#         self.pads[pad_name] = pad
-#         return
-#
-#     @property
-#     def spacing(self):
-#         """Finds maximum pin spacing in pixels
-#
-#         Returns:
-#            pin_spacing (int): the maximum spacing required between pins
-#         """
-#
-#         max_height = 0
-#         for name, pad in self.pads.items():
-#             if pad.height > max_height:
-#                 max_height = pad.height
-#
-#         return max_height
