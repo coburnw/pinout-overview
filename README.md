@@ -7,8 +7,20 @@ A heavily reworked fork of [pinout-overview](https://github.com/Tengo10/pinout-o
 stripping out all parts unrelated to the pinout and legend objects themselves.
 
 Note:  At this point documentation is more conceptual than literal.  See
-dx-pinouts repository for a working example.  The library docstrings are 
-fairly helpful.
+[dx-pinouts](http://github.com/coburnw/dx-pinouts.git) repository for a 
+working example.  The library docstrings are fairly helpful.
+
+## Install
+```commandline
+mkdir <project-master>
+cd <project-master>
+python -m venv --prompt <my-prompt> venv
+source venv/bin/activate
+git clone github.com/coburnw/pinout-overview
+cd pinout-overview
+git checkout lib
+pip install --editable .
+```
 
 ## Usage
 
