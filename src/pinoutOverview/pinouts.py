@@ -1,12 +1,10 @@
 import math
 import collections
-import copy
 
 import drawsvg as dw
 
 from pinoutOverview import Functions, FunctionLabel, Region
 
-#SIN_45 = math.sin(math.radians(45)) #0.7071067811865475
 
 class label_line:
     def __init__(self):
@@ -74,13 +72,14 @@ class PinoutFactory(type):
                 return OrthogonalPinout(layout, pinmap, package)
             if layout == 'diagonal':
                 return DiagonalPinout(layout, pinmap, package)
-            if layout == horizontal:
+            if layout == 'horizontal':
                 return HorizontalPinout(layout, pinmap, package)
 
             print('PinoutFactory(): unrecognized layout.')
             raise
 
         return type.__call__(cls, layout, pinmap, package)
+
 
 class Pinout(Region, metaclass=PinoutFactory):
     def __init__(self, layout_name, pinmap, package, **kwargs):
@@ -95,15 +94,20 @@ class Pinout(Region, metaclass=PinoutFactory):
         self.pinmap = pinmap
         self.package = package
 
-        self.pin_spacing = self.pinmap.spacing
+        #self.pin_spacing = self.package.pin_spacing
         self.row_spacing = self.pin_spacing  # some goofyness
 
+        # region keeps track of our x,y and width,height
         height = self.package.height
-        width = self.package.width 
+        width = self.package.width
             
         super().__init__(width=width, height=height, **kwargs)
         
         return
+
+    @property
+    def pin_spacing(self):
+        return self.package.pin_spacing
 
     def build_fanout(self, pin_numbers, offset):
         raise NotImplementedError
@@ -129,25 +133,26 @@ class Pinout(Region, metaclass=PinoutFactory):
             diagonal = True  # true hack
             
         dw_footprint = self.package.generate(diagonal)
-        self.append(dw.Use(dw_footprint, x, y, transform=transform))
-        
+        self.append(dw.Use(dw_footprint, x, y, transform='')) # transform
         fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, FunctionLabel().offset)
         self.append(dw.Use(dw_fanout, x, y))
 
         dw_pins = dw.Group(id='pins')
         for number, pad in self.pinmap.items():
             position = fanout[int(number-1)]
+            print(position.end_x, position.end_y)
             dw_pin = self.build_pin(number-1, pad)
             dw_pins.append(dw.Use(dw_pin, position.end_x, position.end_y))
-            #dw_pins.append(dw.Circle(position.end_x, position.end_y, 2, stroke='black'))
+            # dw_pins.append(dw.Circle(position.end_x, position.end_y, 2, stroke='black'))
 
         self.append(dw.Use(dw_pins, x, y))
 
         return self
 
-    def legend(self, layout='vertical'):
-        return Legend(self.pinmap)  # (Legend(layout))
+    # def legend(self, layout='vertical'):
+    #     return Legend(self.pinmap)  # (Legend(layout))
         
+
 class OrthogonalPinout(Pinout):
     def build_fanout(self, pin_numbers, offset):
         wires = []
@@ -157,8 +162,8 @@ class OrthogonalPinout(Pinout):
             line = label_line()
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
             position, side, direction = self.package._calc_offset_point(pin_number)
-            #print(side, direction, position['x'], position['y'])
-            if side in [0,2]:
+            # print(side, direction, position['x'], position['y'])
+            if side in [0, 2]:
                 line.start_x = position['x']
                 line.start_y = position['y']
             
@@ -186,34 +191,36 @@ class OrthogonalPinout(Pinout):
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
         label_direction = -1
-        if side_index in [2,3]:
+        if side_index in [2, 3]:
             label_direction = -label_direction
 
         dw_pin = pad.generate(label_direction, slant=FunctionLabel().slant_none)
 
         transform = 'rotate(0)'
-        if side_index in [1,3]:
+        if side_index in [1, 3]:
             transform = 'rotate(-90)'
 
         dw_pin = dw.Use(dw_pin, 0, 0, transform=transform)
         
         return dw_pin
         
+
 class DiagonalPinout(Pinout):
     def __init__(self, layout, pinmap, package, **kwargs):
+        # package.pin_spacing = package.pin_spacing * math.sqrt(2)
+
         super().__init__(layout, pinmap, package, **kwargs)
-        
-        self.pin_spacing = self.pin_spacing * math.sqrt(2)
+
         self.height = self.height * math.sqrt(2)
         self.width = 0
-        
+
         return
 
     def place(self, x, y, transform=''):
         transform = 'rotate(45)'
 
-        super().place(x, y, transform)
-        return
+        dw_pinout = super().place(x, y, transform)
+        return dw_pinout
         
     def _calc_offset_point(self, pin_number, offset=None, rotation=None):
         sin_45 = math.sin(math.radians(45))
@@ -226,10 +233,10 @@ class DiagonalPinout(Pinout):
         y = position['x'] * sin_45 + position['y'] * cos_45
             
         direction = 1
-        if side_index in [0,1]:
+        if side_index in [0, 1]:
             direction = -direction
             
-        point = {'x':x,'y':y}
+        point = {'x': x, 'y': y}
         return point, side_index, direction 
 
     def build_fanout(self, pin_numbers, offset):
@@ -256,22 +263,23 @@ class DiagonalPinout(Pinout):
 
         return wires, dw_wires
         
-    def build_pin(self, pin):
-        side_index, pin_index = self.package.side_from_pin_number(pin.number)
+    def build_pin(self, number, pad):
+        side_index, pin_index = self.package.side_from_pin_number(number)
 
         # (append direction) -1 to the left, +1 to the right, 0 stacked.
         label_direction = -1
-        if side_index in [2,3]:
+        if side_index in [2, 3]:
             label_direction = -label_direction
 
         slant = FunctionLabel().slant_right
-        if side_index in [1,3]:
+        if side_index in [1, 3]:
             slant = FunctionLabel().slant_left
             
-        dw_pin = pin.generate(label_direction, slant=slant)
+        dw_pin = pad.generate(label_direction, slant=slant)
 
         return dw_pin
         
+
 class HorizontalPinout(Pinout):
     # fanout calculates our true height and width property.  Values are invalid until construction.
     
@@ -285,8 +293,8 @@ class HorizontalPinout(Pinout):
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
             position, side, direction = self.package._calc_offset_point(pin_number)
 
-            #print(side, direction, position['x'], position['y'])
-            if side in [0,2]:
+            # print(side, direction, position['x'], position['y'])
+            if side in [0, 2]:
                 line.start_x = position['x']
                 line.start_y = position['y']
             
@@ -307,7 +315,7 @@ class HorizontalPinout(Pinout):
                 line.start_y = position['y']
             
                 line.end_x = position['x']
-                line.end_y = position['y'] + ((offset + pin_index* self.row_spacing) * direction)
+                line.end_y = position['y'] + ((offset + pin_index * self.row_spacing) * direction)
 
                 wire = dw.Line(line.start_x, line.start_y, line.end_x, line.end_y, stroke_width=2, stroke='black')
                 dw_wires.append(wire)
@@ -328,14 +336,14 @@ class HorizontalPinout(Pinout):
             line.direction = direction
             wires.append(line)
 
-            self.height = self.height + row_count * self.row_spacing # + self.package.corner_spacing * 2
+            self.height = self.height + row_count * self.row_spacing  # + self.package.corner_spacing * 2
             self.width = 0
             
         return wires, dw_wires
         
-    def build_pin(self, pin):
-        direction = self.direction_from_pin(pin.number)
-        dw_pin = pin.generate(direction, slant=functions.Label().slant_none)
+    def build_pin(self, number, pad):
+        direction = self.direction_from_pin(number)
+        dw_pin = pad.generate(direction, slant=FunctionLabel().slant_none)
 
         return dw_pin
         
@@ -371,7 +379,6 @@ class Legend(Region):
 
         return
 
-
     def place(self, x, y):
         used_functions = Functions()
         for number, pad in self.pinmap.items():
@@ -382,7 +389,7 @@ class Legend(Region):
         used_functions.sort()
         for label in used_functions:
             y += label.height + label.vert_spacing
-            self.append(dw.Use(label.generate(legend=True, slant=0), x,y))
+            self.append(dw.Use(label.generate(legend=True, slant=0), x, y))
 
         self.width = used_functions[0].width + used_functions[0].spacing
         self.height = y + label.vert_spacing
