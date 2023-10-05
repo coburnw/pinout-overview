@@ -6,15 +6,15 @@ from pinoutOverview import templates
 from pinoutOverview import utils as pinout
 
 
-class label_line:
-    def __init__(self):
-        self.start_x = 0
-        self.start_y = 0
-        self.end_x = 0
-        self.end_y = 0
-        self.side = -1
-        self.direction = 1
-
+# class label_line:
+#     def __init__(self):
+#         self.start_x = 0
+#         self.start_y = 0
+#         self.end_x = 0
+#         self.end_y = 0
+#         self.side = -1
+#         self.direction = 1
+#
 
 class Pin:
     def __init__(self, template):
@@ -46,24 +46,31 @@ class Package(object):
     Package (class): container of data for configuring a package.
         Typically subclassed by an application with added parsers.
     """
-    def __init__(self, shape, pin_count, pin_spacing):
+    def __init__(self, shape, pin_count):
         """
 
         Args:
             shape (string): the package shape, one of 'qfn', 'qfp', 'sop'
             pin_count (int): number of package pins
-            pin_spacing (int): spacing in pixels between adjacent pins
         """
         self.shape = shape
         self.pin_count = pin_count
-        self.pin_spacing = pin_spacing
 
-        self.package = PackageBase(self.shape, self.pin_count, self.pin_spacing)
+        self.package = PackageBase(self.shape, self.pin_count)
 
         self.text1 = ''
         self.text2 = ''
 
 
+        return
+
+    @property
+    def diagonal(self):
+        return self.package._diagonal
+
+    @diagonal.setter
+    def diagonal(self, boolean):
+        self.package._diagonal = boolean
         return
 
     @property
@@ -86,11 +93,19 @@ class Package(object):
 
     @property
     def height(self):
-        return self.package.height
+        height = self.package.height
+        if self.diagonal:
+            height *= math.sqrt(2)
+
+        return height
 
     @property
     def width(self):
-        return self.package.width
+        width = self.package.width
+        if self.diagonal:
+            width *= math.sqrt(2)
+
+        return width
 
     @property
     def pin_numbers(self):
@@ -103,21 +118,20 @@ class Package(object):
     def side_from_pin_number(self, pin_number):
         return self.package.side_from_pin_number(pin_number)
 
-    def _calc_offset_point(self, pin_number):
-        return self.package._calc_offset_point(pin_number)
+    def calc_offset_point(self, pin_number):
+        return self.package.calc_offset_point(pin_number)
 
-    def generate(self, diagonal=False):
-        return self.package.generate(diagonal)
+    def generate(self, pin_spacing):
+        return self.package.generate(pin_spacing)
 
 
 class PackageFactory(type):
-    def __call__(cls, package_shape, pin_count, pin_spacing, package_template=None):
+    def __call__(cls, package_shape, pin_count, package_template=None):
         """
 
         Args:
             package_shape (str): name of package shape to construct
             pin_count (int): number of package pins
-            pin_spacing (int): spacing in pixels between adjacent pins
             package_template (dict): a package template describing default shape and style
         """
         if cls is PackageBase:
@@ -126,45 +140,50 @@ class PackageFactory(type):
             # print(package_config)
             if package_shape == 'qfn':
                 package_template = templates.qfn_template
-                return QFN(package_shape, pin_count, pin_spacing, package_template)
+                return QFN(package_shape, pin_count, package_template)
             elif package_shape == 'qfp':
                 package_template = templates.qfp_template
-                return QFP(package_shape, pin_count, pin_spacing, package_template)
+                return QFP(package_shape, pin_count, package_template)
             elif package_shape == 'sop':
                 package_template = templates.sop_template
-                return SOP(package_shape, pin_count, pin_spacing, package_template)
+                return SOP(package_shape, pin_count, package_template)
             else:
                 raise 'unrecognized package: "{}"'.format(package_shape)
 
-        return type.__call__(cls, package_shape, pin_count, pin_spacing, package_template)
+        return type.__call__(cls, package_shape, pin_count, package_template)
 
 
 class PackageBase(metaclass=PackageFactory):
-    def __init__(self, package_shape, pin_count, pin_spacing, package_template):
+    def __init__(self, package_shape, pin_count, package_template=None):
         """
 
         Args:
             package_shape (str): name of package shape to construct
             pin_count (int): number of package pins
-            pin_spacing (int): spacing in pixels between adjacent pins
             package_template (dict): a package template describing default shape and style
         """
-        self.template = package_template
         self.number_of_pins = pin_count
-        self._pin_spacing = pin_spacing
+        self.template = package_template
 
-        self.proto_pin = Pin(self.template['pad'])
+        self._diagonal = False
+        self._pin_spacing = None
+        self._proto_pin = Pin(self.template['pad'])
 
         self.text1 = ''
         self.text2 = ''
 
+        self.sin_45 = math.sin(math.radians(45))
+        self.cos_45 = math.cos(math.radians(45))
+
         # values overridden by subclasses
-        #self.width = None
-        #self.height = None
         self.pins_per_side = None
         self.pin_numbers = None
 
         return
+
+    @property
+    def diagonal(self):
+        return self._diagonal
 
     @property
     def pin_spacing(self):
@@ -172,10 +191,37 @@ class PackageBase(metaclass=PackageFactory):
 
     @property
     def pin_offset(self):
-        return (self.width - self.proto_pin.length) / 2
+        return (self.width - self._proto_pin.length) / 2
 
     def side_from_pin_number(self, pin_number):
         raise NotImplementedError
+
+    def calc_offset_point(self, pin_number, offset=None, rotation=None):
+        """
+        Finds the x,y point of a pin, offset by some amount
+        
+        Args:
+            pin_number: Number of 0 referenced pin 
+            offset: distance in pixels to offset point by
+            rotation: not implemented
+
+        Returns:
+            Point (dict): x,y position
+        """
+        side_index, pin_index = self.side_from_pin_number(pin_number)
+        point, side, direction = self._calc_offset_point(pin_number)
+
+        if self._diagonal:
+            x = point['x'] * self.cos_45 - point['y'] * self.sin_45
+            y = point['x'] * self.sin_45 + point['y'] * self.cos_45
+
+            direction = 1
+            if side_index in [0, 1]:
+                direction = -direction
+
+            point = {'x': x, 'y': y}
+
+        return point, side_index, direction
 
     def _calc_offset_point(self, pin_number, offset=None, rotation=None):
         # find x,y position of a point relative to a pin_number, offset from 0,0 by specified amount
@@ -188,7 +234,7 @@ class PackageBase(metaclass=PackageFactory):
         side_index, pin_index = self.side_from_pin_number(pin_number)
 
         # pos names...
-        # pin_offset: how far the row is offset from origin 0
+        # pin_offset: how far the row is offset from origin or center of package
         # row_offset: how far the pin is offset in its row from row center 
         pin_offset = offset 
         row_offset = -(self.pin_spacing * pin_index) + (self.pin_spacing * (self.pins_per_side-1)) / 2 
@@ -212,11 +258,11 @@ class PackageBase(metaclass=PackageFactory):
         # assemble full complement of pads in position around 0,0
 
         pins = dw.Group(id="side_pins")
-        pin_offset = -self.proto_pin.length / 2
+        pin_offset = -self._proto_pin.length / 2
         
         for pin_numb in self.pin_numbers:
             position, side, direction = self._calc_offset_point(pin_numb, pin_offset)
-            dw_pin = self.proto_pin.generate(pin_numb+1, side)
+            dw_pin = self._proto_pin.generate(pin_numb + 1, side)
             pins.append(dw.Use(dw_pin, **position))
 
         return pins
@@ -227,8 +273,8 @@ class PackageBase(metaclass=PackageFactory):
 
 
 class Dual(PackageBase):
-    def __init__(self, package_shape, pin_count, pin_spacing, package_template):
-        super().__init__(package_shape, pin_count, pin_spacing, package_template)
+    def __init__(self, package_shape, pin_count, package_template):
+        super().__init__(package_shape, pin_count, package_template)
         
         self.number_of_sides = 2
         self.pins_per_side = int(self.number_of_pins/self.number_of_sides)
@@ -236,12 +282,20 @@ class Dual(PackageBase):
         self.pin_numbers = range(0, self.number_of_pins)
         self.sides = [0, 2]
 
-        self.corner_spacing = self.pin_spacing*1.5
-        
-        self.height = (self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
-        self.width = self.pin_spacing * 6
-        
         return
+
+    @property
+    def corner_spacing(self):
+        return self.pin_spacing * 1.5
+
+    @property
+    def height(self):
+        return(self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
+
+    @property
+    def width(self):
+        return self.pin_spacing * 6
+        
 
     def side_from_pin_number(self, pin_number):
         # returns 0-based side_index and pin_index from 0-based pin_number
@@ -260,10 +314,9 @@ class Dual(PackageBase):
     
 
 class Quad(PackageBase):
-    def __init__(self, package_shape, pin_count, pin_spacing, package_template):
-        super().__init__(package_shape, pin_count, pin_spacing, package_template)
+    def __init__(self, package_shape, pin_count, package_template):
+        super().__init__(package_shape, pin_count, package_template)
 
-        self._diagonal = False
         self.number_of_sides = 4
         self.pins_per_side = int(self.number_of_pins/self.number_of_sides)
         
@@ -308,7 +361,7 @@ class Quad(PackageBase):
         return side_index, pin_index
 
     def _generate_border(self):
-        return shapes.qfn_border(self.width-2*self.proto_pin.length, **self.template['style'])
+        return shapes.qfn_border(self.width - 2 * self._proto_pin.length, **self.template['style'])
 
     def _generate_marker(self):
         marker_dia = self.pin_spacing/3
@@ -325,6 +378,9 @@ class Quad(PackageBase):
 
 
 class QFN(Quad):
+    def _generate_border(self):
+        return shapes.qfn_border(self.width, **self.template['style'])
+
     def _generate_pad(self):
         pad_width = self.width - self.corner_spacing*2
         return shapes.qfn_pad(pad_width, **self.template['pad']['style'])
@@ -334,11 +390,11 @@ class QFN(Quad):
         marker_position = -self.width/2 + self.corner_spacing + marker_dia/2
         return dw.Circle(marker_position, marker_position, marker_dia, **self.template['marker_style'])
 
-    def generate(self, diagonal=False):
-        self._diagonal = diagonal
+    def generate(self, pin_spacing):
+        self._pin_spacing = pin_spacing
 
-        text_transform = f"rotate({-45 if diagonal else 0}, {0}, {0})"
-        package_transform = f"rotate({45 if diagonal else 0}, {0}, {0})"
+        text_transform = f"rotate({-45 if self._diagonal else 0}, {0}, {0})"
+        package_transform = f"rotate({45 if self._diagonal else 0}, {0}, {0})"
 
         package = dw.Group(id="package")
         package.append(self._generate_border())
@@ -352,11 +408,11 @@ class QFN(Quad):
 
 
 class QFP(Quad):
-    def generate(self, diagonal=False):
-        self._diagonal = diagonal
+    def generate(self, pin_spacing):
+        self._pin_spacing = pin_spacing
 
-        text_transform = f"rotate({-45 if diagonal else 0}, {0}, {0})"
-        package_transform = f"rotate({45 if diagonal else 0}, {0}, {0})"
+        text_transform = f"rotate({-45 if self._diagonal else 0}, {0}, {0})"
+        package_transform = f"rotate({45 if self._diagonal else 0}, {0}, {0})"
 
         package = dw.Group(id="package")
         package.append(self._generate_border())
@@ -369,13 +425,15 @@ class QFP(Quad):
 
 
 class SOP(Dual):
-    def generate(self, diagonal=False):
+    def generate(self, pin_spacing):
+        self._pin_spacing = pin_spacing
+
         marker_dia = self.pin_spacing/3
         marker_x = -self.width/2 + self.corner_spacing + marker_dia/2
         marker_y = -self.height/2 + self.corner_spacing + marker_dia/2
         
         #proto_pin = Pin(self.template['pad'])
-        border = shapes.sop_border(self.width-2*self.proto_pin.length, self.height-2*self.proto_pin.length, **self.template['style'])
+        border = shapes.sop_border(self.width - 2 * self._proto_pin.length, self.height - 2 * self._proto_pin.length, **self.template['style'])
         marker = dw.Circle(marker_x, marker_y, marker_dia, **self.template['marker_style'])
         
         pins = self._generate_pins()

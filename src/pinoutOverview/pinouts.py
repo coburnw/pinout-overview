@@ -25,7 +25,7 @@ class Pinmap(collections.UserDict):
         """Finds maximum pin spacing in pixels
 
         Returns:
-           pin_spacing (int): the maximum spacing required between pins
+           pin_spacing (int): spacing in pixels between adjacent pins
         """
 
         max_height = 0
@@ -57,7 +57,7 @@ class Pinmap(collections.UserDict):
             split_functions (Functions): A list of functions to split the row into multiple rows on.
 
         Returns:
-
+            None
         """
         for name, pad in self.data.items():
             pad.split(split_functions)
@@ -70,10 +70,11 @@ class PinoutFactory(type):
         if cls is Pinout:
             if layout == 'orthogonal':
                 return OrthogonalPinout(layout, pinmap, package)
-            if layout == 'diagonal':
-                return DiagonalPinout(layout, pinmap, package)
             if layout == 'horizontal':
                 return HorizontalPinout(layout, pinmap, package)
+            if layout == 'diagonal':
+                package.diagonal = 'True'
+                return DiagonalPinout(layout, pinmap, package)
 
             print('PinoutFactory(): unrecognized layout.')
             raise
@@ -86,30 +87,33 @@ class Pinout(Region, metaclass=PinoutFactory):
         """
 
         Args:
-            layout_name (str): name of layout. one of 'horizontal', 'orthogonal', 'diagonal'.
+            layout_name (str): name of layout style. one of 'horizontal', 'orthogonal', 'diagonal'.
             pinmap (Pinmap): a mapping of pin number to Pad objects
             package (Package): a package object
         """
+        super().__init__(width=0, height=0, **kwargs)
 
         self.pinmap = pinmap
         self.package = package
 
-        #self.pin_spacing = self.package.pin_spacing
         self.row_spacing = self.pin_spacing  # some goofyness
 
-        # region keeps track of our x,y and width,height
-        height = self.package.height
-        width = self.package.width
-            
-        super().__init__(width=width, height=height, **kwargs)
-        
         return
 
     @property
     def pin_spacing(self):
-        return self.package.pin_spacing
+        return self.pinmap.spacing
 
     def build_fanout(self, pin_numbers, offset):
+        """
+        fanout calculates our true height and width property.  Values are invalid until construction.
+
+        Args:
+            pin_numbers:
+            offset:
+
+        Returns:
+        """
         raise NotImplementedError
 
     def build_pin(self, number, pad):
@@ -128,19 +132,15 @@ class Pinout(Region, metaclass=PinoutFactory):
         self.x = x
         self.y = y
 
-        diagonal = False
-        if transform != '':
-            diagonal = True  # true hack
-            
-        dw_footprint = self.package.generate(diagonal)
-        self.append(dw.Use(dw_footprint, x, y, transform='')) # transform
+        dw_footprint = self.package.generate(self.pin_spacing)
+        self.append(dw.Use(dw_footprint, x, y, transform=''))  # transform
         fanout, dw_fanout = self.build_fanout(self.package.pin_numbers, FunctionLabel().offset)
         self.append(dw.Use(dw_fanout, x, y))
 
         dw_pins = dw.Group(id='pins')
         for number, pad in self.pinmap.items():
             position = fanout[int(number-1)]
-            print(position.end_x, position.end_y)
+            # print(position.end_x, position.end_y)
             dw_pin = self.build_pin(number-1, pad)
             dw_pins.append(dw.Use(dw_pin, position.end_x, position.end_y))
             # dw_pins.append(dw.Circle(position.end_x, position.end_y, 2, stroke='black'))
@@ -160,8 +160,8 @@ class OrthogonalPinout(Pinout):
         
         for pin_number in pin_numbers:
             line = label_line()
-            side_index, pin_index = self.package.side_from_pin_number(pin_number)
-            position, side, direction = self.package._calc_offset_point(pin_number)
+            # side_index, pin_index = self.package.side_from_pin_number(pin_number)
+            position, side, direction = self.package.calc_offset_point(pin_number)
             # print(side, direction, position['x'], position['y'])
             if side in [0, 2]:
                 line.start_x = position['x']
@@ -206,46 +206,13 @@ class OrthogonalPinout(Pinout):
         
 
 class DiagonalPinout(Pinout):
-    def __init__(self, layout, pinmap, package, **kwargs):
-        # package.pin_spacing = package.pin_spacing * math.sqrt(2)
-
-        super().__init__(layout, pinmap, package, **kwargs)
-
-        self.height = self.height * math.sqrt(2)
-        self.width = 0
-
-        return
-
-    def place(self, x, y, transform=''):
-        transform = 'rotate(45)'
-
-        dw_pinout = super().place(x, y, transform)
-        return dw_pinout
-        
-    def _calc_offset_point(self, pin_number, offset=None, rotation=None):
-        sin_45 = math.sin(math.radians(45))
-        cos_45 = math.cos(math.radians(45))
-
-        side_index, pin_index = self.package.side_from_pin_number(pin_number)
-        position, side, direction = self.package._calc_offset_point(pin_number)
-
-        x = position['x'] * cos_45 - position['y'] * sin_45
-        y = position['x'] * sin_45 + position['y'] * cos_45
-            
-        direction = 1
-        if side_index in [0, 1]:
-            direction = -direction
-            
-        point = {'x': x, 'y': y}
-        return point, side_index, direction 
-
     def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
         
         for pin_number in pin_numbers:
             line = label_line()
-            position, side, direction = self._calc_offset_point(pin_number)
+            position, side, direction = self.package.calc_offset_point(pin_number)
 
             line.side = side
             line.direction = direction
@@ -281,8 +248,6 @@ class DiagonalPinout(Pinout):
         
 
 class HorizontalPinout(Pinout):
-    # fanout calculates our true height and width property.  Values are invalid until construction.
-    
     def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
@@ -291,7 +256,7 @@ class HorizontalPinout(Pinout):
         for pin_number in pin_numbers:
             line = label_line()
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
-            position, side, direction = self.package._calc_offset_point(pin_number)
+            position, side, direction = self.package.calc_offset_point(pin_number)
 
             # print(side, direction, position['x'], position['y'])
             if side in [0, 2]:
