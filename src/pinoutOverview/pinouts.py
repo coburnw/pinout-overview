@@ -68,10 +68,13 @@ class Pinmap(collections.UserDict):
 class PinoutFactory(type):
     def __call__(cls, layout, pinmap, package):
         if cls is Pinout:
-            if layout == 'orthogonal':
-                return OrthogonalPinout(layout, pinmap, package)
+            if package.shape == 'sop':
+                layout = 'horizontal'
+                return HorizontalPinout(layout, pinmap, package)
             if layout == 'horizontal':
                 return HorizontalPinout(layout, pinmap, package)
+            if layout == 'orthogonal':
+                return OrthogonalPinout(layout, pinmap, package)
             if layout == 'diagonal':
                 package.diagonal = 'True'
                 return DiagonalPinout(layout, pinmap, package)

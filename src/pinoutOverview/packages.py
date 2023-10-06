@@ -272,46 +272,6 @@ class PackageBase(metaclass=PackageFactory):
         raise NotImplementedError
 
 
-class Dual(PackageBase):
-    def __init__(self, package_shape, pin_count, package_template):
-        super().__init__(package_shape, pin_count, package_template)
-        
-        self.number_of_sides = 2
-        self.pins_per_side = int(self.number_of_pins/self.number_of_sides)
-        
-        self.pin_numbers = range(0, self.number_of_pins)
-        self.sides = [0, 2]
-
-        return
-
-    @property
-    def corner_spacing(self):
-        return self.pin_spacing * 1.5
-
-    @property
-    def height(self):
-        return(self.pins_per_side-1) * self.pin_spacing + 2*self.corner_spacing
-
-    @property
-    def width(self):
-        return self.pin_spacing * 6
-        
-
-    def side_from_pin_number(self, pin_number):
-        # returns 0-based side_index and pin_index from 0-based pin_number
-
-        if not (0 <= pin_number < self.number_of_pins):
-            raise IndexError
-
-        if pin_number < self.pins_per_side:
-            pin_index = pin_number
-            side_index = 0
-        else:
-            pin_index = pin_number - self.pins_per_side
-            side_index = 2
-            
-        return side_index, pin_index
-    
 
 class Quad(PackageBase):
     def __init__(self, package_shape, pin_count, package_template):
@@ -424,33 +384,73 @@ class QFP(Quad):
         return dw.Use(package, 0, 0, transform=package_transform)
 
 
+class Dual(PackageBase):
+    def __init__(self, package_shape, pin_count, package_template):
+        super().__init__(package_shape, pin_count, package_template)
+
+        self.number_of_sides = 2
+        self.pins_per_side = int(self.number_of_pins / self.number_of_sides)
+
+        self.pin_numbers = range(0, self.number_of_pins)
+        self.sides = [0, 2]
+
+        return
+
+    @property
+    def corner_spacing(self):
+        return self.pin_spacing * 1.5
+
+    @property
+    def height(self):
+        return (self.pins_per_side - 1) * self.pin_spacing + 2 * self.corner_spacing
+
+    @property
+    def width(self):
+        return self.pin_spacing * 6
+
+    def side_from_pin_number(self, pin_number):
+        # returns 0-based side_index and pin_index from 0-based pin_number
+
+        if not (0 <= pin_number < self.number_of_pins):
+            raise IndexError
+
+        if pin_number < self.pins_per_side:
+            pin_index = pin_number
+            side_index = 0
+        else:
+            pin_index = pin_number - self.pins_per_side
+            side_index = 2
+
+        return side_index, pin_index
+
+    def _generate_border(self):
+        return shapes.sop_border(self.width - 2 * self._proto_pin.length, self.height - 2 * self._proto_pin.length, **self.template['style'])
+
+    def _generate_marker(self):
+        marker_dia = self.pin_spacing / 3
+        marker_x = -self.width / 2 + self.corner_spacing + marker_dia / 2
+        marker_y = -self.height / 2 + self.corner_spacing + marker_dia / 2
+
+        return dw.Circle(marker_x, marker_y, marker_dia, **self.template['marker_style'])
+
+    def _generate_main_text(self):
+        t = pinout.Text(self.template['text'])
+        return t.generate(self.text1)
+
+    def _generate_sub_text(self):
+        t = pinout.Text(self.template['sub_text'])
+        return t.generate(self.text2)
+
+
 class SOP(Dual):
     def generate(self, pin_spacing):
         self._pin_spacing = pin_spacing
 
-        marker_dia = self.pin_spacing/3
-        marker_x = -self.width/2 + self.corner_spacing + marker_dia/2
-        marker_y = -self.height/2 + self.corner_spacing + marker_dia/2
-        
-        #proto_pin = Pin(self.template['pad'])
-        border = shapes.sop_border(self.width - 2 * self._proto_pin.length, self.height - 2 * self._proto_pin.length, **self.template['style'])
-        marker = dw.Circle(marker_x, marker_y, marker_dia, **self.template['marker_style'])
-        
-        pins = self._generate_pins()
-
-        s = self.text1
-        t = pinout.Text(self.template['text'])
-        dw_text = t.generate(s)
-
-        s = self.text2
-        t = pinout.Text(self.template['sub_text'])
-        dw_subtext = t.generate(s)
-        
         package = dw.Group(id="package")
-        package.append(border)
-        package.append(marker)
-        package.append(pins)
-        package.append(dw.Use(dw_text, 0, -self.height/5))
-        package.append(dw.Use(dw_subtext, 0, self.height/4))
+        package.append(self._generate_border())
+        package.append(self._generate_marker())
+        package.append(self._generate_pins())
+        package.append(dw.Use(self._generate_main_text(), 0, -self.height/5))
+        package.append(dw.Use(self._generate_sub_text(), 0, self.height/4))
 
         return package
