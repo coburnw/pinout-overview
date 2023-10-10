@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pinoutOverview*"]
+
+[project]
+name = "pinoutOverview"
+version = "0.0.1"
+authors = [
+  { name="Tengo10", email="tengo10@github.com" },
+  { name="Coburn Wightman", email="author@example.com" },
+]
+
+description = "Attractive python chip pinout library"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: AGPLv3 License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "drawsvg == 2.1.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/coburnw/pinout-overview"
