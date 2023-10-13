@@ -1,4 +1,3 @@
-import math
 import collections
 
 import drawsvg as dw
@@ -160,7 +159,9 @@ class OrthogonalPinout(Pinout):
     def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
-        
+
+        max_x = 0
+        max_y = 0
         for pin_number in pin_numbers:
             line = label_line()
             # side_index, pin_index = self.package.side_from_pin_number(pin_number)
@@ -186,7 +187,16 @@ class OrthogonalPinout(Pinout):
             dw_wires.append(wire)
 
             wires.append(line)
-            
+
+            if position['x'] > max_x:
+                max_x = position['y']
+
+            if position['y'] > max_y:
+                max_y = position['y']
+
+        self.width = max_x * 2
+        self.height = max_y * 2
+
         return wires, dw_wires
         
     def build_pin(self, number, pad, x=0, y=0):
@@ -212,7 +222,9 @@ class DiagonalPinout(Pinout):
     def build_fanout(self, pin_numbers, offset):
         wires = []
         dw_wires = dw.Group()
-        
+
+        max_x = 0
+        max_y = 0
         for pin_number in pin_numbers:
             line = label_line()
             position, side, direction = self.package.calc_offset_point(pin_number)
@@ -230,6 +242,15 @@ class DiagonalPinout(Pinout):
             dw_wires.append(wire)
                 
             wires.append(line)
+
+            if position['x'] > max_x:
+                max_x = position['y']
+
+            if position['y'] > max_y:
+                max_y = position['y']
+
+        self.width = 0 # max_x * 2
+        self.height = max_y * 2
 
         return wires, dw_wires
         
@@ -256,6 +277,8 @@ class HorizontalPinout(Pinout):
         dw_wires = dw.Group()
         
         row_count = 0
+        max_x = 0
+        max_y = 0
         for pin_number in pin_numbers:
             line = label_line()
             side_index, pin_index = self.package.side_from_pin_number(pin_number)
@@ -299,14 +322,23 @@ class HorizontalPinout(Pinout):
                 
                 wire = dw.Line(line.start_x, line.start_y, line.end_x, line.end_y, stroke_width=2, stroke='black')
                 dw_wires.append(wire)
-                            
+
             line.side = side
             line.direction = direction
             wires.append(line)
 
-            self.height = self.height + row_count * self.row_spacing  # + self.package.corner_spacing * 2
-            self.width = 0
-            
+            # self.height = self.height + row_count * self.row_spacing  # + self.package.corner_spacing * 2
+            # self.width = 0
+
+            if position['x'] > max_x:
+                max_x = position['y']
+
+            if position['y'] > max_y:
+                max_y = position['y']
+
+        self.width = 0
+        self.height = max_y * 2 + self.row_spacing
+
         return wires, dw_wires
         
     def build_pin(self, number, pad):
