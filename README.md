@@ -10,6 +10,9 @@ Note:  At this point documentation is more conceptual than literal.  See
 [dx-pinouts](http://github.com/coburnw/dx-pinouts.git) repository for a 
 working example.  The library docstrings are fairly helpful.
 
+## Dependencies
+ Uses the [DrawSVG](https://github.com/cduck/drawsvg) library for drawing the svg elements 
+
 ## Install
 ```commandline
 mkdir <project-master>
